@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elements.c                                         :+:      :+:    :+:   */
+/*   file_elements_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:04:33 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/05 19:12:26 by heltayb          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   element_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 08:58:58 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/03 09:00:14 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/06 11:20:05 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 t_element	*element_new(void **content);
-void		element_add_back(t_element **lst, t_element *new);
-void		element_delone(t_element *lst, void (*del)(void ***));
-void		element_clear(t_element **lst, void (*del)(void ***));
 t_element	*element_last(t_element *lst);
+void		element_add_back(t_element **lst, t_element *new);
+void		element_delone(t_element *lst, void (*del)(void **));
+void		element_clear(t_element **lst, void (*del)(void **));
 
 t_element	*element_new(void **content)
 {
@@ -71,15 +59,15 @@ t_element	*element_last(t_element *lst)
 	return (temp);
 }
 
-void	element_delone(t_element *lst, void (*del)(void ***))
+void	element_delone(t_element *lst, void (*del)(void **))
 {
 	if (lst == NULL || !del)
 		return ;
-	del(&lst->content);
-	free (lst);
+	del(lst->content);
+	free(lst);
 }
 
-void	element_clear(t_element **lst, void (*del)(void ***))
+void	element_clear(t_element **lst, void (*del)(void **))
 {
 	t_element	*temp;
 	t_element	*node;

@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/05 19:05:03 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/07 10:47:10 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,22 +20,22 @@ RESET = "\033[0m"
 #-fsanitize=address -g3
 
 NAME	=	cub3D
-CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address  -g3
+CFLAGS	=	-Wall -Werror -Wextra  -g3
 
 SRCDIR	=	src
 OBJDIR	=	obj
  
-SRCS	=	cub3d.c utils.c elements.c
+SRCS	=	$(shell find $(SRCDIR) -type f)
 
-SRCS := $(addprefix $(SRCDIR)/, $(SRCS))
-OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
 
 LIBFT 	= 	libs/libft/libft.a
-MLX		=	libs/mlx/libmlx.a
-
+MLX		=	
+# libs/mlx/libmlx.a
 INCLUDE =	-I./ -I./libs/mlx -I./libs/libft 
-LINKS	=  -framework OpenGL -framework AppKit
+LINKS	=  
+# -framework OpenGL -framework AppKit
 
 all: $(NAME)
 	@echo $(BLUE_I)
@@ -109,7 +109,7 @@ all: $(NAME)
 	
 $(NAME): print  $(MLX) $(LIBFT) $(OBJS)
 	@echo $(RESET)
-	@cc $(CFLAGS) $(OBJS)  $(LIBFT) $(MLX)  -o $(NAME)  $(LINKS)
+	cc $(CFLAGS) $(OBJS)  $(LIBFT) $(MLX)  -o $(NAME)  $(LINKS)
 
 print:
 	@echo $(YELLOW)"Creating OBJECTS"$(RESET)
@@ -120,8 +120,8 @@ $(MLX):
 	
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(OBJDIR)
-	@cc $(INCLUDE) $(CFLAGS)  -c $< -o $@
+	@mkdir -p $(dir $@)
+	cc $(INCLUDE) $(CFLAGS)  -c $< -o $@
 	@echo $(YELLOW)".\c"$(RESET)
 
 $(LIBFT):
