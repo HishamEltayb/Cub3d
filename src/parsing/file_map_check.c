@@ -6,14 +6,14 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 14:08:25 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:00:43 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void		map_check(t_data *data);
-int	is_valid_map_char(char c);
+int			is_valid_map_char(char c);
 static int	map_characters_check(t_data *data);
 
 int is_valid_map_char(char c)
@@ -46,8 +46,8 @@ static int	map_characters_check(t_data *data)
 	}	
 	return (0);
 }
-void	map_check(t_data *data)
 
+void	map_check(t_data *data)
 {
 	if (map_characters_check(data))
 	{

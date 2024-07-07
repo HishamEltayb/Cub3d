@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 14:08:07 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:43:45 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ typedef struct s_data
 	t_flags		flags;
 	int			file_size;
 	int			max_len;
+	int			is_valid;
+	int			height;
+	int			width;
 }	t_data;
 
 
@@ -113,5 +116,7 @@ void	map_spaces_fill(t_data *data);
 
 int	check_helper2(int flag, char *s1, char *s2);
 int is_valid_map_char(char c);
+void	exit_failuer(t_data *data, char *err);
+void	create_map2d(t_data *data);
 
 #endif

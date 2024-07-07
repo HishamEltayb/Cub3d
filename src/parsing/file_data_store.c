@@ -6,17 +6,19 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 14:11:28 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:22:57 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	file_store_data(char *filename, t_data *data);
-void	fill_elements(char *line, t_data *data, int fd);
-void	fill_map(char *line, t_data *data, int fd);
-void	skip_empty_line(char **line, t_data *data, int fd);
-int		is_element(char *str);
+void		file_store_data(char *filename, t_data *data);
+void		fill_elements(char *line, t_data *data, int fd);
+void		fill_map(char *line, t_data *data, int fd);
+void		skip_empty_line(char **line, t_data *data, int fd);
+int			is_element(char *str);
+static void	file_elements_create(t_data *data, char **line, int fd);
+static void	file_maps_create(t_data *data, char **line, int fd);
 
 void	skip_empty_line(char **line, t_data *data, int fd)
 {
@@ -32,37 +34,75 @@ void	skip_empty_line(char **line, t_data *data, int fd)
 		(free_data(data), close(fd), exit(1));
 	}
 }
+static void	file_elements_create(t_data *data, char **line, int fd)
+{
+	while (*line && data->file_size < 6)
+	{
+		skip_empty_line(line, data, fd);
+		if (*line && data->file_size <= 5)
+			fill_elements(*line, data, fd);
+		if (line)
+			free(*line);
+		*line = get_next_line(fd);
+	}
+	floor_ceiling_re_arrange(data, *line);
+	file_check_elements(data, *line);
+	if (!*line)
+	{
+		ft_putstr_fd("Error\nEmpty map3\n", 2);
+		(free_data(data), close(fd), exit(1));
+	}
+}
+static void	file_maps_create(t_data *data, char **line, int fd)
+{
+	bool	map_pos;
+
+	map_pos = false;
+	
+	while (*line && data->file_size >= 6)
+	{
+		if (map_pos == false)
+			skip_empty_line(line, data, fd);
+		map_pos = true;
+		if (*line && data->file_size >= 6)
+			fill_map(*line, data, fd);
+		if (*line)
+			free(*line);
+		*line = get_next_line(fd);
+	}
+}
+
+void	create_map2d(t_data *data)
+{
+	t_list	*temp;
+	int		i;
+
+	data->map2d = ft_calloc(ft_lstsize(data->map) + 1, sizeof(char *));
+	if (!data->map2d)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		free_data(data);
+		exit(1);
+	}
+	temp = data->map;
+	i = 0;
+	while (temp)
+	{
+		data->map2d[i] = ft_strdup(temp->content);
+		temp = temp->next;
+		i++;
+	}
+}
+
 void	file_store_data(char *filename, t_data *data)
 {
 	char	*line;
 	int		fd;
-	bool	map_pos;
-
-	map_pos = false;
 	fd = open(filename, O_RDONLY);
 	line = get_next_line(fd);
-	while (line && data->file_size < 6)
-	{
-		skip_empty_line(&line, data, fd);
-		if (line && data->file_size <= 5)
-			fill_elements(line, data, fd);
-		if (line)
-			free(line);
-		line = get_next_line(fd);
-	}
-	floor_ceiling_re_arrange(data, line);
-	file_check_elements(data, line);
-	while (line && data->file_size >= 6)
-	{
-		if (map_pos == false)
-			skip_empty_line(&line, data, fd);
-		map_pos = true;
-		if (line && data->file_size >= 6)
-			fill_map(line, data, fd);
-		if (line)
-			free(line);
-		line = get_next_line(fd);
-	}
+	file_elements_create(data, &line, fd);
+	file_maps_create(data, &line, fd);
+	create_map2d(data);
 	close(fd);
 }
 int	is_element(char *str)
