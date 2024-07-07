@@ -6,14 +6,14 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:41:28 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 09:53:00 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 12:32:25 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 int 	check_helper(t_data *data, char *s1);
-void	file_check_elements(t_data *data);
+void	file_check_elements(t_data *data, char *line);
 int 	check_helper2(int flag, char *s1, char *s2);
 
 
@@ -42,7 +42,6 @@ int	main(int ac, char **av)
 	init_data(&data);
 	file_pre_check(ac, av);
 	file_store_data(av[1], &data);
-	file_check_elements(&data);
 	print_data(&data);
 	free_data(&data);
 	// map_check(data);

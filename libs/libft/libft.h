@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 10:10:30 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/03 11:51:30 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 13:38:36 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strnjoin(int total, char **arry2d);
+char	*ft_strrtrim(char *s, char c);
 
 
 #endif

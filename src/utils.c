@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 09:51:49 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 11:24:03 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		ft_strlen2d(char **str);
 void	free_data(t_data *data);
 void	init_data(t_data *data);
 void	print_data(t_data *data);
+void	print_list(t_data *data);
+void	print_elements(t_data *data);
 
 int	ft_strlen2d(char **str)
 {
@@ -28,18 +30,14 @@ int	ft_strlen2d(char **str)
 	return (i);
 }
 
-void	print_data(t_data *data)
+void	print_elements(t_data *data)
 {
-	t_list		*temp_map;
 	t_element	*temp_element;
 	int			i;
 
-	if (!data || !data->map || !data->element)
-		return ;
-	temp_map = data->map;
+
 	temp_element = data->element;
-	printf("file_size = %d\n", data->file_size);
-	printf("max len = %d\n", data->max_len);
+
 	while (temp_element && temp_element->content)
 	{
 		i = 0;
@@ -51,11 +49,29 @@ void	print_data(t_data *data)
 		printf("\n");
 		temp_element = temp_element->next;
 	}
+}
+
+void	print_list(t_data *data)
+{
+	t_list		*temp_map;
+
+	temp_map = data->map;
 	while (temp_map && temp_map->content)
 	{
 		printf("(%s)\n", (char *)temp_map->content);
 		temp_map = temp_map->next;
 	}
+}
+void	print_data(t_data *data)
+{
+
+	if (!data || !data->map || !data->element)
+		return ;
+	printf("file_size = %d\n", data->file_size);
+	printf("max len = %d\n", data->max_len);
+	print_elements(data);
+	print_list(data);
+
 }
 
 void	init_data(t_data *data)
@@ -73,6 +89,7 @@ void	init_data(t_data *data)
 	data->flags.NO = NOT_EXIST;
 	data->map2d = NULL;
 	data->max_len = 0;
+	
 }
 
 void	free2d(void **content)

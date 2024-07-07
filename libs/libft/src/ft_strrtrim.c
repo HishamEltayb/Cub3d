@@ -6,24 +6,33 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:19:28 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 09:31:17 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 13:57:29 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static int	check(char c, char set)
+{
+	if (set == c)
+		return (1);
+	return (0);
+}
+
 char	*ft_strrtrim(char *s, char c)
 {
-	int		size;
-	char	*temp;
+	int	size;
+	int	i;
 
-	if (!s || !*s)
+	if (s == NULL || !c)
 		return (NULL);
-	if (ft_strlen(s) == 0)
-		return (ft_strdup(""));
 	size = ft_strlen(s) - 1;
-	while (size > 0 && s[size] == c)
+	i = 0;
+	while (check(s[i], c))
+		i++;
+	if (i == (size + 1))
+		return (ft_strdup(""));
+	while (check(s[size], c))
 		size--;
-	temp = ft_substr(s, 0, size + 1);
-	return (temp);
+	return (ft_substr(s, 0, ((size + 1))));
 }

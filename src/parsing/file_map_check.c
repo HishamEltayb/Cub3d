@@ -6,15 +6,15 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 10:52:28 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 14:08:25 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void		map_check(t_data *data);
-static int	is_valid_map_char(char c);
-static void	map_characters_check(t_data *data);
+int	is_valid_map_char(char c);
+static int	map_characters_check(t_data *data);
 
 int is_valid_map_char(char c)
 {
@@ -24,7 +24,7 @@ int is_valid_map_char(char c)
 	return (0);
 }
 
-static void	map_characters_check(t_data *data)
+static int	map_characters_check(t_data *data)
 {
 	t_list	*temp;
 	char	*line;
@@ -36,18 +36,24 @@ static void	map_characters_check(t_data *data)
 		i = -1;
 		line = (char *)temp->content;
 		if (line && !*line)
-			(ft_putstr_fd("Error\nEmpty line\n", 2), free_data(data), exit(1));
+			return (1);
 		while (line && line[++i])
 		{
 			if (!is_valid_map_char(line[i]))
-				(ft_putstr_fd("Error\nInvalid Map Char\n", 2),
-					free_data(data), exit(1));
+				return (1);
 		}
 		temp = temp->next;
 	}	
+	return (0);
 }
 void	map_check(t_data *data)
+
 {
-	map_characters_check(data);
+	if (map_characters_check(data))
+	{
+		ft_putstr_fd("Error\nInvalid Map Characters\n", 2);
+		free_data(data);
+		exit(1);		
+	}
 }
 

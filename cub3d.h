@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 10:56:56 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 14:08:07 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,12 @@ typedef struct s_data
 
 
 // utils.c
-void	floor_ceiling_re_arrange(t_data *data);
 void	file_store_data(char *filename, t_data *data);
-void	fill_map(char *line, t_data *data, bool *map, int fd);
 void	check_image(char *image_path, t_data *data);
 
 
 
-void	file_check_elements(t_data *data);
+void	file_check_elements(t_data *data, char *line);
 
 
 
@@ -88,14 +86,16 @@ void			free_data(t_data *data);
 void			init_data(t_data *data);
 void			print_data(t_data *data);
 int				ft_strlen2d(char **str);
+void			print_list(t_data *data);
+void			print_elements(t_data *data);
 
 //src/parsing/file_pre_check.c
 void			file_pre_check(int ac,char **av);
 
 //src/parsing/file_store_data.c
 void			file_store_data(char *filename, t_data *data);
-void			fill_elements(char *line, t_data *data, int fd, bool *element);
-void			fill_map(char *line, t_data *data, bool *map, int fd);
+void			fill_elements(char *line, t_data *data, int fd);
+void			fill_map(char *line, t_data *data, int fd);
 
 //src/parsing/file_element_utils.c
 t_element		*element_new(void **content);
@@ -105,11 +105,13 @@ void			element_delone(t_element *lst, void (*del)(void **));
 void			element_clear(t_element **lst, void (*del)(void **));
 
 //src/parsing/file_rearrange_elements.c
-void			floor_ceiling_re_arrange(t_data *data);
+void			floor_ceiling_re_arrange(t_data *data, char *line);
 
 //src/parsing/file_map_check.c
 void			map_check(t_data *data);
 void	map_spaces_fill(t_data *data);
 
+int	check_helper2(int flag, char *s1, char *s2);
+int is_valid_map_char(char c);
 
 #endif

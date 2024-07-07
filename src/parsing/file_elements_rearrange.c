@@ -6,24 +6,31 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 12:01:34 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 10:56:03 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/07 12:26:34 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	count_comma(char *line);
-void		floor_ceiling_re_arrange(t_data *data);
-static char	**rearrange_helper(t_element **element, t_data *data);
+ int	count_comma(char *line);
+void		floor_ceiling_re_arrange(t_data *data, char *line);
+static int	rearrange_helper(t_data *data);
 
-static int	count_comma(char *line)
+int	is_floor_ceiling(char *str)
+{
+	if (!ft_strcmp(str, "F") || !ft_strcmp(str, "C"))
+		return (1);
+	return (0);
+}
+
+ int	count_comma(char *line)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (line[i])
+	while (line && line[i])
 	{
 		if (line[i] == ',')
 			count++;
@@ -32,20 +39,18 @@ static int	count_comma(char *line)
 	return (count);
 }
 
-static char	**rearrange_helper(t_element **element, t_data *data)
+static int	rearrange_helper(t_data *data)
 {
 	char	**temp_content;
+	char	*str;
 	char	**temp2d_comma_without_first;
 	char	**new_2d;
-	char	*str;
 	int		i;
 
-	(void)element;
 	temp_content = (char **)(data->element->content);
 	str = ft_strnjoin(ft_strlen2d(temp_content) - 1, &(temp_content[1]));
 	if (count_comma(str) != 2)
-		(ft_putstr_fd("Error\nCheck The Commas\n", 2), free(str),
-			free_data(data), exit(1));
+		return (ft_putstr_fd("Error\nCheck The Commas\n", 2), free(str), 1);
 	temp2d_comma_without_first = ft_split(str, ',');
 	new_2d = ft_calloc((ft_strlen2d(temp2d_comma_without_first) + 2),
 			sizeof(char *));
@@ -58,21 +63,23 @@ static char	**rearrange_helper(t_element **element, t_data *data)
 	}
 	(free2d((void **)temp_content), free(str));
 	free2d((void **)temp2d_comma_without_first);
-	(data->element)->content = (void **)new_2d;
-	return (new_2d);
+	data->element->content = (void **)new_2d;
+	return (0);
 }
 
-void	floor_ceiling_re_arrange(t_data *data)
+void	floor_ceiling_re_arrange(t_data *data, char *line)
 {
 	t_element	*temp;
+	char		**temp_content;
 
 	temp = data->element;
-	while (temp)
+	while (data->element)
 	{
-		if (temp->content
-			&& (!ft_strncmp(temp->content[0], "C", 1)
-				|| !ft_strncmp(temp->content[0], "F", 1)))
-			rearrange_helper(&temp, data);
-		temp = temp->next;
+		temp_content = (char **)(data->element->content);
+		if (temp_content && is_floor_ceiling(temp_content[0])
+			&& rearrange_helper(data))
+			(free_data(data), free(line), exit(1));
+		data->element = data->element->next;
 	}
+	data->element = temp;
 }

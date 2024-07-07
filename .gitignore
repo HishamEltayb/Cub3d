@@ -1,0 +1,10 @@
+.vscode
+*.o
+*.dSYM
+*.swp
+*/*.o
+*/*/*.o
+*/*/*/*.o
+*/*/*/*/*.o
+.DS_Store
+cub3D
