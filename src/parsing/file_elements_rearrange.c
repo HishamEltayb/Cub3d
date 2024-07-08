@@ -6,16 +6,16 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 12:01:34 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 20:01:33 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/08 21:00:23 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			count_comma(char *line);
-int			is_floor_ceiling(char *str);
-static int	rearrange_helper(t_data *data);
-void		floor_ceiling_re_arrange(t_data *data, char *line);
+int		count_comma(char *line);
+int		is_floor_ceiling(char *str);
+int		rearrange_helper(t_data *data, t_element *element);
+void	floor_ceiling_re_arrange(t_data *data, char *line);
 
 int	is_floor_ceiling(char *str)
 {
@@ -24,7 +24,7 @@ int	is_floor_ceiling(char *str)
 	return (1);
 }
 
- int	count_comma(char *line)
+int	count_comma(char *line)
 {
 	int	i;
 	int	count;
@@ -40,7 +40,7 @@ int	is_floor_ceiling(char *str)
 	return (count);
 }
 
-static int	rearrange_helper(t_data *data)
+int	rearrange_helper(t_data *data, t_element *element)
 {
 	char	**temp_content;
 	char	*str;
@@ -48,7 +48,7 @@ static int	rearrange_helper(t_data *data)
 	char	**new_2d;
 	int		i;
 
-	temp_content = (char **)(data->element->content);
+	temp_content = (char **)element->content;
 	str = ft_strnjoin(ft_strlen2d(temp_content) - 1, &(temp_content[1]));
 	if (count_comma(str) != 2)
 		return (free(str), ft_putstr_fd("Error\nCheck The Commas\n", 2), 0);
@@ -79,9 +79,9 @@ void	floor_ceiling_re_arrange(t_data *data, char *line)
 		temp_content = (char **)(data->element->content);
 		if (temp_content && !is_floor_ceiling(temp_content[0]))
 		{
-			if (!rearrange_helper(data))
+			if (!rearrange_helper(data, data->element))
 			{
-				data->element = temp;			
+				data->element = temp;
 				(free_data(data), free(line), exit(1));
 			}
 		}

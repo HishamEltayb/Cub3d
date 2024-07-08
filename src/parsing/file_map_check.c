@@ -6,54 +6,110 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 20:00:43 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/08 19:02:40 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		map_check(t_data *data);
-int			is_valid_map_char(char c);
-static int	map_characters_check(t_data *data);
-
-int is_valid_map_char(char c)
-{
-	if (c == '0' || c == '1' || c == 'N' || c == 'S' 
-		|| c == 'W' || c == 'E' || c == ' ')
-		return (1);
-	return (0);
-}
-
-static int	map_characters_check(t_data *data)
-{
-	t_list	*temp;
-	char	*line;
-	int		i;
-
-	temp = data->map;
-	while (temp)
-	{
-		i = -1;
-		line = (char *)temp->content;
-		if (line && !*line)
-			return (1);
-		while (line && line[++i])
-		{
-			if (!is_valid_map_char(line[i]))
-				return (1);
-		}
-		temp = temp->next;
-	}	
-	return (0);
-}
+void	map_check(t_data *data);
+bool	check_space(t_data *data);
+int		map_characters_check(t_data *data);
+bool	is_sourrounded_by_walls(t_data *data);
+int		is_valid_map_char(char c, t_data *data);
 
 void	map_check(t_data *data)
 {
 	if (map_characters_check(data))
 	{
-		ft_putstr_fd("Error\nInvalid Map Characters\n", 2);
+		ft_putstr_fd("Error\nInvalid Map Characters1\n", 2);
 		free_data(data);
-		exit(1);		
+		exit(1);
 	}
+	if (check_space(data))
+	{
+		ft_putstr_fd("Error\nInvalid Map\n", 2);
+		free_data(data);
+		exit(1);
+	}
+	if (is_sourrounded_by_walls(data))
+	{
+		ft_putstr_fd("Error\nInvalid Map\n", 2);
+		free_data(data);
+		exit(1);
+	}
+	else
+		printf("Map is valid\n");
 }
 
+int	is_valid_map_char(char c, t_data *data)
+{
+	if (c == '0' || c == '1' || c == ' ')
+		return (TRUE);
+	else if (!is_valid_map_char_helper(data, c))
+		return (TRUE);
+	else if (!is_valid_map_char_helper2(data, c))
+		return (TRUE);
+	return (FALSE);
+}
+
+int	map_characters_check(t_data *data)
+{
+	if (data->flags.PlayerN == NOT_EXIST && data->flags.PlayerS == NOT_EXIST
+		&& data->flags.PlayerW == NOT_EXIST && data->flags.PlayerE == NOT_EXIST)
+		return (FALSE);
+	return (TRUE);
+}
+
+bool	check_space(t_data *data)
+{
+	int		x;
+	int		y;
+	char	**map;
+
+	y = -1;
+	map = data->map2d;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (checking(data, x, y, ' '))
+				return (printf("error\n"), FALSE);
+			else if (checking(data, x, y, '0'))
+				return (printf("error_floor\n"), FALSE);
+			else if (ft_strchr(PLAYER, map[y][x]) && checking(data, x, y, 'X'))
+				return (printf("error_player\n"), FALSE);
+		}
+	}
+	return (TRUE);
+}
+
+bool	is_sourrounded_by_walls(t_data *data)
+{
+	int		x;
+	int		y;
+	char	**map;
+
+	y = 0;
+	map = data->map2d;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (y == 0 && !is_space_or_one(map[y][x]))
+				return (FALSE);
+			else if (x == 0 && !is_space_or_one(map[y][x]))
+				return (FALSE);
+			else if (y == ft_strlen2d(map) - 1 && !is_space_or_one(map[y][x]))
+				return (FALSE);
+			else if (x == (int)(ft_strlen(map[y]) - 1)
+					&& !is_space_or_one(map[y][x]))
+				return (FALSE);
+			x++;
+		}
+		y++;
+	}
+	return (TRUE);
+}

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 20:25:14 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/08 17:16:15 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	print_2d(t_data *data)
 
 void	print_data(t_data *data)
 {
-
 	if (!data || !data->map || !data->element)
 		return ;
 	printf("file_size = %d\n", data->file_size);
@@ -87,6 +86,4 @@ void	print_data(t_data *data)
 	printf("\n");
 	printf("printing map as 2d\n");
 	print_2d(data);
-
 }
-

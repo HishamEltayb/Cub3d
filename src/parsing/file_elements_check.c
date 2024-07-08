@@ -6,22 +6,22 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:54:39 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 20:17:49 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/08 17:41:13 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		file_check_elements(t_data *data, char *line);
-int			check_colors(char **str);
-static int	check_helper(t_data *data, char *s1);
-int			check_helper2(int flag, char *s1, char *s2);
-int			check_colors_helper(char **str);
+int		check_colors(char **str);
+int		check_colors_helper(char **str);
+int		check_helper(t_data *data, char *s1);
+int		check_helper2(int flag, char *s1, char *s2);
+void	file_check_elements(t_data *data, char *line);
 
-int		check_colors_helper(char **str)
+int	check_colors_helper(char **str)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 1;
 	if (ft_strlen2d(str) != 4)
@@ -42,19 +42,11 @@ int		check_colors_helper(char **str)
 	return (0);
 }
 
-int		check_colors(char **str)
+int	check_colors(char **str)
 {
 	if (check_colors_helper(str))
 		return (1);
 	return (0);
-}
-
-void	exit_failuer(t_data *data, char *err)
-{
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(err, 2);
-	free_data(data);
-	exit(EXIT_FAILURE);
 }
 
 void	file_check_elements(t_data *data, char *line)
@@ -66,7 +58,7 @@ void	file_check_elements(t_data *data, char *line)
 	while (temp)
 	{
 		str = (char **)temp->content;
-		if (!check_helper(data, str[0]))
+		if (ft_strlen2d(str) == 2 && !check_helper(data, str[0]))
 			check_image(str[1], data);
 		else if (!check_helper2(data->flags.F, str[0], "F")
 			|| !check_helper2(data->flags.C, str[0], "C"))
@@ -79,12 +71,12 @@ void	file_check_elements(t_data *data, char *line)
 				(free(line), exit_failuer(data, "Invalid Colors"));
 		}
 		else
-			(free(line), exit_failuer(data, "Invalid Elements2"));
+			(free(line), exit_failuer(data, "Invalid Elements"));
 		temp = temp->next;
 	}
 }
 
-static int	check_helper(t_data *data, char *s1)
+int	check_helper(t_data *data, char *s1)
 {
 	if (!ft_strcmp(s1, "EA") && data->flags.EA == NOT_EXIST)
 	{

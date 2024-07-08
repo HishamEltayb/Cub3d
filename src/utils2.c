@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 20:49:55 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/08 17:32:34 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,14 @@ void	init_data(t_data *data)
 	data->max_len = 0;
 	data->map2d = NULL;
 	data->is_valid = 0;
-	
+	data->flags.PlayerN = NOT_EXIST;
+	data->flags.PlayerS = NOT_EXIST;
+	data->flags.PlayerW = NOT_EXIST;
+	data->flags.PlayerE = NOT_EXIST;
+	data->player.is_exist = NOT_EXIST;
+	data->player.x = 0;
+	data->player.y = 0;
+	data->player.dir = 0;
 }
 
 void	free2d(void **content)
