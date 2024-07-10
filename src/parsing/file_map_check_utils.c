@@ -50,8 +50,8 @@ bool	check_up(t_data *data, int x, int y, char c)
 	}
 	else
 		delimeter = '0';
-	if (map[y - 1][x] == c || map[y - 1][x] == delimeter
-		|| map[y - 1][x] == '1')
+	if (map[y - 1][x] == c || map[y - 1][x] == delimeter || map[y
+		- 1][x] == '1')
 		return (TRUE);
 	return (FALSE);
 }
@@ -78,8 +78,8 @@ bool	check_down(t_data *data, int x, int y, char c)
 	}
 	else
 		delimeter = '0';
-	if (map[y + 1][x] == c || map[y + 1][x] == delimeter
-		|| map[y + 1][x] == '1')
+	if (map[y + 1][x] == c || map[y + 1][x] == delimeter || map[y
+		+ 1][x] == '1')
 		return (TRUE);
 	return (FALSE);
 }
@@ -106,8 +106,8 @@ bool	check_left(t_data *data, int x, int y, char c)
 	}
 	else
 		delimeter = '0';
-	if (map[y][x - 1] == c || map[y][x - 1] == delimeter
-		|| map[y][x - 1] == '1')
+	if (map[y][x - 1] == c || map[y][x - 1] == delimeter || map[y][x
+		- 1] == '1')
 		return (TRUE);
 	return (FALSE);
 }
@@ -134,8 +134,8 @@ bool	check_right(t_data *data, int x, int y, char c)
 	}
 	else
 		delimeter = '0';
-	if (map[y][x + 1] == c || map[y][x + 1] == delimeter
-		|| map[y][x + 1] == '1')
+	if (map[y][x + 1] == c || map[y][x + 1] == delimeter || map[y][x
+		+ 1] == '1')
 		return (TRUE);
 	return (FALSE);
 }
