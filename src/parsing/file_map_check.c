@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/08 19:02:40 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 11:45:11 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,13 @@ bool	check_space(t_data *data)
 		x = -1;
 		while (map[y][++x])
 		{
-			if (checking(data, x, y, ' '))
-				return (printf("error\n"), FALSE);
-			else if (checking(data, x, y, '0'))
-				return (printf("error_floor\n"), FALSE);
-			else if (ft_strchr(PLAYER, map[y][x]) && checking(data, x, y, 'X'))
-				return (printf("error_player\n"), FALSE);
+			if (data->map2d[y][x] == ' ' && checking(data, x, y, ' '))
+				return (ft_putstr_fd("error_space\n", 2), FALSE);
+			else if (data->map2d[y][x] == '0' && checking(data, x, y, '0'))
+				return (ft_putstr_fd("error_floor\n", 2), FALSE);
+			else if (ft_strchr(PLAYER, data->map2d[y][x]))
+					if (checking(data, x, y, 'X'))
+						return (ft_putstr_fd("error_player\n", 2), FALSE);
 		}
 	}
 	return (TRUE);

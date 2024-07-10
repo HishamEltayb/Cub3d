@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/08 20:55:17 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 09:59:16 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		check_colors(char **str);
 int		check_colors_helper(char **str);
 int		check_helper(t_data *data, char *s1);
 int		check_helper2(int flag, char *s1, char *s2);
-void	file_check_elements(t_data *data, char *line);
+void	file_check_elements(t_data *data, char *line, int fd);
 
 //src/parsing/file_elements_create.c
 int		is_element(char **split);
@@ -101,7 +101,7 @@ void	file_elements_create(t_data *data, char **line, int fd);
 int		count_comma(char *line);
 int		is_floor_ceiling(char *str);
 int		rearrange_helper(t_data *data, t_element *element);
-void	floor_ceiling_re_arrange(t_data *data, char *line);
+void	floor_ceiling_re_arrange(t_data *data, char *line, int fd);
 
 //src/parsing/file_elements_utils.c
 t_element	*element_new(void **content);

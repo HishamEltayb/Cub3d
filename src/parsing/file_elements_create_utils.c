@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/10 09:50:37 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:33:26 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	check_numbers(char **split, int *i, int *check)
 		{
 			if (count_numbers(split[*i], &j))
 				(*check)++;
-			j++;
+			if (split[*i][j] != '\0')
+				j++;
+			else
+				break ;
 		}
 		(*i)++;
 	}
@@ -53,13 +56,13 @@ int	is_element(char **split)
 	int	i;
 	int	check;
 
-	check = 0;
-	i = 1;
 	if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
 		|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA"))
 		return (1);
 	else if (!ft_strcmp(split[0], "F") || !ft_strcmp(split[0], "C"))
 	{
+		i = 1;
+		check = 0;
 		check_numbers(split, &i, &check);
 		if (check != 3)
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:49:22 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/08 20:59:34 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 11:37:13 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ bool	check_right(t_data *data, int x, int y, char c);
 
 bool	checking(t_data *data, int x, int y, char c)
 {
-	if (data->map2d[y][x] != c)
-		return (false);
 	if (!check_up(data, x, y, c) && !check_down(data, x, y, c)
 		&& !check_left(data, x, y, c) && !check_right(data, x, y, c))
 		return (TRUE);
@@ -36,7 +34,7 @@ bool	check_up(t_data *data, int x, int y, char c)
 	map = data->map2d;
 	if (y == 0 || x >= (int)ft_strlen(map[y - 1]))
 	{
-		if (c == '0')
+		if (c == '0' || c == 'X')
 			return (FALSE);
 		return (TRUE);
 	}
@@ -64,7 +62,7 @@ bool	check_down(t_data *data, int x, int y, char c)
 	map = data->map2d;
 	if ((y == ft_strlen2d(map) - 1) || (x >= (int)ft_strlen(map[y + 1])))
 	{
-		if (c == '0')
+		if (c == '0' || c == 'X')
 			return (FALSE);
 		return (TRUE);
 	}

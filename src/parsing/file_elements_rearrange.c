@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 12:01:34 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/10 09:50:50 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 09:59:26 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		count_comma(char *line);
 int		is_floor_ceiling(char *str);
 int		rearrange_helper(t_data *data, t_element *element);
-void	floor_ceiling_re_arrange(t_data *data, char *line);
+void	floor_ceiling_re_arrange(t_data *data, char *line, int fd);
 
 int	is_floor_ceiling(char *str)
 {
@@ -68,7 +68,7 @@ int	rearrange_helper(t_data *data, t_element *element)
 	return (1);
 }
 
-void	floor_ceiling_re_arrange(t_data *data, char *line)
+void	floor_ceiling_re_arrange(t_data *data, char *line, int fd)
 {
 	t_element	*temp;
 	char		**temp_content;
@@ -82,7 +82,7 @@ void	floor_ceiling_re_arrange(t_data *data, char *line)
 			if (!rearrange_helper(data, data->element))
 			{
 				data->element = temp;
-				(free_data(data), free(line), exit(1));
+				(free_data(data), free(line), close(fd), exit(1));
 			}
 		}
 		data->element = data->element->next;

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:54:39 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/10 09:48:09 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:57:27 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,52 @@ int		check_colors(char **str);
 int		check_colors_helper(char **str);
 int		check_helper(t_data *data, char *s1);
 int		check_helper2(int flag, char *s1, char *s2);
-void	file_check_elements(t_data *data, char *line);
+void	file_check_elements(t_data *data, char *line, int fd);
+
+static void	skip_zeros(int *i, char *str)
+{
+	while (str[*i] == '0')
+		(*i)++;
+}
+
+static int	ft_mini_atoi(char *str)
+{
+	int				i;
+	int				digits;
+	unsigned long	num;
+
+	if (str == NULL)
+		return (-1);
+	i = 0;
+	num = 0;
+	digits = 0;
+	skip_zeros(&i, str);
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			digits++;
+		else 
+			return (-1);
+		num = (num * 10) + (str[i] - '0');
+		if (num > 255)
+			return (-1);
+		if (digits > 3)
+			return (-1);
+		i++;
+	}
+	return (num);
+}
 
 int	check_colors_helper(char **str)
 {
 	int	i;
-	int	j;
 
 	i = 1;
 	if (ft_strlen2d(str) != 4)
 		return (1);
 	while (str && str[i])
 	{
-		j = 0;
-		while (str[i] && str[i][j])
-		{
-			if (!ft_isdigit(str[i][j]))
-				return (1);
-			j++;
-		}
-		if (ft_atoi(str[i]) < 0 || ft_atoi(str[i]) > 255)
+		if (ft_mini_atoi(str[i]) == -1)
 			return (1);
 		i++;
 	}
@@ -49,7 +75,7 @@ int	check_colors(char **str)
 	return (0);
 }
 
-void	file_check_elements(t_data *data, char *line)
+void	file_check_elements(t_data *data, char *line, int fd)
 {
 	t_element	*temp;
 	char		**str;
@@ -68,10 +94,10 @@ void	file_check_elements(t_data *data, char *line)
 			else if (!ft_strcmp(str[0], "C"))
 				data->flags.C = EXIST;
 			if (check_colors(str))
-				(free(line), exit_failuer(data, "Invalid Colors"));
+				(free(line), close(fd), exit_failuer(data, "Invalid Colors"));
 		}
 		else
-			(free(line), exit_failuer(data, "Invalid Elements"));
+			(free(line), close(fd), exit_failuer(data, "Invalid Elements"));
 		temp = temp->next;
 	}
 }

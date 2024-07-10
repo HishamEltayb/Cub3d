@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/09 15:39:05 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/10 09:57:38 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -142,8 +142,8 @@ fclean: clean
 	@make fclean -C libs/libft
 	@echo $(GREEN_B)"\nFCLEANED. ✅\n"$(RESET)
 
-valgrind: $(NAME)
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/map.cub
+valgrind: $(OBJS) $(NAME)
+	@valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/map.cub
 
 print_re:
 	@echo $(YELLOW)"Recreating OBJECTS"$(RESET)

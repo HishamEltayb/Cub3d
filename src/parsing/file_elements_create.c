@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/10 09:50:30 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:00:13 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	fill_elements(char *line, t_data *data, int fd)
 	{
 		ft_putstr_fd("Error\nInvalid Elements\n", 2);
 		ft_putstr_fd("Note: Check the order of the elements and the map\n", 2);
-		(free(line), close(fd));
 		free_data(data);
+		(free(line), close(fd));
 		exit(1);
 	}
 	temp_split = ft_split(temp, ' ');
@@ -74,8 +74,8 @@ void	file_elements_create(t_data *data, char **line, int fd)
 			free(*line);
 		*line = get_next_line(fd);
 	}
-	floor_ceiling_re_arrange(data, *line);
-	file_check_elements(data, *line);
+	floor_ceiling_re_arrange(data, *line, fd);
+	file_check_elements(data, *line, fd);
 	if (!*line)
 	{
 		ft_putstr_fd("Error\nEmpty map\n", 2);
