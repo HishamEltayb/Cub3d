@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/08 12:20:18 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/09 15:39:05 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,7 @@ all: $(NAME)
 	
 $(NAME): print  $(MLX) $(LIBFT) $(OBJS)
 	@echo $(RESET)
-	cc $(CFLAGS) $(OBJS)  $(LIBFT) $(MLX)  -o $(NAME)  $(LINKS)
+	@cc $(CFLAGS) $(OBJS)  $(LIBFT) $(MLX)  -o $(NAME)  $(LINKS)
 
 print:
 	@echo $(YELLOW)"Creating OBJECTS"$(RESET)
@@ -121,7 +121,7 @@ $(MLX):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	cc $(INCLUDE) $(CFLAGS)  -c $< -o $@
+	@cc $(INCLUDE) $(CFLAGS)  -c $< -o $@
 	@echo $(YELLOW)".\c"$(RESET)
 
 $(LIBFT):

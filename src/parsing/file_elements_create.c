@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/08 20:59:44 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 09:44:10 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,21 @@ void	skip_empty_line(char **line, t_data *data, int fd, int flag)
 	}
 }
 
-static int	while_loop(char **split, int *i, int *check)
+static int	count_numbers(char *line, int *j)
+{
+	int	numbers;
+	int	check;
+
+	numbers = 0;
+	check = *j;
+	while (line && line[(*j)] && ft_isdigit(line[(*j)]))
+		(*j)++;
+	if (*j > check)
+		numbers = 1;
+	return (numbers);
+}
+
+static int	check_numbers(char **split, int *i, int *check)
 {
 	int	j;
 
@@ -44,13 +58,11 @@ static int	while_loop(char **split, int *i, int *check)
 		j = 0;
 		while (split[*i][j])
 		{
-			if (ft_isdigit(split[*i][j]) || split[*i][j] == ',')
-				j++;
-			else
-				return (0);
+			if (count_numbers(split[*i], &j))
+				(*check)++;
+			j++;
 		}
 		(*i)++;
-		(*check)++;
 	}
 	return (1);
 }
@@ -67,10 +79,13 @@ int	is_element(char **split)
 		return (1);
 	else if (!ft_strcmp(split[0], "F") || !ft_strcmp(split[0], "C"))
 	{
-		if (!while_loop(split, &i, &check) || check > 3)
+		check_numbers(split, &i, &check);
+		if (check != 3)
 			return (0);
+		return (1);
 	}
-	return (1);
+	else
+		return (0);
 }
 
 void	fill_elements(char *line, t_data *data, int fd)
@@ -113,7 +128,6 @@ void	file_elements_create(t_data *data, char **line, int fd)
 			free(*line);
 		*line = get_next_line(fd);
 	}
-	print_data(data);
 	floor_ceiling_re_arrange(data, *line);
 	file_check_elements(data, *line);
 	if (!*line)

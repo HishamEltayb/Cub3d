@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:41:28 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/08 21:01:03 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/10 09:13:30 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	main(int ac, char **av)
 	file_pre_check(ac, av);
 	file_store_data(av[1], &data);
 	map_check(&data);
-	print_data(&data);
+	// print_data(&data);
 	free_data(&data);
 }

@@ -11,24 +11,22 @@
 
 
 
-              EA /Users/heltayb/Desktop/test_cube/assets/textures/wood.xpm              
-NO             /Users/heltayb/Desktop/test_cube/assets/textures/barrel.xpm                  
+EA /Users/heltayb/Desktop/test_cube/assets/textures/barrel.xpm     
+NO /Users/heltayb/Desktop/test_cube/assets/textures/barrel.xpm                  
 
 WE /Users/heltayb/Desktop/test_cube/assets/textures/redbrick.xpm    
 
-C       0,255,255
+C 0 ,    25 ,1
 
-F 0, 125,        125
+F 255,125,125
 
-SO /Users/heltayb/Desktop/test_cu/assets/textures/greystone.xpm
+SO     /Users/heltayb/Desktop/test_cu/assets/textures/greystone.xpm
 
 
 1111111111
-1000000001
+10000000011111
 1000000001
 1111111111
-          1
-1111111111
-1000000001
-11111111S1
-1111111 1
+10000000111111
+11111111E111111111111
+11111111111
