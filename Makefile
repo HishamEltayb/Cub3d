@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/10 09:57:38 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/13 11:49:11 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RESET = "\033[0m"
 #-fsanitize=address -g3
 
 NAME	=	cub3D
-CFLAGS	=	-Wall -Werror -Wextra  -g3
+CFLAGS	=	-Wall -Werror -Wextra  -g3 -D $(OS)
 
 SRCDIR	=	src
 OBJDIR	=	obj
@@ -31,11 +31,26 @@ OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
 
 LIBFT 	= 	libs/libft/libft.a
-MLX		=	
-# libs/mlx/libmlx.a
+MLX_FOLDER		:=	
+MLXLIB	:=	
 INCLUDE =	-I./ -I./libs/mlx -I./libs/libft 
-LINKS	=  
-# -framework OpenGL -framework AppKit
+
+LINKS := 
+
+OS := $(shell uname)
+
+ifeq ($(OS), Linux)
+	MLX_FOLDER := libs/mlx_linux
+	MLXLIB := libs/mlx_linux/libmlx_Linux.a
+	LINKS += -L/usr/lib -L$(MLX_FOLDER) -lXext -lX11
+else
+	MLX_FOLDER := libs/mlx
+	MLXLIB := libs/mlx/libmlx.a
+	LINKS += -L$(MLX_FOLDER) -framework OpenGL -framework AppKit
+endif
+
+
+
 
 all: $(NAME)
 	@echo $(BLUE_I)
@@ -107,16 +122,16 @@ all: $(NAME)
 	@printf '                                          MMMMMMMMMMMMMMM\n'
 	@echo $(RED_BI)"\n\n				ENJOY🔥\n"$(RESET)
 	
-$(NAME): print  $(MLX) $(LIBFT) $(OBJS)
+$(NAME): print $(MLXLIB) $(LIBFT) $(OBJS)
 	@echo $(RESET)
-	@cc $(CFLAGS) $(OBJS)  $(LIBFT) $(MLX)  -o $(NAME)  $(LINKS)
+	@cc $(CFLAGS) $(OBJS) $(LIBFT) $(MLXLIB)  -o $(NAME) $(LINKS)
 
 print:
 	@echo $(YELLOW)"Creating OBJECTS"$(RESET)
 
-$(MLX):
-	@echo $(YELLOW)"Creating $(MLX)"$(RESET)
-	@make -C libs/mlx
+$(MLXLIB):
+	@echo $(YELLOW)"Creating $(MLXLIB)"$(RESET)
+	@make -C $(MLX_FOLDER)
 	
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
