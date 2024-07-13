@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/10 09:59:16 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/11 16:49:50 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,43 @@
 # include <stdbool.h>
 # include "libft.h"
 
+# ifdef Linux
+
+typedef enum key_map
+{
+
+	KEY_A = 97,
+	KEY_S = 115,
+	KEY_D = 100,
+	KEY_W = 119,
+	KEY_LEFT = 65361,
+	KEY_RIGHT = 65363,
+	KEY_ESC = 65307
+}					t_key;
+
+# else
+
+typedef enum key_map
+{
+	KEY_A = 0,
+	KEY_S = 1,
+	KEY_D = 2,
+	KEY_W = 13,
+	KEY_LEFT = 123,
+	KEY_RIGHT = 124,
+	KEY_ESC = 53
+}					t_key;
+
+# endif
+
 # define EXIST 0
 # define NOT_EXIST 1
 # define TRUE 0
 # define FALSE 1
 # define MAP 2
 # define ELEMENT 1
-
 # define PLAYER "NSWE"
+
 
 typedef struct s_element
 {
