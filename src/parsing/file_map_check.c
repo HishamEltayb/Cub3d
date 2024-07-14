@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/10 11:45:11 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/14 09:18:38 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	map_check(t_data *data);
 bool	check_space(t_data *data);
-int		map_characters_check(t_data *data);
+int		map_player_check(t_data *data);
 bool	is_sourrounded_by_walls(t_data *data);
 int		is_valid_map_char(char c, t_data *data);
 
 void	map_check(t_data *data)
 {
-	if (map_characters_check(data))
+	if (map_player_check(data))
 	{
 		ft_putstr_fd("Error\nInvalid Map Characters1\n", 2);
 		free_data(data);
@@ -53,11 +53,19 @@ int	is_valid_map_char(char c, t_data *data)
 	return (FALSE);
 }
 
-int	map_characters_check(t_data *data)
+int	map_player_check(t_data *data)
 {
 	if (data->flags.PlayerN == NOT_EXIST && data->flags.PlayerS == NOT_EXIST
 		&& data->flags.PlayerW == NOT_EXIST && data->flags.PlayerE == NOT_EXIST)
 		return (FALSE);
+	if (data->flags.PlayerN == EXIST)
+		data->player.dir = 'N';
+	else if (data->flags.PlayerS == EXIST)
+		data->player.dir = 'S';
+	else if (data->flags.PlayerW == EXIST)
+		data->player.dir = 'W';
+	else if (data->flags.PlayerE == EXIST)
+		data->player.dir = 'E';
 	return (TRUE);
 }
 
@@ -65,22 +73,24 @@ bool	check_space(t_data *data)
 {
 	int		x;
 	int		y;
-	char	**map;
 
 	y = -1;
-	map = data->map2d;
-	while (map[++y])
+	while (data->map2d[++y])
 	{
 		x = -1;
-		while (map[y][++x])
+		while (data->map2d[y][++x])
 		{
 			if (data->map2d[y][x] == ' ' && checking(data, x, y, ' '))
 				return (ft_putstr_fd("error_space\n", 2), FALSE);
 			else if (data->map2d[y][x] == '0' && checking(data, x, y, '0'))
 				return (ft_putstr_fd("error_floor\n", 2), FALSE);
 			else if (ft_strchr(PLAYER, data->map2d[y][x]))
-					if (checking(data, x, y, 'X'))
-						return (ft_putstr_fd("error_player\n", 2), FALSE);
+			{
+				if (checking(data, x, y, 'X'))
+					return (ft_putstr_fd("error_player\n", 2), FALSE);
+				data->player.x = x;
+				data->player.y = y;
+			}
 		}
 	}
 	return (TRUE);

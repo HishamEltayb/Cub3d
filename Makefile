@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/13 11:49:11 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/14 10:14:12 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,26 +29,48 @@ SRCS	=	$(shell find $(SRCDIR) -type f)
 
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
-
+INCLUDE :=
 LIBFT 	= 	libs/libft/libft.a
 MLX_FOLDER		:=	
 MLXLIB	:=	
-INCLUDE =	-I./ -I./libs/mlx -I./libs/libft 
 
 LINKS := 
 
 OS := $(shell uname)
 
 ifeq ($(OS), Linux)
-	MLX_FOLDER := libs/mlx_linux
-	MLXLIB := libs/mlx_linux/libmlx_Linux.a
+	MLX_FOLDER += libs/mlx_linux
+	MLXLIB += libs/mlx_linux/libmlx_Linux.a
 	LINKS += -L/usr/lib -L$(MLX_FOLDER) -lXext -lX11
+	INCLUDE +=	-I./ -I./libs/mlx_linux -I./libs/libft 
 else
-	MLX_FOLDER := libs/mlx
-	MLXLIB := libs/mlx/libmlx.a
+	MLX_FOLDER += libs/mlx
+	MLXLIB += libs/mlx/libmlx.a
 	LINKS += -L$(MLX_FOLDER) -framework OpenGL -framework AppKit
+	INCLUDE +=	-I./ -I./libs/mlx -I./libs/libft 
 endif
 
+# OS := $(shell uname)
+# $(info Detected OS: $(OS))
+
+# ifeq ($(OS), Linux)
+# 	MLX_FOLDER = libs/mlx_linux
+# 	MLXLIB = libs/mlx_linux/libmlx_Linux.a
+# 	LINKS = -L/usr/lib -L$(MLX_FOLDER) -lXext -lX11
+# 	INCLUDE = -I./ -I./libs/mlx_linux -I./libs/libft 
+# else
+# 	MLX_FOLDER = libs/mlx
+# 	MLXLIB = libs/mlx/libmlx.a
+# 	LINKS = -L$(MLX_FOLDER) -framework OpenGL -framework AppKit
+# 	INCLUDE = -I./ -I./libs/mlx -I./libs/libft 
+# endif
+
+$(info MLX_FOLDER: $(MLX_FOLDER))
+$(info MLXLIB: $(MLXLIB))
+$(info LINKS: $(LINKS))
+$(info INCLUDE: $(INCLUDE))
+
+# Your target rules go here
 
 
 
@@ -124,19 +146,19 @@ all: $(NAME)
 	
 $(NAME): print $(MLXLIB) $(LIBFT) $(OBJS)
 	@echo $(RESET)
-	@cc $(CFLAGS) $(OBJS) $(LIBFT) $(MLXLIB)  -o $(NAME) $(LINKS)
+	cc $(CFLAGS) $(OBJS) $(LIBFT) $(MLXLIB)  -o $(NAME) $(LINKS)
 
 print:
 	@echo $(YELLOW)"Creating OBJECTS"$(RESET)
 
 $(MLXLIB):
 	@echo $(YELLOW)"Creating $(MLXLIB)"$(RESET)
-	@make -C $(MLX_FOLDER)
+	make -C $(MLX_FOLDER)
 	
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	@cc $(INCLUDE) $(CFLAGS)  -c $< -o $@
+	cc $(INCLUDE) $(CFLAGS)  -c $< -o $@
 	@echo $(YELLOW)".\c"$(RESET)
 
 $(LIBFT):

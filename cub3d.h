@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/11 16:49:50 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/14 09:59:40 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,14 @@ typedef struct s_player
 	char	dir;
 }			t_player;
 
+typedef struct s_image
+{
+	void	*imageEA;
+	void	*imageWE;
+	void	*imageSO;
+	void	*imageNO;
+}			t_image;
+
 typedef struct s_data
 {
 	t_list		*map;
@@ -98,9 +106,10 @@ typedef struct s_data
 	t_element	*element;
 	t_flags		flags;
 	t_player	player;
-	
+	t_image		image;
 	void		*mlx;
 	void		*win;
+
 	int			file_size;
 	int			max_len;
 	int			is_valid;
@@ -118,7 +127,7 @@ int		check_colors(char **str);
 int		check_colors_helper(char **str);
 int		check_helper(t_data *data, char *s1);
 int		check_helper2(int flag, char *s1, char *s2);
-void	file_check_elements(t_data *data, char *line, int fd);
+void	file_check_elements(t_data *data, char *line);
 
 //src/parsing/file_elements_create.c
 int		is_element(char **split);
@@ -149,7 +158,7 @@ bool	check_right(t_data *data, int x, int y, char c);
 //src/parsing/file_map_check.c
 void	map_check(t_data *data);
 bool	check_space(t_data *data);
-int		map_characters_check(t_data *data);
+int		map_player_check(t_data *data);
 bool	is_sourrounded_by_walls(t_data *data);
 int		is_valid_map_char(char c, t_data *data);
 
@@ -163,12 +172,12 @@ void	file_maps_create(t_data *data, char **line, int fd);
 //src/parsing/file_pre_check.c
 bool	is_space_or_one(char c);
 void	file_pre_check(int ac, char **av);
-void	exit_failuer(t_data *data, char *err);
 bool	is_valid_map_char_helper(t_data *data, char c);
 bool	is_valid_map_char_helper2(t_data *data, char c);
 
 //src/cub3d.c
-void	check_image(char *image_path, t_data *data);
+void	check_image(char **element, t_data *data, char *line);
+
 
 //src/utils1.c
 int		ft_strlen2d(char **str);
@@ -185,5 +194,9 @@ void	free_data(t_data *data);
 
 bool	is_valid_map_char_helper(t_data *data, char c);
 bool	is_valid_map_char_helper2(t_data *data, char c);
+
+
+void	check_image_path(char *image_path, t_data *data);
+void	error_free_exit(t_data *data, char *msg);
 
 #endif

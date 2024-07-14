@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:54:39 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/10 10:57:27 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/14 10:00:02 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		check_colors(char **str);
 int		check_colors_helper(char **str);
 int		check_helper(t_data *data, char *s1);
 int		check_helper2(int flag, char *s1, char *s2);
-void	file_check_elements(t_data *data, char *line, int fd);
+void	file_check_elements(t_data *data, char *line);
 
 static void	skip_zeros(int *i, char *str)
 {
@@ -75,7 +75,7 @@ int	check_colors(char **str)
 	return (0);
 }
 
-void	file_check_elements(t_data *data, char *line, int fd)
+void	file_check_elements(t_data *data, char *line)
 {
 	t_element	*temp;
 	char		**str;
@@ -85,7 +85,7 @@ void	file_check_elements(t_data *data, char *line, int fd)
 	{
 		str = (char **)temp->content;
 		if (ft_strlen2d(str) == 2 && !check_helper(data, str[0]))
-			check_image(str[1], data);
+			check_image(str, data, line);
 		else if (!check_helper2(data->flags.F, str[0], "F")
 			|| !check_helper2(data->flags.C, str[0], "C"))
 		{
@@ -94,10 +94,10 @@ void	file_check_elements(t_data *data, char *line, int fd)
 			else if (!ft_strcmp(str[0], "C"))
 				data->flags.C = EXIST;
 			if (check_colors(str))
-				(free(line), close(fd), exit_failuer(data, "Invalid Colors"));
+				(free(line), error_free_exit(data, "Invalid Colors"));
 		}
 		else
-			(free(line), close(fd), exit_failuer(data, "Invalid Elements"));
+			(free(line), error_free_exit(data, "Invalid Elements"));
 		temp = temp->next;
 	}
 }
