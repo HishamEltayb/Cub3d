@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:54:39 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/14 10:00:02 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/14 13:53:05 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void	file_check_elements(t_data *data, char *line)
 			else if (!ft_strcmp(str[0], "C"))
 				data->flags.C = EXIST;
 			if (check_colors(str))
-				(free(line), error_free_exit(data, "Invalid Colors"));
+				(free(line), error_free_exit(data, "Error\nInvalid Colors\n"));
 		}
 		else
-			(free(line), error_free_exit(data, "Invalid Elements"));
+			(free(line), error_free_exit(data, "Error\nInvalid Elements\n"));
 		temp = temp->next;
 	}
 }

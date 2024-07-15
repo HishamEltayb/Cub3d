@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/14 10:14:12 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/14 13:55:15 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RESET = "\033[0m"
 #-fsanitize=address -g3
 
 NAME	=	cub3D
-CFLAGS	=	-Wall -Werror -Wextra  -g3 -D $(OS)
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g3 -D $(OS)
 
 SRCDIR	=	src
 OBJDIR	=	obj
@@ -50,27 +50,11 @@ else
 	INCLUDE +=	-I./ -I./libs/mlx -I./libs/libft 
 endif
 
-# OS := $(shell uname)
-# $(info Detected OS: $(OS))
+# $(info MLX_FOLDER: $(MLX_FOLDER))
+# $(info MLXLIB: $(MLXLIB))
+# $(info LINKS: $(LINKS))
+# $(info INCLUDE: $(INCLUDE))
 
-# ifeq ($(OS), Linux)
-# 	MLX_FOLDER = libs/mlx_linux
-# 	MLXLIB = libs/mlx_linux/libmlx_Linux.a
-# 	LINKS = -L/usr/lib -L$(MLX_FOLDER) -lXext -lX11
-# 	INCLUDE = -I./ -I./libs/mlx_linux -I./libs/libft 
-# else
-# 	MLX_FOLDER = libs/mlx
-# 	MLXLIB = libs/mlx/libmlx.a
-# 	LINKS = -L$(MLX_FOLDER) -framework OpenGL -framework AppKit
-# 	INCLUDE = -I./ -I./libs/mlx -I./libs/libft 
-# endif
-
-$(info MLX_FOLDER: $(MLX_FOLDER))
-$(info MLXLIB: $(MLXLIB))
-$(info LINKS: $(LINKS))
-$(info INCLUDE: $(INCLUDE))
-
-# Your target rules go here
 
 
 

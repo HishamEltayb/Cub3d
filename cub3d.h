@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/14 09:59:40 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/15 13:35:50 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,45 @@
 
 typedef enum key_map
 {
-
+	ON_DESTROY = 36,
+	ESC = 65307,
+	KEY_UP = 65362,
+	KEY_DOWN = 65364,
+	KEY_RIGHT = 65363,
+	KEY_LEFT = 65361,
+	KEY_W = 119,
 	KEY_A = 97,
 	KEY_S = 115,
-	KEY_D = 100,
-	KEY_W = 119,
-	KEY_LEFT = 65361,
-	KEY_RIGHT = 65363,
-	KEY_ESC = 65307
+	KEY_D = 100
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
 }					t_key;
 
 # else
 
 typedef enum key_map
 {
+	ON_DESTROY = 17,
+	ESC = 53,
+	KEY_UP = 126,
+	KEY_DOWN = 125,
+	KEY_RIGHT = 124,
+	KEY_LEFT = 123,
+	KEY_W = 13,
 	KEY_A = 0,
 	KEY_S = 1,
 	KEY_D = 2,
-	KEY_W = 13,
-	KEY_LEFT = 123,
-	KEY_RIGHT = 124,
-	KEY_ESC = 53
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12
 }					t_key;
 
 # endif
@@ -62,6 +80,38 @@ typedef enum key_map
 # define ELEMENT 1
 # define PLAYER "NSWE"
 
+//start_colors
+# define Red 0xFF0000
+# define Green 0x00FF00
+# define Blue 0x0000FF
+# define Cyan 0x00FFFF
+# define Magenta 0xFF00FF
+# define Yellow 0xFFFF00
+# define Black 0x000000
+# define White 0xFFFFFF
+# define Gray 0x808080
+# define Maroon 0x800000
+# define Olive 0x808000
+# define Navy 0x000080
+# define Purple 0x800080
+# define Teal 0x008080
+# define Silver 0xC0C0C0
+# define Lime 0x00FF00
+# define Aqua 0x00FFFF
+# define Fuchsia 0xFF00FF
+# define Orange 0xFFA500
+# define Brown 0xA52A2A
+# define Gold 0xFFD700
+# define Pink 0xFFC0CB
+# define Lavender 0xE6E6FA
+# define Turquoise 0x40E0D0
+# define Beige 0xF5F5DC
+# define Coral 0xFF7F50
+# define Salmon 0xFA8072
+# define Khaki 0xF0E68C
+# define Indigo 0x4B0082
+# define Violet 0xEE82EE
+//end_colors
 
 typedef struct s_element
 {
@@ -97,6 +147,8 @@ typedef struct s_image
 	void	*imageWE;
 	void	*imageSO;
 	void	*imageNO;
+	void	*background;
+	void	*player;
 }			t_image;
 
 typedef struct s_data
@@ -115,6 +167,7 @@ typedef struct s_data
 	int			is_valid;
 	int			height;
 	int			width;
+	
 }	t_data;
 
 
@@ -188,7 +241,7 @@ void	print_elements(t_data *data);
 //src/utils2.c
 void	free2d(void **content);
 void	init_data(t_data *data);
-void	free_data(t_data *data);
+int		free_data(t_data *data);
 
 
 
@@ -198,5 +251,9 @@ bool	is_valid_map_char_helper2(t_data *data, char c);
 
 void	check_image_path(char *image_path, t_data *data);
 void	error_free_exit(t_data *data, char *msg);
+
+
+void	parsing(t_data *data, int ac, char **av);
+void install_player_image(t_data *data);
 
 #endif

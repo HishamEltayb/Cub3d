@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/14 11:43:45 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/15 13:37:11 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	free2d(void **content);
 void	init_data(t_data *data);
-void	free_data(t_data *data);
+int		free_data(t_data *data);
 
 void	init_data(t_data *data)
 {
 	data->win = NULL;
+	data->mlx = NULL;
 	data->map = NULL;
 	data->element = NULL;
 	data->file_size = 0;
@@ -43,6 +44,8 @@ void	init_data(t_data *data)
 	data->image.imageWE = NULL;
 	data->image.imageSO = NULL;
 	data->image.imageNO = NULL;
+	data->image.background = NULL;
+	data->image.player = NULL;
 }
 
 void	free2d(void **content)
@@ -72,10 +75,13 @@ void	free_mlx(t_data *data)
 		mlx_destroy_image(data->mlx, data->image.imageSO);
 	if (data->image.imageNO)
 		mlx_destroy_image(data->mlx, data->image.imageNO);
-	// mlx_destroy_display(data->mlx);
-	free(data->mlx);
+# ifdef Linux
+	mlx_destroy_display(data->mlx);
+# endif
+	if (data->mlx)
+ 		free(data->mlx);
 }
-void	free_data(t_data *data)
+int		free_data(t_data *data)
 {
 	int	i;
 
@@ -85,5 +91,6 @@ void	free_data(t_data *data)
 	ft_lstclear(&data->map, free);
 	element_clear(&data->element, free2d);
 	while (i < 100)
-	close(i++);
+		close(i++);
+	return (0);
 }
