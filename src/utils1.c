@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 09:48:44 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:02:14 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ static void install_player_image(t_data *data)
 {
 	int size;
 	
-	size = data->pixel / 4;
+	size = (data->pixel / 4) - 1;
 	data->image.player->img = mlx_new_image(data->mlx, size, size);
 	if (!data->image.player->img)
 		error_free_exit(data, "Error\nFailed to create main image\n");

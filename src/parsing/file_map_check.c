@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 07:56:29 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:38:34 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ bool	check_space(t_data *data)
 			{
 				if (checking(data, x, y, 'X'))
 					return (ft_putstr_fd("error_player\n", 2), FALSE);
-				data->player.x = x + 1;
-				data->player.y = y + 1;
+				data->player.x = x * data->pixel;
+				data->player.y = y * data->pixel;
 			}
 		}
 	}

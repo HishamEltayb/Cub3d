@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 11:52:10 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 09:40:07 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:02:57 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,66 @@ void	check_image(char **element, t_data *data, char *line)
 		data->image.imageNO = image;
 }
 
+
+void	player_display(t_data *data)
+{
+	mlx_put_image_to_window(data->mlx, data->win, data->image.player->img, data->player.x, data->player.y);	
+}
+
+int	display(t_data *data)
+{
+	mlx_clear_window(data->mlx, data->win);
+	for (int i = 0; i < data->width_x; i++)
+		for (int j = 0; j < data->height_y; j++)
+		{
+			if (data->map2d[j][i] == '1')
+				mlx_put_image_to_window(data->mlx, data->win, data->image.background->img, i * data->pixel, j * data->pixel);
+			else
+				mlx_put_image_to_window(data->mlx, data->win, data->image.floor->img, i * data->pixel, j * data->pixel);
+		}
+	player_display(data);
+	// mlx_put_image_to_window(data->mlx, data->win, data->image.player, 512, 256);
+	return (0);
+}
+
 int	key_hook(int keycode, t_data *data)
 {
+	int y = (int)data->player.y;
+	int x = (int)data->player.x;
+	int p = data->pixel;
+	int end_of_player = (data->pixel / 4) - 1;
+	
 	if (keycode == 53)
 		free_data(data), exit(0);
+	printf("char %c\n",data->map2d[(int)data->player.y / data->pixel][(int)data->player.x / data->pixel]);
+	if (keycode == KEY_UP)
+	{
+		y = y - 4;
+		if (data->map2d[y/p][x/p] != '1' && data->map2d[y/p][(x + end_of_player) / p] != '1')
+			data->player.y = y;
+		display(data);
+	}
+	if (keycode == KEY_DOWN)
+	{
+		y = y + 4;
+		if (data->map2d[(y + end_of_player)/p][(x)/p] != '1' && data->map2d[(y + end_of_player)/ p][(x + end_of_player) / p] != '1')
+			data->player.y = y;
+		display(data);
+	}
+	if (keycode == KEY_LEFT)
+	{
+		x = x - 4;
+		if (data->map2d[y/p][x/p] != '1' && data->map2d[(y + end_of_player) / p][x/p] != '1')
+			data->player.x = x;
+		display(data);
+	}
+	if (keycode == KEY_RIGHT)
+	{
+		x = x + 4;
+		if (data->map2d[y/ p][(x + end_of_player)/p] != '1' && data->map2d[(y + end_of_player) / p][(x + end_of_player) / p] != '1')
+			data->player.x = x;
+		display(data);
+	}
 	return (0);
 }
 
@@ -76,31 +132,13 @@ int	exit_mouse(t_data *data)
 }
 
 
-int	display(t_data *data)
-{
-	for (int i = 0; i < data->width_x; i++)
-		for (int j = 0; j < data->height_y; j++)
-		{
-			if (data->map2d[j][i] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->image.background->img, i * data->pixel, j * data->pixel);
-			else if (data->map2d[j][i] == '0')
-				mlx_put_image_to_window(data->mlx, data->win, data->image.floor->img, i * data->pixel, j * data->pixel);
-			else if (data->map2d[j][i] == 'E')
-			{
-				mlx_put_image_to_window(data->mlx, data->win, data->image.floor->img, i * data->pixel, j * data->pixel);
-				mlx_put_image_to_window(data->mlx, data->win, data->image.player->img, i * data->pixel, j * data->pixel);
-			}
-		}
-	// mlx_put_image_to_window(data->mlx, data->win, data->image.player, 512, 256);
-	return (0);
-}
-
 int	main(int ac, char **av)
 {
 	t_data	data;
 	
 	parsing(&data, ac, av);
 	
+
 	mlx_loop_hook(data.mlx, display, &data);
 	
 	
