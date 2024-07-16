@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 11:52:10 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/15 13:47:50 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 07:45:35 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ void	check_image(char **element, t_data *data, char *line)
 		data->image.imageNO = image;
 }
 
-// void	mlx_initilize(t_data *data)
-// {
-// }
 int	key_hook(int keycode, t_data *data)
 {
 	if (keycode == 53)
@@ -81,8 +78,8 @@ int	exit_mouse(t_data *data)
 
 int	display(t_data *data)
 {
-	mlx_put_image_to_window(data->mlx, data->win, data->image.background, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win, data->image.player, 512, 256);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->win, data->image.player, 512, 256);
 	return (0);
 }
 

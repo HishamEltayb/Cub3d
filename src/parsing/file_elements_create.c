@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/14 10:27:58 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 08:08:06 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	fill_elements(char *line, t_data *data, int fd)
 	}
 	temp_split = ft_split(temp, ' ');
 	free(temp);
-	if (is_element(temp_split))
+	if (is_element(temp_split, data))
 		element_add_back(&data->element, element_new((void **)temp_split));
 	else
 	{
@@ -62,15 +62,15 @@ void	fill_elements(char *line, t_data *data, int fd)
 		(free2d((void **)temp_split), free_data(data));
 		exit(1);
 	}
-	data->file_size++;
+	data->valid_line_count++;
 }
 
 void	file_elements_create(t_data *data, char **line, int fd)
 {
-	while (*line && data->file_size < 6)
+	while (*line && data->valid_line_count < 6)
 	{
 		skip_empty_line(line, data, fd, ELEMENT);
-		if (*line && data->file_size <= 5)
+		if (*line && data->valid_line_count <= 5)
 			fill_elements(*line, data, fd);
 		if (*line)
 			free(*line);

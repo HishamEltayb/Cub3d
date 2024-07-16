@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/15 13:35:50 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 08:21:45 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,14 @@ typedef struct s_image
 	void	*player;
 }			t_image;
 
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
+
 typedef struct s_data
 {
 	t_list		*map;
@@ -159,15 +167,17 @@ typedef struct s_data
 	t_flags		flags;
 	t_player	player;
 	t_image		image;
+	t_img		img;
 	void		*mlx;
 	void		*win;
+	int			pixel;
+	int			valid_line_count;
 
-	int			file_size;
-	int			max_len;
-	int			is_valid;
-	int			height;
-	int			width;
-	
+	int			height_y;
+	int			width_x;
+	int			floor_color;
+	int			ceiling_color;
+		
 }	t_data;
 
 
@@ -183,7 +193,7 @@ int		check_helper2(int flag, char *s1, char *s2);
 void	file_check_elements(t_data *data, char *line);
 
 //src/parsing/file_elements_create.c
-int		is_element(char **split);
+int		is_element(char **split, t_data *data);
 void	fill_elements(char *line, t_data *data, int fd);
 void	skip_empty_line(char **line, t_data *data, int fd, int flag);
 void	file_elements_create(t_data *data, char **line, int fd);
@@ -255,5 +265,6 @@ void	error_free_exit(t_data *data, char *msg);
 
 void	parsing(t_data *data, int ac, char **av);
 void install_player_image(t_data *data);
+
 
 #endif

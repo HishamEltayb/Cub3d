@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:54:39 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/14 13:53:05 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 08:25:52 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,27 @@ int	check_colors(char **str)
 	return (0);
 }
 
+int	create_rgb(t_data *data, char **str)
+{
+	int r;
+	int g;
+	int b;
+
+	if (!str || !str[1] || !str[2] || !str[3])
+		return (1);
+	r = ft_mini_atoi(str[1]);
+	g = ft_mini_atoi(str[2]);
+	b = ft_mini_atoi(str[3]);
+	if (r == -1 || g == -1 || b == -1)
+		return (1);
+	if (!ft_strcmp(str[0], "F"))
+		data->floor_color = (r << 16 | g << 8 | b);
+	else if (!ft_strcmp(str[0], "C"))
+		data->ceiling_color = (r << 16 | g << 8 | b);
+	else 
+		return (1);
+	return (0);
+}
 void	file_check_elements(t_data *data, char *line)
 {
 	t_element	*temp;
@@ -94,6 +115,8 @@ void	file_check_elements(t_data *data, char *line)
 			else if (!ft_strcmp(str[0], "C"))
 				data->flags.C = EXIST;
 			if (check_colors(str))
+				(free(line), error_free_exit(data, "Error\nInvalid Colors\n"));
+			if (create_rgb(data, str))
 				(free(line), error_free_exit(data, "Error\nInvalid Colors\n"));
 		}
 		else

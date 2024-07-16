@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/15 13:37:11 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 08:27:19 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,14 @@ void	init_data(t_data *data)
 	data->mlx = NULL;
 	data->map = NULL;
 	data->element = NULL;
-	data->file_size = 0;
+	data->valid_line_count = 0;
 	data->flags.C = NOT_EXIST;
 	data->flags.F = NOT_EXIST;
 	data->flags.EA = NOT_EXIST;
 	data->flags.WE = NOT_EXIST;
 	data->flags.SO = NOT_EXIST;
 	data->flags.NO = NOT_EXIST;
-	data->max_len = 0;
 	data->map2d = NULL;
-	data->is_valid = 0;
 	data->flags.PlayerN = NOT_EXIST;
 	data->flags.PlayerS = NOT_EXIST;
 	data->flags.PlayerW = NOT_EXIST;
@@ -46,6 +44,17 @@ void	init_data(t_data *data)
 	data->image.imageNO = NULL;
 	data->image.background = NULL;
 	data->image.player = NULL;
+	data->img.img = NULL;
+	data->img.addr = NULL;
+	data->img.bits_per_pixel = 0;
+	data->img.line_length = 0;
+	data->img.endian = 0;
+	data->pixel = 64;
+	data->height_y = 0;
+	data->width_x = 0;
+	data->floor_color = 0;
+	data->ceiling_color = 0;
+	
 }
 
 void	free2d(void **content)
@@ -94,3 +103,5 @@ int		free_data(t_data *data)
 		close(i++);
 	return (0);
 }
+
+

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/08 16:10:43 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 08:31:17 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	file_maps_create(t_data *data, char **line, int fd)
 	bool	map_pos;
 
 	map_pos = false;
-	while (*line && data->file_size >= 6)
+	while (*line && data->valid_line_count >= 6)
 	{
 		if (map_pos == false)
 			skip_empty_line(line, data, fd, MAP);
 		map_pos = true;
-		if (*line && data->file_size >= 6)
+		if (*line && data->valid_line_count >= 6)
 			fill_map(*line, data, fd);
 		if (*line)
 			free(*line);
@@ -41,6 +41,7 @@ void	create_map2d(t_data *data)
 	t_list	*temp;
 	int		i;
 
+	data->height_y = ft_lstsize(data->map);
 	data->map2d = ft_calloc(ft_lstsize(data->map) + 1, sizeof(char *));
 	if (!data->map2d)
 	{
@@ -49,9 +50,12 @@ void	create_map2d(t_data *data)
 		exit(1);
 	}
 	temp = data->map;
+	data->width_x = ft_strlen(temp->content);
 	i = 0;
 	while (temp)
 	{
+		if (data->width_x <= (int)(ft_strlen(temp->content)))
+			data->width_x = ft_strlen(temp->content);
 		data->map2d[i] = ft_strdup(temp->content);
 		temp = temp->next;
 		i++;
@@ -96,5 +100,5 @@ void	fill_map(char *line, t_data *data, int fd)
 	}
 	else
 		ft_lstadd_back(&data->map, ft_lstnew(temp));
-	data->file_size++;
+	data->valid_line_count++;
 }
