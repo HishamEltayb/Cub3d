@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 11:52:10 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 07:45:35 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 09:40:07 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,19 @@ int	exit_mouse(t_data *data)
 
 int	display(t_data *data)
 {
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	for (int i = 0; i < data->width_x; i++)
+		for (int j = 0; j < data->height_y; j++)
+		{
+			if (data->map2d[j][i] == '1')
+				mlx_put_image_to_window(data->mlx, data->win, data->image.background->img, i * data->pixel, j * data->pixel);
+			else if (data->map2d[j][i] == '0')
+				mlx_put_image_to_window(data->mlx, data->win, data->image.floor->img, i * data->pixel, j * data->pixel);
+			else if (data->map2d[j][i] == 'E')
+			{
+				mlx_put_image_to_window(data->mlx, data->win, data->image.floor->img, i * data->pixel, j * data->pixel);
+				mlx_put_image_to_window(data->mlx, data->win, data->image.player->img, i * data->pixel, j * data->pixel);
+			}
+		}
 	// mlx_put_image_to_window(data->mlx, data->win, data->image.player, 512, 256);
 	return (0);
 }

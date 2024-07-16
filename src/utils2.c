@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 08:27:19 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 09:46:08 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,21 @@ void	init_data(t_data *data)
 	data->image.imageSO = NULL;
 	data->image.imageNO = NULL;
 	data->image.background = NULL;
+	(data->image.background) = malloc(sizeof(t_img));
+	(data->image.background)->img = NULL;
+	data->image.background->addr = NULL;
+	data->image.background->bits_per_pixel = 0;
 	data->image.player = NULL;
-	data->img.img = NULL;
-	data->img.addr = NULL;
-	data->img.bits_per_pixel = 0;
-	data->img.line_length = 0;
-	data->img.endian = 0;
+	(data->image.player) = malloc(sizeof(t_img));
+	data->image.floor = NULL;
+	(data->image.floor) = malloc(sizeof(t_img));
+	data->image.player->img = NULL;
+	data->image.player->addr = NULL;
+	data->image.player->bits_per_pixel = 0;
+	data->image.floor->img = NULL;
+	data->image.floor->addr = NULL;
+	data->image.floor->bits_per_pixel = 0;
+	
 	data->pixel = 64;
 	data->height_y = 0;
 	data->width_x = 0;

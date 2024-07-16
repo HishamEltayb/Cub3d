@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 08:21:45 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 09:43:14 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,6 @@ typedef struct s_player
 	char	dir;
 }			t_player;
 
-typedef struct s_image
-{
-	void	*imageEA;
-	void	*imageWE;
-	void	*imageSO;
-	void	*imageNO;
-	void	*background;
-	void	*player;
-}			t_image;
-
 typedef struct	s_img {
 	void	*img;
 	char	*addr;
@@ -158,6 +148,18 @@ typedef struct	s_img {
 	int		line_length;
 	int		endian;
 }				t_img;
+
+typedef struct s_image
+{
+	t_img	*imageEA;
+	t_img	*imageWE;
+	t_img	*imageSO;
+	t_img	*imageNO;
+	t_img	*background;
+	t_img	*player;
+	t_img	*floor;
+}			t_image;
+
 
 typedef struct s_data
 {
@@ -167,7 +169,6 @@ typedef struct s_data
 	t_flags		flags;
 	t_player	player;
 	t_image		image;
-	t_img		img;
 	void		*mlx;
 	void		*win;
 	int			pixel;
@@ -264,7 +265,6 @@ void	error_free_exit(t_data *data, char *msg);
 
 
 void	parsing(t_data *data, int ac, char **av);
-void install_player_image(t_data *data);
 
 
 #endif

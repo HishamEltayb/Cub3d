@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 08:27:03 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 09:48:44 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,52 +122,48 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 		
 static void install_background_image(t_data *data)
 {
-	data->img.img = mlx_new_image(data->mlx, 1920, 1080);
-	if (!data->img.img)
+	data->image.background->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
+	if (!data->image.background->img)
 		error_free_exit(data, "Error\nFailed to create main image\n");
-	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
-	for (int i = 0; i < 1920; i++)
-		for (int j = 0; j < 1080; j++)
-			my_mlx_pixel_put(&data->img, i, j, 0x00FF0000);
+	data->image.background->addr = mlx_get_data_addr(data->image.background->img, &data->image.background->bits_per_pixel, &data->image.background->line_length, &data->image.background->endian);
+	for (int i = 0; i < data->pixel - 1; i++)
+		for (int j = 0; j < data->pixel - 1; j++)
+			my_mlx_pixel_put(data->image.background, i, j, Brown);
 }
-// static void install_wall_image(t_data *data)
-// {
-// 	data->img.img = mlx_new_image(data->mlx, 1920, 1080);
-// 	if (!data->img.img)
-// 		error_free_exit(data, "Error\nFailed to create main image\n");
-// 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
-// 	for (int i = 0; i < 1920; i++)
-// 		for (int j = 0; j < 1080; j++)
-// 			my_mlx_pixel_put(&data->img, i, j, 0x00FF0000);
-// }
-// void install_player_image(t_data *data)
-// {
-// 	int width = 0;
-// 	int height = 0;
+static void install_floor_image(t_data *data)
+{
+	data->image.floor->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
+	if (!data->image.floor->img)
+		error_free_exit(data, "Error\nFailed to create main image\n");
+	data->image.floor->addr = mlx_get_data_addr(data->image.floor->img, &data->image.floor->bits_per_pixel, &data->image.floor->line_length, &data->image.floor->endian);
+	for (int i = 0; i < data->pixel - 1; i++)
+		for (int j = 0; j < data->pixel - 1; j++)
+			my_mlx_pixel_put(data->image.floor, i, j, Silver);
+}
+static void install_player_image(t_data *data)
+{
+	int size;
 	
-// 	data->image.player = mlx_new_image(data->mlx, 10, 10);
-// 	if (!data->image.player)
-// 		error_free_exit(data, "Error\nFailed to create main image\n");
-// 	while (width < 10)
-// 	{
-// 		height = 0;
-// 		while (height < 10)
-// 		{
-// 			mlx_put_pixel_to_image(data->image.player, height, width, Yellow);
-// 			height++;
-// 		}
-// 		width++;
-// 	}
-// }			
+	size = data->pixel / 4;
+	data->image.player->img = mlx_new_image(data->mlx, size, size);
+	if (!data->image.player->img)
+		error_free_exit(data, "Error\nFailed to create main image\n");
+	data->image.player->addr = mlx_get_data_addr(data->image.player->img, &data->image.player->bits_per_pixel, &data->image.player->line_length, &data->image.player->endian);
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			my_mlx_pixel_put(data->image.player, i, j, Yellow);
+}
+			
 void	parsing(t_data *data, int ac, char **av)
 {
 	init_data(data);
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, 1024 , 512, "CUB3D");
 	file_pre_check(ac, av);
 	file_store_data(av[1], data);
 	map_check(data);
-	print_data(data);	
-	// install_player_image(data);
 	install_background_image(data);
+	install_floor_image(data);
+	install_player_image(data);
+	data->win = mlx_new_window(data->mlx, (data->pixel * data->width_x), (data->pixel * data->height_y), "CUB3D");
+	print_data(data);	
 }
