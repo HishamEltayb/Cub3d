@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/14 13:55:15 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/19 14:25:02 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,19 +130,19 @@ all: $(NAME)
 	
 $(NAME): print $(MLXLIB) $(LIBFT) $(OBJS)
 	@echo $(RESET)
-	cc $(CFLAGS) $(OBJS) $(LIBFT) $(MLXLIB)  -o $(NAME) $(LINKS)
+	@cc $(CFLAGS) $(OBJS) $(LIBFT) $(MLXLIB)  -o $(NAME) $(LINKS)
 
 print:
 	@echo $(YELLOW)"Creating OBJECTS"$(RESET)
 
 $(MLXLIB):
 	@echo $(YELLOW)"Creating $(MLXLIB)"$(RESET)
-	make -C $(MLX_FOLDER)
+	@make -C $(MLX_FOLDER)
 	
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	cc $(INCLUDE) $(CFLAGS)  -c $< -o $@
+	@cc $(INCLUDE) $(CFLAGS)  -c $< -o $@
 	@echo $(YELLOW)".\c"$(RESET)
 
 $(LIBFT):
@@ -155,7 +155,7 @@ $(LIBFT):
 clean:
 	@rm -rf $(OBJDIR)
 	@make clean -C libs/libft 
-	make clean -C libs/mlx
+	@make clean -C libs/mlx
 	@echo $(GREEN_B)"\nCLEANED. ✅\n"$(RESET)
 
 fclean: clean

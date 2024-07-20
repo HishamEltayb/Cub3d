@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 09:46:08 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/16 20:13:10 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,25 @@ void	init_data(t_data *data)
 	(data->image.player) = malloc(sizeof(t_img));
 	data->image.floor = NULL;
 	(data->image.floor) = malloc(sizeof(t_img));
-	data->image.player->img = NULL;
-	data->image.player->addr = NULL;
-	data->image.player->bits_per_pixel = 0;
 	data->image.floor->img = NULL;
 	data->image.floor->addr = NULL;
 	data->image.floor->bits_per_pixel = 0;
+	(data->image.space) = malloc(sizeof(t_img));
+	data->image.space->img = NULL;
+	data->image.space->addr = NULL;
+	data->image.space->bits_per_pixel = 0;
+	data->image.player->img = NULL;
+	data->image.player->addr = NULL;
+	data->image.player->bits_per_pixel = 0;
 	
 	data->pixel = 64;
 	data->height_y = 0;
 	data->width_x = 0;
 	data->floor_color = 0;
 	data->ceiling_color = 0;
+	data->player.angle = 0;
+	data->player.dx = 0;
+	data->player.dy = 0;
 	
 }
 

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 12:02:14 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/19 15:49:53 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int		ft_strlen2d(char **str);
 void	print_data(t_data *data);
 void	print_list(t_data *data);
 void	print_elements(t_data *data);
-
+void install_space_image(t_data *data);
+void install_floor_image(t_data *data);
+void install_player_image(t_data *data);
+void install_background_image(t_data *data);
 int	ft_strlen2d(char **str)
 {
 	int	i;
@@ -120,27 +123,27 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 		
-static void install_background_image(t_data *data)
+void install_background_image(t_data *data)
 {
 	data->image.background->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
 	if (!data->image.background->img)
 		error_free_exit(data, "Error\nFailed to create main image\n");
 	data->image.background->addr = mlx_get_data_addr(data->image.background->img, &data->image.background->bits_per_pixel, &data->image.background->line_length, &data->image.background->endian);
-	for (int i = 0; i < data->pixel - 1; i++)
-		for (int j = 0; j < data->pixel - 1; j++)
-			my_mlx_pixel_put(data->image.background, i, j, Brown);
+	for (int y = 0; y < data->pixel - 1; y++)
+		for (int x = 0; x < data->pixel - 1; x++)
+			my_mlx_pixel_put(data->image.background, x, y, Brown);
 }
-static void install_floor_image(t_data *data)
+void install_floor_image(t_data *data)
 {
 	data->image.floor->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
 	if (!data->image.floor->img)
 		error_free_exit(data, "Error\nFailed to create main image\n");
 	data->image.floor->addr = mlx_get_data_addr(data->image.floor->img, &data->image.floor->bits_per_pixel, &data->image.floor->line_length, &data->image.floor->endian);
-	for (int i = 0; i < data->pixel - 1; i++)
-		for (int j = 0; j < data->pixel - 1; j++)
-			my_mlx_pixel_put(data->image.floor, i, j, Silver);
+	for (int y = 0; y < data->pixel - 1; y++)
+		for (int x = 0; x < data->pixel - 1; x++)
+			my_mlx_pixel_put(data->image.floor, x, y, Silver);
 }
-static void install_player_image(t_data *data)
+void install_player_image(t_data *data)
 {
 	int size;
 	
@@ -149,9 +152,23 @@ static void install_player_image(t_data *data)
 	if (!data->image.player->img)
 		error_free_exit(data, "Error\nFailed to create main image\n");
 	data->image.player->addr = mlx_get_data_addr(data->image.player->img, &data->image.player->bits_per_pixel, &data->image.player->line_length, &data->image.player->endian);
-	for (int i = 0; i < size; i++)
-		for (int j = 0; j < size; j++)
-			my_mlx_pixel_put(data->image.player, i, j, Yellow);
+	for (int y = 0; y < size; y++)
+		for (int x = 0; x < size; x++)
+			my_mlx_pixel_put(data->image.player, x, y, Yellow);
+	for (int y = 0; y < 2; y++)
+		for (int x = 0; x < 8; x++)
+			my_mlx_pixel_put(data->image.player, ((size / 2) + x), ((size / 2) - 1 + y), Red);
+}
+void install_space_image(t_data *data)
+{
+	data->image.space->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
+	if (!data->image.space->img)
+		error_free_exit(data, "Error\nFailed to create main image\n");
+	data->image.space->addr = mlx_get_data_addr(data->image.space->img, &data->image.space->bits_per_pixel, &data->image.space->line_length, &data->image.space->endian);
+	for (int y = 0; y < data->pixel - 1; y++)
+		for (int x = 0; x < data->pixel - 1; x++)
+			my_mlx_pixel_put(data->image.space, x, y, Dark_Gray);
+	
 }
 			
 void	parsing(t_data *data, int ac, char **av)
@@ -161,9 +178,9 @@ void	parsing(t_data *data, int ac, char **av)
 	file_pre_check(ac, av);
 	file_store_data(av[1], data);
 	map_check(data);
+	data->win = mlx_new_window(data->mlx, (data->pixel * data->width_x), (data->pixel * data->height_y), "CUB3D");
 	install_background_image(data);
 	install_floor_image(data);
 	install_player_image(data);
-	data->win = mlx_new_window(data->mlx, (data->pixel * data->width_x), (data->pixel * data->height_y), "CUB3D");
-	print_data(data);	
+	install_space_image(data);
 }

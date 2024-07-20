@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 09:43:14 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/19 14:23:35 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ typedef enum key_map
 # define ELEMENT 1
 # define PLAYER "NSWE"
 
+//math
+# define PI 3.1415926535
+
 //start_colors
 # define Red 0xFF0000
 # define Green 0x00FF00
@@ -87,7 +90,7 @@ typedef enum key_map
 # define Cyan 0x00FFFF
 # define Magenta 0xFF00FF
 # define Yellow 0xFFFF00
-# define Black 0x000000
+# define Dark_Gray 0x303030
 # define White 0xFFFFFF
 # define Gray 0x808080
 # define Maroon 0x800000
@@ -138,8 +141,12 @@ typedef struct s_player
 	bool	is_exist;
 	double	x;
 	double	y;
+	double	dx;
+	double	dy;
+	double	angle;
 	char	dir;
 }			t_player;
+
 
 typedef struct	s_img {
 	void	*img;
@@ -158,6 +165,7 @@ typedef struct s_image
 	t_img	*background;
 	t_img	*player;
 	t_img	*floor;
+	t_img	*space;
 }			t_image;
 
 
@@ -266,5 +274,8 @@ void	error_free_exit(t_data *data, char *msg);
 
 void	parsing(t_data *data, int ac, char **av);
 
-
+void install_space_image(t_data *data);
+void install_floor_image(t_data *data);
+void install_player_image(t_data *data);
+void install_background_image(t_data *data);
 #endif

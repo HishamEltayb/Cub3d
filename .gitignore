@@ -3,4 +3,5 @@
 *.dSYM
 *.swp
 *.DS_Store
+*.a
 cub3D

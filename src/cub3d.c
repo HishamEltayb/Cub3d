@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 11:52:10 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 12:02:57 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:40:42 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ void	check_image_path(char *image_path, t_data *data)
 void	check_image(char **element, t_data *data, char *line)
 {
 	int		i;
+	int		j;
 	void	*image;
 	
 	image = NULL;
 	if (element && element[0] && element[1])
 		check_image_path(element[1], data);
 	if (data && data->mlx)
-		image = mlx_xpm_file_to_image(data->mlx, element[1], &i, &i);
+		image = mlx_xpm_file_to_image(data->mlx, element[1], &i, &j);
 	if (!image)
 		(free(line),
 			error_free_exit(data, "Error\nInvalid or corrupted image\n"));
@@ -64,20 +65,36 @@ void	check_image(char **element, t_data *data, char *line)
 
 void	player_display(t_data *data)
 {
-	mlx_put_image_to_window(data->mlx, data->win, data->image.player->img, data->player.x, data->player.y);	
+	mlx_put_image_to_window(data->mlx, data->win, data->image.player->img, data->player.x , data->player.y);	
 }
 
 int	display(t_data *data)
 {
+	int i = 0;
+	int j = 0;
 	mlx_clear_window(data->mlx, data->win);
-	for (int i = 0; i < data->width_x; i++)
-		for (int j = 0; j < data->height_y; j++)
+	while (data->map2d[i])
+	{
+		j = 0;
+		while (data->map2d[i][j])
 		{
-			if (data->map2d[j][i] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->image.background->img, i * data->pixel, j * data->pixel);
+			if (data->map2d[i][j] == '1')
+				mlx_put_image_to_window(data->mlx, data->win, data->image.background->img, j * data->pixel, i * data->pixel);
+			else if (data->map2d[i][j] == '0')
+				mlx_put_image_to_window(data->mlx, data->win, data->image.floor->img, j * data->pixel, i * data->pixel);
+			else if (data->map2d[i][j] == ' ')
+				mlx_put_image_to_window(data->mlx, data->win, data->image.space->img, j * data->pixel, i * data->pixel);
 			else
-				mlx_put_image_to_window(data->mlx, data->win, data->image.floor->img, i * data->pixel, j * data->pixel);
+				mlx_put_image_to_window(data->mlx, data->win, data->image.floor->img, j * data->pixel, i * data->pixel);
+			j++;
 		}
+		while (j < data->width_x)
+		{
+			mlx_put_image_to_window(data->mlx, data->win, data->image.space->img, j * data->pixel, i * data->pixel);
+			j++;	
+		}
+		i++;
+	}
 	player_display(data);
 	// mlx_put_image_to_window(data->mlx, data->win, data->image.player, 512, 256);
 	return (0);
@@ -92,7 +109,6 @@ int	key_hook(int keycode, t_data *data)
 	
 	if (keycode == 53)
 		free_data(data), exit(0);
-	printf("char %c\n",data->map2d[(int)data->player.y / data->pixel][(int)data->player.x / data->pixel]);
 	if (keycode == KEY_UP)
 	{
 		y = y - 4;
@@ -105,6 +121,7 @@ int	key_hook(int keycode, t_data *data)
 		y = y + 4;
 		if (data->map2d[(y + end_of_player)/p][(x)/p] != '1' && data->map2d[(y + end_of_player)/ p][(x + end_of_player) / p] != '1')
 			data->player.y = y;
+		// data->player.angle -= 0.1;
 		display(data);
 	}
 	if (keycode == KEY_LEFT)
@@ -138,7 +155,7 @@ int	main(int ac, char **av)
 	
 	parsing(&data, ac, av);
 	
-
+	// print_data(&data);
 	mlx_loop_hook(data.mlx, display, &data);
 	
 	
