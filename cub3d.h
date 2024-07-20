@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/19 14:23:35 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/20 07:36:11 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,4 +278,13 @@ void install_space_image(t_data *data);
 void install_floor_image(t_data *data);
 void install_player_image(t_data *data);
 void install_background_image(t_data *data);
+
+
+void	check_image(char **element, t_data *data, char *line);
+void	check_image_path(char *image_path, t_data *data);
+void	error_free_exit(t_data *data, char *msg);
+
+int		key_hook(int keycode, t_data *data);
+void	player_display(t_data *data);
+int		display(t_data *data);
 #endif
