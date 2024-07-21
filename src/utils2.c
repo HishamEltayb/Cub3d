@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 10:01:35 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 10:52:33 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,9 @@ void	init_data(t_data *data)
 	data->ceiling_color = 0;
 	data->map_size = 0;
 
-	data->map_num = NULL;
 	//player
-	data->player.x = 150;
-	data->player.y = 400;
+	// data->player.x = 150;
+	// data->player.y = 400;
 	data->player.dx = cos(RAD(data->player.angle));
 	data->player.dy = -sin(RAD(data->player.angle));
 

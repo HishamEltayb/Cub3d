@@ -74,19 +74,7 @@ void	print_2d(t_data *data)
 	}
 }
 
-void 	print_2d_int(t_data *data)
-{
-	int	i;
 
-	i = 0;
-	while (data->map_num && i < data->map_size)
-	{
-		printf("%d", data->map_num[i]);
-		i++;
-		if (i % data->width_x == 0)
-			printf("\n");
-	}
-}
 
 void	print_data(t_data *data)
 {
@@ -110,6 +98,4 @@ void	print_data(t_data *data)
 	printf("\n");
 	printf("printing map as 2d\n");
 	print_2d(data);
-	printf("printing map as integers\n");
-	print_2d_int(data);
 }

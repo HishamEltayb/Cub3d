@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 10:26:33 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 10:59:11 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,11 @@ void drawMap2D(t_data *data)
         for (x = 0; x < data->width_x; x++)
         {
             if (data->map2d[y][x] == '1')
-                draw_square(data, x * data->pixel, y * data->pixel, 0xFFFFFF); // White color
-            else
-                draw_square(data, x * data->pixel, y * data->pixel, 0x000000); // Black color
+                draw_square(data, x * data->pixel, y * data->pixel, White); // White color
+            else if (data->map2d[y][x] == ' ')
+				draw_square(data, x * data->pixel, y * data->pixel, Black); // Blue color
+			else
+                draw_square(data, x * data->pixel, y * data->pixel, Gray); // Black color
         }
     }
     mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);

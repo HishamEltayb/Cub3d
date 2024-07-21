@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 11:52:10 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 09:41:38 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 10:51:05 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int ac, char **av)
 	t_data	data;
 	
 	parsing(&data, ac, av);
+	printf("data->width_x = %d\n", data.width_x);
 	init_draw(&data);
 	print_data(&data);
 	mlx_loop_hook(data.mlx, display, &data);

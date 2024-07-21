@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/20 15:43:58 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 10:56:17 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +23,30 @@ void	create_map_integers(t_data *data)
 {
 	int		x;
 	int		y;
-	int 	i;
 	char	**map;
+	char 	**new_map;
 
 	y = 0;
 	map = data->map2d;
-	data->map_num = malloc(sizeof(int) * (data->map_size));
-	if (!data->map_num)
-	{
-		ft_putstr_fd("Error\nMalloc failed\n", 2);
-		free_data(data);
-		exit(1);
-	}
-	i = 0;
+	new_map = ft_calloc((data->height_y + 1) , sizeof(char *));
 	while (map[y])
 	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == '1')
-				data->map_num[i++] = 1;
-			else if (map[y][x] == ' ')
-				data->map_num[i++] = 2;
-			else
-				data->map_num[i++] = 0;
-			x++;
-		}
+		new_map[y] = ft_calloc((data->width_x + 1), sizeof(char));
+		x = -1;
+		while (map[y][++x])
+			new_map[y][x] = map[y][x];
+		while (x < data->width_x)
+			new_map[y][x++] = '1';
+		new_map[y][x] = '\0';
 		y++;
 	}
-	
+	new_map[y] = NULL;
+	free2d((void **)data->map2d);
+	data->map2d = new_map;
 }
 void	map_check(t_data *data)
 {
+	data->pixel = data->map_size / 2;
 	if (map_player_check(data))
 	{
 		ft_putstr_fd("Error\nInvalid Map Characters1\n", 2);
@@ -115,8 +107,8 @@ bool	check_space(t_data *data)
 			{
 				if (checking(data, x, y, 'X'))
 					return (ft_putstr_fd("error_player\n", 2), FALSE);
-				data->player.x = x * data->pixel;
-				data->player.y = y * data->pixel;
+				data->player.x = (x * data->pixel) + data->pixel / 2;
+				data->player.y = (y * data->pixel) + data->pixel / 2;
 			}
 		}
 	}
