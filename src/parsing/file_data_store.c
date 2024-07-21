@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/15 12:01:59 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/20 15:34:00 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	file_store_data(char *filename, t_data *data)
 	file_elements_create(data, &line, fd);
 	file_maps_create(data, &line, fd);
 	create_map2d(data);
+	create_map_integers(data);
 	close(fd);
 }

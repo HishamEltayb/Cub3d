@@ -12,14 +12,12 @@
 
 #include "cub3d.h"
 
+void	print_2d(t_data *data);
 int		ft_strlen2d(char **str);
 void	print_data(t_data *data);
 void	print_list(t_data *data);
 void	print_elements(t_data *data);
-void install_background_image(t_data *data);
-// void install_space_image(t_data *data);
-// void install_floor_image(t_data *data);
-// void install_player_image(t_data *data);
+void 	print_2d_int(t_data *data);
 
 int	ft_strlen2d(char **str)
 {
@@ -76,6 +74,20 @@ void	print_2d(t_data *data)
 	}
 }
 
+void 	print_2d_int(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->map_num && i < data->map_size)
+	{
+		printf("%d", data->map_num[i]);
+		i++;
+		if (i % data->width_x == 0)
+			printf("\n");
+	}
+}
+
 void	print_data(t_data *data)
 {
 	if (!data || !data->map || !data->element)
@@ -83,6 +95,7 @@ void	print_data(t_data *data)
 	printf("valid_line_count = %d\n", data->valid_line_count);
 	printf("data->width_x = %d\n", data->width_x);
 	printf("data->height_y = %d\n", data->height_y);
+	printf("data->map_size = %d\n", data->map_size);
 	printf("data->player.x = %f\n", data->player.x);
 	printf("data->player.y = %f\n", data->player.y);
 	printf("data->player.dir = %c\n", data->player.dir);
@@ -97,114 +110,6 @@ void	print_data(t_data *data)
 	printf("\n");
 	printf("printing map as 2d\n");
 	print_2d(data);
-}
-
-// static void    mlx_put_pixel_to_image(void *img, int x, int y, int color)
-// {
-// 	char	*data;
-// 	int		bpp;
-// 	int		size_line;
-// 	int		endian;
-// 	int		index;
-
-// 	data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
-// 	index = (((int)y) * size_line) + (((int)x) * (bpp / 8));
-// 	data[index] = color & 0xFF;
-// 	data[index + 1] = (color >> 8) & 0xFF;
-// 	data[index + 2] = (color >> 16) & 0xFF;
-// }
-
-
-
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-		
-void install_background_image(t_data *data)
-{
-	data->image.background->img = mlx_new_image(data->mlx, 1024, 512);
-	if (!data->image.background->img)
-		error_free_exit(data, "Error\nFailed to create main image\n");
-	data->image.background->addr = mlx_get_data_addr(data->image.background->img, &data->image.background->bits_per_pixel, &data->image.background->line_length, &data->image.background->endian);
-	for (int y = 0; y < 512; y++)
-		for (int x = 0; x < 1024; x++)
-			my_mlx_pixel_put(data->image.background, x, y, Gray);
-}
-// void install_floor_image(t_data *data)
-// {
-// 	data->image.floor->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
-// 	if (!data->image.floor->img)
-// 		error_free_exit(data, "Error\nFailed to create main image\n");
-// 	data->image.floor->addr = mlx_get_data_addr(data->image.floor->img, &data->image.floor->bits_per_pixel, &data->image.floor->line_length, &data->image.floor->endian);
-// 	for (int y = 0; y < data->pixel - 1; y++)
-// 		for (int x = 0; x < data->pixel - 1; x++)
-// 			my_mlx_pixel_put(data->image.floor, x, y, Silver);
-// }
-void install_player_image(t_data *data)
-{
-	int size;
-	
-	// size = (data->pixel / 4) - 1;
-	data->image.player->img = mlx_new_image(data->mlx, 32, 32);
-	if (!data->image.player->img)
-		error_free_exit(data, "Error\nFailed to create main image\n");
-	data->image.player->addr = mlx_get_data_addr(data->image.player->img, &data->image.player->bits_per_pixel, &data->image.player->line_length, &data->image.player->endian);
-	for (int y = 0; y < 32; y++)
-		for (int x = 0; x < 32; x++)
-			my_mlx_pixel_put(data->image.player, x, y, Yellow);
-	// for (int y = 0; y < 1; y++)
-	// 	for (int x = 0; x < 4; x++)
-	// 		my_mlx_pixel_put(data->image.player, (8 + x), (8 - 1 + y), Red);
-}
-// void install_space_image(t_data *data)
-// {
-// 	data->image.space->img = mlx_new_image(data->mlx, data->pixel, data->pixel);
-// 	if (!data->image.space->img)
-// 		error_free_exit(data, "Error\nFailed to create main image\n");
-// 	data->image.space->addr = mlx_get_data_addr(data->image.space->img, &data->image.space->bits_per_pixel, &data->image.space->line_length, &data->image.space->endian);
-// 	for (int y = 0; y < data->pixel - 1; y++)
-// 		for (int x = 0; x < data->pixel - 1; x++)
-// 			my_mlx_pixel_put(data->image.space, x, y, Dark_Gray);
-	
-// }
-			
-void	parsing(t_data *data, int ac, char **av)
-{
-	init_data(data);
-	data->mlx = mlx_init();
-	file_pre_check(ac, av);
-	file_store_data(av[1], data);
-	map_check(data);
-	data->win = mlx_new_window(data->mlx, 1024, 512, "CUB3D");
-	install_background_image(data);
-	// install_floor_image(data);
-	// install_player_image(data);
-	// install_space_image(data);
-}
-
-// void	player_display(t_data *data)
-// {
-// }
-
-int	display(t_data *data)
-{
-	mlx_put_image_to_window(data->mlx, data->win, data->image.background->img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win, data->image.player->img, data->player.x, data->player.y);
-
-	return (0);
-}
-
-int	key_hook(int keycode, t_data *data)
-{
-	if (keycode == ESC)
-	{
-		free_data(data);
-		printf("exited\n");
-		exit(0);
-	}
-	return (0);
+	printf("printing map as integers\n");
+	print_2d_int(data);
 }

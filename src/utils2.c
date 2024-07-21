@@ -6,15 +6,17 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 20:13:10 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 10:01:35 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	free_mlx(t_data *data);
 void	free2d(void **content);
 void	init_data(t_data *data);
 int		free_data(t_data *data);
+
 
 void	init_data(t_data *data)
 {
@@ -38,10 +40,23 @@ void	init_data(t_data *data)
 	data->player.x = 0;
 	data->player.y = 0;
 	data->player.dir = 0;
-	data->image.imageEA = NULL;
-	data->image.imageWE = NULL;
-	data->image.imageSO = NULL;
-	data->image.imageNO = NULL;
+	data->image.imageEA = malloc(sizeof(t_img));
+	data->image.imageEA->img = NULL;
+	data->image.imageEA->addr = NULL;
+	data->image.imageEA->bits_per_pixel = 0;
+	
+	data->image.imageWE = malloc(sizeof(t_img));
+	data->image.imageWE->img = NULL;
+	data->image.imageWE->addr = NULL;
+	data->image.imageWE->bits_per_pixel = 0;
+	data->image.imageSO = malloc(sizeof(t_img));
+	data->image.imageSO->img = NULL;
+	data->image.imageSO->addr = NULL;
+	data->image.imageSO->bits_per_pixel = 0;
+	data->image.imageNO = malloc(sizeof(t_img));
+	data->image.imageNO->img = NULL;
+	data->image.imageNO->addr = NULL;
+	data->image.imageNO->bits_per_pixel = 0;
 	data->image.background = NULL;
 	(data->image.background) = malloc(sizeof(t_img));
 	(data->image.background)->img = NULL;
@@ -67,10 +82,20 @@ void	init_data(t_data *data)
 	data->width_x = 0;
 	data->floor_color = 0;
 	data->ceiling_color = 0;
-	data->player.angle = 0;
-	data->player.dx = 0;
-	data->player.dy = 0;
-	
+	data->map_size = 0;
+
+	data->map_num = NULL;
+	//player
+	data->player.x = 150;
+	data->player.y = 400;
+	data->player.dx = cos(RAD(data->player.angle));
+	data->player.dy = -sin(RAD(data->player.angle));
+
+	data->img = malloc(sizeof(t_img));
+	data->img->img = NULL;
+	data->img->addr = NULL;
+	data->img->bits_per_pixel = 0;
+	data->img->line_length = 0;
 }
 
 void	free2d(void **content)

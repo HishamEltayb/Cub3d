@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 11:38:34 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/20 15:43:58 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,42 @@ bool	check_space(t_data *data);
 int		map_player_check(t_data *data);
 bool	is_sourrounded_by_walls(t_data *data);
 int		is_valid_map_char(char c, t_data *data);
+void	create_map_integers(t_data *data);
 
+void	create_map_integers(t_data *data)
+{
+	int		x;
+	int		y;
+	int 	i;
+	char	**map;
+
+	y = 0;
+	map = data->map2d;
+	data->map_num = malloc(sizeof(int) * (data->map_size));
+	if (!data->map_num)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		free_data(data);
+		exit(1);
+	}
+	i = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == '1')
+				data->map_num[i++] = 1;
+			else if (map[y][x] == ' ')
+				data->map_num[i++] = 2;
+			else
+				data->map_num[i++] = 0;
+			x++;
+		}
+		y++;
+	}
+	
+}
 void	map_check(t_data *data)
 {
 	if (map_player_check(data))
@@ -58,14 +93,6 @@ int	map_player_check(t_data *data)
 	if (data->flags.PlayerN == NOT_EXIST && data->flags.PlayerS == NOT_EXIST
 		&& data->flags.PlayerW == NOT_EXIST && data->flags.PlayerE == NOT_EXIST)
 		return (FALSE);
-	if (data->flags.PlayerN == EXIST)
-		data->player.dir = 'N';
-	else if (data->flags.PlayerS == EXIST)
-		data->player.dir = 'S';
-	else if (data->flags.PlayerW == EXIST)
-		data->player.dir = 'W';
-	else if (data->flags.PlayerE == EXIST)
-		data->player.dir = 'E';
 	return (TRUE);
 }
 

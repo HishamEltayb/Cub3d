@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:11:57 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/14 09:56:04 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/20 14:13:47 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ bool	is_valid_map_char_helper2(t_data *data, char c)
 	{
 		data->flags.PlayerW = EXIST;
 		data->player.is_exist = EXIST;
+		data->player.dir = 'W';
+		data->player.angle = 180;
 		return (TRUE);
 	}
 	else if (c == 'E' && data->flags.PlayerE == NOT_EXIST
@@ -60,6 +62,8 @@ bool	is_valid_map_char_helper2(t_data *data, char c)
 	{
 		data->flags.PlayerE = EXIST;
 		data->player.is_exist = EXIST;
+		data->player.dir = 'E';
+		data->player.angle = 0;
 		return (TRUE);
 	}
 	return (FALSE);
@@ -72,6 +76,8 @@ bool	is_valid_map_char_helper(t_data *data, char c)
 	{
 		data->flags.PlayerN = EXIST;
 		data->player.is_exist = EXIST;
+		data->player.dir = 'N';
+		data->player.angle = 90;
 		return (TRUE);
 	}
 	else if (c == 'S' && data->flags.PlayerS == NOT_EXIST
@@ -79,6 +85,8 @@ bool	is_valid_map_char_helper(t_data *data, char c)
 	{
 		data->flags.PlayerS = EXIST;
 		data->player.is_exist = EXIST;
+		data->player.dir = 'S';
+		data->player.angle = 270;
 		return (TRUE);
 	}
 	return (FALSE);

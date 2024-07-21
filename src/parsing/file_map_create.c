@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 08:31:17 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/20 15:36:13 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ void	create_map2d(t_data *data)
 		temp = temp->next;
 		i++;
 	}
+	printf("width: %d\n", data->width_x);
+	printf("height: %d\n", data->height_y);
+	
+	data->map_size = data->height_y * data->width_x;
+	printf("map_size: %d\n", data->map_size);
 }
 
 int	is_valid_map_line(char *str, t_data *data)

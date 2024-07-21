@@ -6,31 +6,26 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 11:52:10 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/20 07:40:52 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 09:41:38 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-
-
-int	exit_mouse(t_data *data)
+void	init_draw(t_data *data)
 {
-	free_data(data);
-	exit(0);
-	return (0);
+	install_background_image(data);
+	data->player.dx = cos(RAD(data->player.angle));
+	data->player.dy = -sin(RAD(data->player.angle));
 }
-
 
 int	main(int ac, char **av)
 {
 	t_data	data;
 	
 	parsing(&data, ac, av);
-	data.player.x = 300;
-	data.player.y = 300;
-	install_player_image(&data);
+	init_draw(&data);
+	print_data(&data);
 	mlx_loop_hook(data.mlx, display, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, key_hook, &data);
 	mlx_hook(data.win, ON_DESTROY, 1L << 3, exit_mouse, &data);

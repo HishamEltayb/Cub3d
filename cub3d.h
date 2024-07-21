@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/20 07:36:11 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 09:53:42 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@ typedef enum key_map
 # define MAP 2
 # define ELEMENT 1
 # define PLAYER "NSWE"
-
+# define WIN_WIDTH 1500
+# define WIN_HEIGHT 850
 //math
 # define PI 3.1415926535
+# define RAD(x) (x * M_PI / 180)
 
 //start_colors
 # define Red 0xFF0000
@@ -92,6 +94,7 @@ typedef enum key_map
 # define Yellow 0xFFFF00
 # define Dark_Gray 0x303030
 # define White 0xFFFFFF
+# define Black 0x000000
 # define Gray 0x808080
 # define Maroon 0x800000
 # define Olive 0x808000
@@ -115,6 +118,22 @@ typedef enum key_map
 # define Indigo 0x4B0082
 # define Violet 0xEE82EE
 //end_colors
+
+typedef struct s_ray
+{
+	float	dx;
+	float	dy;
+	float	x;
+	float	y;
+	float	angle;
+	
+
+}	t_ray;
+
+typedef struct s_map
+{
+	int		x;
+}	t_map;
 
 typedef struct s_element
 {
@@ -173,10 +192,14 @@ typedef struct s_data
 {
 	t_list		*map;
 	char		**map2d;
+	int			*map_num;
 	t_element	*element;
 	t_flags		flags;
 	t_player	player;
 	t_image		image;
+	t_img		*img;
+	t_ray		ray;
+	t_map		map_info;
 	void		*mlx;
 	void		*win;
 	int			pixel;
@@ -184,6 +207,7 @@ typedef struct s_data
 
 	int			height_y;
 	int			width_x;
+	int			map_size;
 	int			floor_color;
 	int			ceiling_color;
 		
@@ -287,4 +311,8 @@ void	error_free_exit(t_data *data, char *msg);
 int		key_hook(int keycode, t_data *data);
 void	player_display(t_data *data);
 int		display(t_data *data);
+int		exit_mouse(t_data *data);
+void 	drawMap2D(t_data *data);
+void	create_map_integers(t_data *data);
+
 #endif

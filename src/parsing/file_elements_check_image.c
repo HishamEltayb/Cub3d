@@ -6,15 +6,16 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 07:31:29 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/20 07:31:44 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/20 14:59:18 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_image(char **element, t_data *data, char *line);
-void	check_image_path(char *image_path, t_data *data);
-void	error_free_exit(t_data *data, char *msg);
+void		error_free_exit(t_data *data, char *msg);
+void		check_image_path(char *image_path, t_data *data);
+static void	fill_image_data(t_data *data, int flag, void **image);
+void		check_image(char **element, t_data *data, char *line);
 
 void	error_free_exit(t_data *data, char *msg)
 {
@@ -37,6 +38,33 @@ void	check_image_path(char *image_path, t_data *data)
 	if (!line || ft_strncmp(line, ".xpm", 5))
 		error_free_exit(data, "Error\nInvalid image extension\n");
 }
+void fill_image_data(t_data *data, int flag, void **image)
+{
+	if (flag == 0)
+	{
+		data->image.imageEA = *image;
+		data->image.imageEA->addr = mlx_get_data_addr(data->image.imageEA,
+				&data->image.imageEA->bits_per_pixel,
+				&data->image.imageEA->line_length,
+				&data->image.imageEA->endian);		
+	}
+	if (flag == 1)
+	{
+		data->image.imageWE = *image;
+		data->image.imageWE->addr = mlx_get_data_addr(data->image.imageWE,
+				&data->image.imageWE->bits_per_pixel,
+				&data->image.imageWE->line_length,
+				&data->image.imageWE->endian);		
+	}
+	if (flag == 2)
+	{
+		data->image.imageSO = *image;
+		data->image.imageSO->addr = mlx_get_data_addr(data->image.imageSO,
+				&data->image.imageSO->bits_per_pixel,
+				&data->image.imageSO->line_length,
+				&data->image.imageSO->endian);		
+	}
+}
 
 void	check_image(char **element, t_data *data, char *line)
 {
@@ -50,14 +78,19 @@ void	check_image(char **element, t_data *data, char *line)
 	if (data && data->mlx)
 		image = mlx_xpm_file_to_image(data->mlx, element[1], &i, &j);
 	if (!image)
-		(free(line),
-			error_free_exit(data, "Error\nInvalid or corrupted image\n"));
+		(free(line), error_free_exit(data, "Error\nCorrupted image\n"));
 	if (!ft_strcmp(element[0], "EA"))
-		data->image.imageEA = image;
+		fill_image_data(data, 0, &image);
 	else if (!ft_strcmp(element[0], "WE"))
-		data->image.imageWE = image;
+		fill_image_data(data, 1, &image);
 	else if (!ft_strcmp(element[0], "SO"))
-		data->image.imageSO = image;
+		fill_image_data(data, 2, &image);
 	else if (!ft_strcmp(element[0], "NO"))
+	{
 		data->image.imageNO = image;
+		data->image.imageNO->addr = mlx_get_data_addr(data->image.imageNO,
+				&data->image.imageNO->bits_per_pixel,
+				&data->image.imageNO->line_length,
+				&data->image.imageNO->endian);	
+	}
 }
