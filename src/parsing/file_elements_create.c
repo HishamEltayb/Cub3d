@@ -6,15 +6,16 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 08:08:06 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 21:08:08 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int		create_rgb(t_data *data, char **str);
 void	fill_elements(char *line, t_data *data, int fd);
-void	skip_empty_line(char **line, t_data *data, int fd, int flag);
 void	file_elements_create(t_data *data, char **line, int fd);
+void	skip_empty_line(char **line, t_data *data, int fd, int flag);
 
 void	skip_empty_line(char **line, t_data *data, int fd, int flag)
 {
@@ -80,4 +81,26 @@ void	file_elements_create(t_data *data, char **line, int fd)
 	file_check_elements(data, *line);
 	if (!*line)
 		(free(*line), error_free_exit(data, "Error\nEmpty map\n"));
+}
+
+int	create_rgb(t_data *data, char **str)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	if (!str || !str[1] || !str[2] || !str[3])
+		return (1);
+	r = ft_mini_atoi(str[1]);
+	g = ft_mini_atoi(str[2]);
+	b = ft_mini_atoi(str[3]);
+	if (r == -1 || g == -1 || b == -1)
+		return (1);
+	if (!ft_strcmp(str[0], "F"))
+		data->floor_color = (r << 16 | g << 8 | b);
+	else if (!ft_strcmp(str[0], "C"))
+		data->ceiling_color = (r << 16 | g << 8 | b);
+	else
+		return (1);
+	return (0);
 }

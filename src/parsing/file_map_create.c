@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/20 15:36:13 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:45:24 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	create_map2d(t_data *data)
 	t_list	*temp;
 	int		i;
 
-	data->height_y = ft_lstsize(data->map);
+	data->map_y = ft_lstsize(data->map);
 	data->map2d = ft_calloc(ft_lstsize(data->map) + 1, sizeof(char *));
 	if (!data->map2d)
 	{
@@ -50,21 +50,16 @@ void	create_map2d(t_data *data)
 		exit(1);
 	}
 	temp = data->map;
-	data->width_x = ft_strlen(temp->content);
+	data->map_x = ft_strlen(temp->content);
 	i = 0;
 	while (temp)
 	{
-		if (data->width_x <= (int)(ft_strlen(temp->content)))
-			data->width_x = ft_strlen(temp->content);
+		if (data->map_x <= (int)(ft_strlen(temp->content)))
+			data->map_x = ft_strlen(temp->content);
 		data->map2d[i] = ft_strdup(temp->content);
 		temp = temp->next;
 		i++;
 	}
-	printf("width: %d\n", data->width_x);
-	printf("height: %d\n", data->height_y);
-	
-	data->map_size = data->height_y * data->width_x;
-	printf("map_size: %d\n", data->map_size);
 }
 
 int	is_valid_map_line(char *str, t_data *data)

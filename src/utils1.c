@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
@@ -17,7 +17,6 @@ int		ft_strlen2d(char **str);
 void	print_data(t_data *data);
 void	print_list(t_data *data);
 void	print_elements(t_data *data);
-void 	print_2d_int(t_data *data);
 
 int	ft_strlen2d(char **str)
 {
@@ -51,7 +50,7 @@ void	print_elements(t_data *data)
 
 void	print_list(t_data *data)
 {
-	t_list		*temp_map;
+	t_list	*temp_map;
 
 	temp_map = data->map;
 	while (data->map && data->map->content)
@@ -74,16 +73,13 @@ void	print_2d(t_data *data)
 	}
 }
 
-
-
 void	print_data(t_data *data)
 {
 	if (!data || !data->map || !data->element)
 		return ;
 	printf("valid_line_count = %d\n", data->valid_line_count);
-	printf("data->width_x = %d\n", data->width_x);
-	printf("data->height_y = %d\n", data->height_y);
-	printf("data->map_size = %d\n", data->map_size);
+	printf("data->map_x = %d\n", data->map_x);
+	printf("data->map_y = %d\n", data->map_y);
 	printf("data->player.x = %f\n", data->player.x);
 	printf("data->player.y = %f\n", data->player.y);
 	printf("data->player.dir = %c\n", data->player.dir);

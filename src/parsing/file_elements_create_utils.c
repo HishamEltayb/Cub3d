@@ -6,15 +6,51 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 08:14:46 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 20:08:27 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_element(char **split, t_data *data);
-int	count_numbers(char *line, int *j);
-int	check_numbers(char **split, int *i, int *check);
+int		ft_mini_atoi(char *str);
+void	skip_zeros(int *i, char *str);
+int		count_numbers(char *line, int *j);
+int		is_element(char **split, t_data *data);
+int		check_numbers(char **split, int *i, int *check);
+
+void	skip_zeros(int *i, char *str)
+{
+	while (str[*i] == '0')
+		(*i)++;
+}
+
+int	ft_mini_atoi(char *str)
+{
+	int				i;
+	int				digits;
+	unsigned long	num;
+
+	if (str == NULL)
+		return (-1);
+	i = 0;
+	num = 0;
+	digits = 0;
+	skip_zeros(&i, str);
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			digits++;
+		else
+			return (-1);
+		num = (num * 10) + (str[i] - '0');
+		if (num > 255)
+			return (-1);
+		if (digits > 3)
+			return (-1);
+		i++;
+	}
+	return (num);
+}
 
 int	count_numbers(char *line, int *j)
 {
@@ -55,7 +91,7 @@ int	is_element(char **split, t_data *data)
 {
 	int	i;
 	int	check;
-	
+
 	(void)data;
 	if (!ft_strcmp(split[0], "NO") || !ft_strcmp(split[0], "SO")
 		|| !ft_strcmp(split[0], "WE") || !ft_strcmp(split[0], "EA"))

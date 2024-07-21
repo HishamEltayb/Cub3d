@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 10:52:33 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 21:11:48 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,85 +16,26 @@ void	free_mlx(t_data *data);
 void	free2d(void **content);
 void	init_data(t_data *data);
 int		free_data(t_data *data);
+void	init_draw(t_data *data);
 
+void	init_draw(t_data *data)
+{
+	draw_image(data);
+	data->player.dx = cos(RAD(data->player.angle));
+	data->player.dy = -sin(RAD(data->player.angle));
+}
 
 void	init_data(t_data *data)
 {
-	data->win = NULL;
-	data->mlx = NULL;
-	data->map = NULL;
-	data->element = NULL;
-	data->valid_line_count = 0;
-	data->flags.C = NOT_EXIST;
-	data->flags.F = NOT_EXIST;
-	data->flags.EA = NOT_EXIST;
-	data->flags.WE = NOT_EXIST;
-	data->flags.SO = NOT_EXIST;
-	data->flags.NO = NOT_EXIST;
-	data->map2d = NULL;
-	data->flags.PlayerN = NOT_EXIST;
-	data->flags.PlayerS = NOT_EXIST;
-	data->flags.PlayerW = NOT_EXIST;
-	data->flags.PlayerE = NOT_EXIST;
-	data->player.is_exist = NOT_EXIST;
-	data->player.x = 0;
-	data->player.y = 0;
-	data->player.dir = 0;
-	data->image.imageEA = malloc(sizeof(t_img));
-	data->image.imageEA->img = NULL;
-	data->image.imageEA->addr = NULL;
-	data->image.imageEA->bits_per_pixel = 0;
-	
-	data->image.imageWE = malloc(sizeof(t_img));
-	data->image.imageWE->img = NULL;
-	data->image.imageWE->addr = NULL;
-	data->image.imageWE->bits_per_pixel = 0;
-	data->image.imageSO = malloc(sizeof(t_img));
-	data->image.imageSO->img = NULL;
-	data->image.imageSO->addr = NULL;
-	data->image.imageSO->bits_per_pixel = 0;
-	data->image.imageNO = malloc(sizeof(t_img));
-	data->image.imageNO->img = NULL;
-	data->image.imageNO->addr = NULL;
-	data->image.imageNO->bits_per_pixel = 0;
-	data->image.background = NULL;
-	(data->image.background) = malloc(sizeof(t_img));
-	(data->image.background)->img = NULL;
-	data->image.background->addr = NULL;
-	data->image.background->bits_per_pixel = 0;
-	data->image.player = NULL;
-	(data->image.player) = malloc(sizeof(t_img));
-	data->image.floor = NULL;
-	(data->image.floor) = malloc(sizeof(t_img));
-	data->image.floor->img = NULL;
-	data->image.floor->addr = NULL;
-	data->image.floor->bits_per_pixel = 0;
-	(data->image.space) = malloc(sizeof(t_img));
-	data->image.space->img = NULL;
-	data->image.space->addr = NULL;
-	data->image.space->bits_per_pixel = 0;
-	data->image.player->img = NULL;
-	data->image.player->addr = NULL;
-	data->image.player->bits_per_pixel = 0;
-	
-	data->pixel = 64;
-	data->height_y = 0;
-	data->width_x = 0;
-	data->floor_color = 0;
-	data->ceiling_color = 0;
-	data->map_size = 0;
-
-	//player
-	// data->player.x = 150;
-	// data->player.y = 400;
-	data->player.dx = cos(RAD(data->player.angle));
-	data->player.dy = -sin(RAD(data->player.angle));
-
-	data->img = malloc(sizeof(t_img));
-	data->img->img = NULL;
-	data->img->addr = NULL;
-	data->img->bits_per_pixel = 0;
-	data->img->line_length = 0;
+	init_flags(data);
+	init_player(data);
+	init_raycast(data);
+	init_image(&data->main);
+	init_image(&data->imageEA);
+	init_image(&data->imageWE);
+	init_image(&data->imageSO);
+	init_image(&data->imageNO);
+	init_parsing(data);
 }
 
 void	free2d(void **content)
@@ -112,25 +53,27 @@ void	free2d(void **content)
 		free(content);
 	content = NULL;
 }
+
 void	free_mlx(t_data *data)
 {
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
-	if (data->image.imageEA)
-		mlx_destroy_image(data->mlx, data->image.imageEA);
-	if (data->image.imageWE)
-		mlx_destroy_image(data->mlx, data->image.imageWE);
-	if (data->image.imageSO)
-		mlx_destroy_image(data->mlx, data->image.imageSO);
-	if (data->image.imageNO)
-		mlx_destroy_image(data->mlx, data->image.imageNO);
-# ifdef Linux
+	if (data->imageEA.img)
+		mlx_destroy_image(data->mlx, data->imageEA.img);
+	if (data->imageWE.img)
+		mlx_destroy_image(data->mlx, data->imageWE.img);
+	if (data->imageSO.img)
+		mlx_destroy_image(data->mlx, data->imageSO.img);
+	if (data->imageNO.img)
+		mlx_destroy_image(data->mlx, data->imageNO.img);
+#ifdef Linux
 	mlx_destroy_display(data->mlx);
-# endif
+#endif
 	if (data->mlx)
- 		free(data->mlx);
+		free(data->mlx);
 }
-int		free_data(t_data *data)
+
+int	free_data(t_data *data)
 {
 	int	i;
 
@@ -143,5 +86,3 @@ int		free_data(t_data *data)
 		close(i++);
 	return (0);
 }
-
-

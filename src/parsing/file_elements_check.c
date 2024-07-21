@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:54:39 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/16 08:25:52 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 21:07:05 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,6 @@ int		check_colors_helper(char **str);
 int		check_helper(t_data *data, char *s1);
 int		check_helper2(int flag, char *s1, char *s2);
 void	file_check_elements(t_data *data, char *line);
-
-static void	skip_zeros(int *i, char *str)
-{
-	while (str[*i] == '0')
-		(*i)++;
-}
-
-static int	ft_mini_atoi(char *str)
-{
-	int				i;
-	int				digits;
-	unsigned long	num;
-
-	if (str == NULL)
-		return (-1);
-	i = 0;
-	num = 0;
-	digits = 0;
-	skip_zeros(&i, str);
-	while (str[i])
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-			digits++;
-		else 
-			return (-1);
-		num = (num * 10) + (str[i] - '0');
-		if (num > 255)
-			return (-1);
-		if (digits > 3)
-			return (-1);
-		i++;
-	}
-	return (num);
-}
 
 int	check_colors_helper(char **str)
 {
@@ -75,27 +41,6 @@ int	check_colors(char **str)
 	return (0);
 }
 
-int	create_rgb(t_data *data, char **str)
-{
-	int r;
-	int g;
-	int b;
-
-	if (!str || !str[1] || !str[2] || !str[3])
-		return (1);
-	r = ft_mini_atoi(str[1]);
-	g = ft_mini_atoi(str[2]);
-	b = ft_mini_atoi(str[3]);
-	if (r == -1 || g == -1 || b == -1)
-		return (1);
-	if (!ft_strcmp(str[0], "F"))
-		data->floor_color = (r << 16 | g << 8 | b);
-	else if (!ft_strcmp(str[0], "C"))
-		data->ceiling_color = (r << 16 | g << 8 | b);
-	else 
-		return (1);
-	return (0);
-}
 void	file_check_elements(t_data *data, char *line)
 {
 	t_element	*temp;

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:11:57 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/20 14:13:47 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 21:09:27 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	file_pre_check(int ac, char **av)
 	char	*line;
 
 	if (ac != 2)
-		error_free_exit(NULL , "Error\nInvalid number of arguments\n");
+		error_free_exit(NULL, "Error\nInvalid number of arguments\n");
 	if (ft_strcmp(ft_strrchr(av[1], '.'), ".cub"))
-		error_free_exit(NULL , "Error\nInvalid file extension\n");
+		error_free_exit(NULL, "Error\nInvalid file extension\n");
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		error_free_exit(NULL , "Error\nInvalid file\n");
+		error_free_exit(NULL, "Error\nInvalid file\n");
 	line = get_next_line(fd);
 	while (line && !*line)
 	{
@@ -36,7 +36,7 @@ void	file_pre_check(int ac, char **av)
 		line = get_next_line(fd);
 	}
 	if (!line)
-		error_free_exit(NULL , "Error\nInvalid file\n");
+		error_free_exit(NULL, "Error\nInvalid file\n");
 	free(line);
 	close(fd);
 }
