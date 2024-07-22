@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/13 11:49:11 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/22 10:10:58 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ RESET = "\033[0m"
 #-fsanitize=address -g3
 
 NAME	=	cub3D
-CFLAGS	=	-Wall -Werror -Wextra  -g3 -D $(OS)
+CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g3 -D $(OS)
 
 SRCDIR	=	src
 OBJDIR	=	obj
@@ -29,25 +29,31 @@ SRCS	=	$(shell find $(SRCDIR) -type f)
 
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
-
+INCLUDE :=
 LIBFT 	= 	libs/libft/libft.a
 MLX_FOLDER		:=	
 MLXLIB	:=	
-INCLUDE =	-I./ -I./libs/mlx -I./libs/libft 
 
 LINKS := 
 
 OS := $(shell uname)
 
 ifeq ($(OS), Linux)
-	MLX_FOLDER := libs/mlx_linux
-	MLXLIB := libs/mlx_linux/libmlx_Linux.a
+	MLX_FOLDER += libs/mlx_linux
+	MLXLIB += libs/mlx_linux/libmlx_Linux.a
 	LINKS += -L/usr/lib -L$(MLX_FOLDER) -lXext -lX11
+	INCLUDE +=	-I./ -I./libs/mlx_linux -I./libs/libft 
 else
-	MLX_FOLDER := libs/mlx
-	MLXLIB := libs/mlx/libmlx.a
+	MLX_FOLDER += libs/mlx
+	MLXLIB += libs/mlx/libmlx.a
 	LINKS += -L$(MLX_FOLDER) -framework OpenGL -framework AppKit
+	INCLUDE +=	-I./ -I./libs/mlx -I./libs/libft 
 endif
+
+# $(info MLX_FOLDER: $(MLX_FOLDER))
+# $(info MLXLIB: $(MLXLIB))
+# $(info LINKS: $(LINKS))
+# $(info INCLUDE: $(INCLUDE))
 
 
 
@@ -125,6 +131,9 @@ all: $(NAME)
 $(NAME): print $(MLXLIB) $(LIBFT) $(OBJS)
 	@echo $(RESET)
 	@cc $(CFLAGS) $(OBJS) $(LIBFT) $(MLXLIB)  -o $(NAME) $(LINKS)
+	
+run: $(NAME)
+	@./$(NAME) maps/map.cub
 
 print:
 	@echo $(YELLOW)"Creating OBJECTS"$(RESET)
@@ -149,7 +158,7 @@ $(LIBFT):
 clean:
 	@rm -rf $(OBJDIR)
 	@make clean -C libs/libft 
-	make clean -C libs/mlx
+	@make clean -C libs/mlx
 	@echo $(GREEN_B)"\nCLEANED. ✅\n"$(RESET)
 
 fclean: clean

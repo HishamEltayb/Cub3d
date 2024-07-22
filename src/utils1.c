@@ -6,12 +6,13 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/08 17:16:15 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/19 15:49:53 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	print_2d(t_data *data);
 int		ft_strlen2d(char **str);
 void	print_data(t_data *data);
 void	print_list(t_data *data);
@@ -49,7 +50,7 @@ void	print_elements(t_data *data)
 
 void	print_list(t_data *data)
 {
-	t_list		*temp_map;
+	t_list	*temp_map;
 
 	temp_map = data->map;
 	while (data->map && data->map->content)
@@ -76,8 +77,15 @@ void	print_data(t_data *data)
 {
 	if (!data || !data->map || !data->element)
 		return ;
-	printf("file_size = %d\n", data->file_size);
-	printf("max len = %d\n", data->max_len);
+	printf("valid_line_count = %d\n", data->valid_line_count);
+	printf("data->map_x = %d\n", data->map_x);
+	printf("data->map_y = %d\n", data->map_y);
+	printf("data->player.x = %f\n", data->player.x);
+	printf("data->player.y = %f\n", data->player.y);
+	printf("data->player.dir = %c\n", data->player.dir);
+	printf("data->ceiling_color = %d\n", data->ceiling_color);
+	printf("data->floor_color = %d\n", data->floor_color);
+	printf("data->pixel = %d\n", data->pixel);
 	printf("printing elements\n");
 	print_elements(data);
 	printf("\n");

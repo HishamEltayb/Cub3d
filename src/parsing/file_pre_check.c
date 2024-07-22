@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:11:57 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/10 09:51:03 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/21 21:09:27 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	is_space_or_one(char c);
 void	file_pre_check(int ac, char **av);
-void	exit_failuer(t_data *data, char *err);
 bool	is_valid_map_char_helper(t_data *data, char c);
 bool	is_valid_map_char_helper2(t_data *data, char c);
 
@@ -24,12 +23,12 @@ void	file_pre_check(int ac, char **av)
 	char	*line;
 
 	if (ac != 2)
-		(ft_putstr_fd("Error\nInvalid number of arguments\n", 2), exit(1));
+		error_free_exit(NULL, "Error\nInvalid number of arguments\n");
 	if (ft_strcmp(ft_strrchr(av[1], '.'), ".cub"))
-		(ft_putstr_fd("Error\nInvalid file extension\n", 2), exit(1));
+		error_free_exit(NULL, "Error\nInvalid file extension\n");
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		(ft_putstr_fd("Error\nInvalid file\n", 2), exit(1));
+		error_free_exit(NULL, "Error\nInvalid file\n");
 	line = get_next_line(fd);
 	while (line && !*line)
 	{
@@ -37,7 +36,7 @@ void	file_pre_check(int ac, char **av)
 		line = get_next_line(fd);
 	}
 	if (!line)
-		(ft_putstr_fd("Error\nEmpty file\n", 2), close(fd), exit(1));
+		error_free_exit(NULL, "Error\nInvalid file\n");
 	free(line);
 	close(fd);
 }
@@ -47,14 +46,6 @@ bool	is_space_or_one(char c)
 	return (c == ' ' || c == '1');
 }
 
-void	exit_failuer(t_data *data, char *err)
-{
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(err, 2);
-	free_data(data);
-	exit(EXIT_FAILURE);
-}
-
 bool	is_valid_map_char_helper2(t_data *data, char c)
 {
 	if (c == 'W' && data->flags.PlayerW == NOT_EXIST
@@ -62,6 +53,8 @@ bool	is_valid_map_char_helper2(t_data *data, char c)
 	{
 		data->flags.PlayerW = EXIST;
 		data->player.is_exist = EXIST;
+		data->player.dir = 'W';
+		data->player.angle = 180;
 		return (TRUE);
 	}
 	else if (c == 'E' && data->flags.PlayerE == NOT_EXIST
@@ -69,6 +62,8 @@ bool	is_valid_map_char_helper2(t_data *data, char c)
 	{
 		data->flags.PlayerE = EXIST;
 		data->player.is_exist = EXIST;
+		data->player.dir = 'E';
+		data->player.angle = 0;
 		return (TRUE);
 	}
 	return (FALSE);
@@ -81,6 +76,8 @@ bool	is_valid_map_char_helper(t_data *data, char c)
 	{
 		data->flags.PlayerN = EXIST;
 		data->player.is_exist = EXIST;
+		data->player.dir = 'N';
+		data->player.angle = 90;
 		return (TRUE);
 	}
 	else if (c == 'S' && data->flags.PlayerS == NOT_EXIST
@@ -88,6 +85,8 @@ bool	is_valid_map_char_helper(t_data *data, char c)
 	{
 		data->flags.PlayerS = EXIST;
 		data->player.is_exist = EXIST;
+		data->player.dir = 'S';
+		data->player.angle = 270;
 		return (TRUE);
 	}
 	return (FALSE);
