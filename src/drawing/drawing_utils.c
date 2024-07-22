@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:17:36 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 22:42:17 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/22 10:16:58 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	if (x < 0 || x >= data->map_x * data->pixel || y < 0 || y >= data->map_y
 		* data->pixel)
-		{
-			printf("hisham is watching you\n");
-			return ;
-		}
+		return ;
 	dst = data->main.addr + (y * data->main.line_length + x
 			* (data->main.bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
@@ -70,7 +67,7 @@ int	draw_player(t_data *data)
 		j = -8;
 		while (j < 8)
 		{
-            mlx_pixel_put(data->mlx, data->win,
+			mlx_pixel_put(data->mlx, data->win,
 				(data->player.x) + i, (data->player.y) + j, Red);
 			j++;
 		}

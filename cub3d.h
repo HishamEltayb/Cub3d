@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 23:22:48 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/22 11:04:42 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ typedef enum key_map
 # define Violet		0xEE82EE
 //end_colors
 
-
 typedef struct s_flags
 {
 	int			C;
@@ -143,7 +142,6 @@ typedef struct s_player
 	char	dir;
 }			t_player;
 
-
 typedef struct s_raycast
 {
 	int		r;
@@ -167,8 +165,8 @@ typedef struct s_raycast
 	int		sy;
 	int		err;
 	int		e2;
+	int		arr[4];
 } t_raycast;
-
 
 typedef struct	s_img {
 	void	*img;
@@ -183,14 +181,6 @@ typedef struct s_element
 	void				**content;
 	struct s_element	*next;
 }			t_element;
-
-
-
-
-
-
-
-
 
 typedef struct s_data
 {
@@ -234,30 +224,30 @@ void		fill_image_data(t_data *data, int flag, void **image);
 void		check_image(char **element, t_data *data, char *line);
 
 //src/parsing/file_elements_check.c
-int		check_colors(char **str);
-int		check_colors_helper(char **str);
-int		check_helper(t_data *data, char *s1);
-int		check_helper2(int flag, char *s1, char *s2);
-void	file_check_elements(t_data *data, char *line);
+int			check_colors(char **str);
+int			check_colors_helper(char **str);
+int			check_helper(t_data *data, char *s1);
+int			check_helper2(int flag, char *s1, char *s2);
+void		file_check_elements(t_data *data, char *line);
 
 //src/parsing/file_elements_create_utils.c
-int		ft_mini_atoi(char *str);
-void	skip_zeros(int *i, char *str);
-int		count_numbers(char *line, int *j);
-int		is_element(char **split, t_data *data);
-int		check_numbers(char **split, int *i, int *check);
+int			ft_mini_atoi(char *str);
+void		skip_zeros(int *i, char *str);
+int			count_numbers(char *line, int *j);
+int			is_element(char **split, t_data *data);
+int			check_numbers(char **split, int *i, int *check);
 
 //src/parsing/file_elements_create.c
-int		create_rgb(t_data *data, char **str);
-void	fill_elements(char *line, t_data *data, int fd);
-void	file_elements_create(t_data *data, char **line, int fd);
-void	skip_empty_line(char **line, t_data *data, int fd, int flag);
+int			create_rgb(t_data *data, char **str);
+void		fill_elements(char *line, t_data *data, int fd);
+void		file_elements_create(t_data *data, char **line, int fd);
+void		skip_empty_line(char **line, t_data *data, int fd, int flag);
 
 //src/parsing/file_elements_rearrange.c
-int		count_comma(char *line);
-int		is_floor_ceiling(char *str);
-int		rearrange_helper(t_data *data, t_element *element);
-void	floor_ceiling_re_arrange(t_data *data, char *line, int fd);
+int			count_comma(char *line);
+int			is_floor_ceiling(char *str);
+int			rearrange_helper(t_data *data, t_element *element);
+void		floor_ceiling_re_arrange(t_data *data, char *line, int fd);
 
 //src/parsing/file_elements_utils.c
 t_element	*element_new(void **content);
@@ -267,119 +257,86 @@ void		element_delone(t_element *lst, void (*del)(void **));
 void		element_clear(t_element **lst, void (*del)(void **));
 
 //src/parsing/file_init.c
-void	init_image(t_img *image);
-void	init_flags(t_data *data);
-void	init_player(t_data *data);
-void	init_raycast(t_data *data);
-void	init_parsing(t_data *data);
+void		init_image(t_img *image);
+void		init_flags(t_data *data);
+void		init_player(t_data *data);
+void		init_raycast(t_data *data);
+void		init_parsing(t_data *data);
 
 
 //src/parsing/file_map_check_utils.c
-bool	checking(t_data *data, int x, int y, char c);
-bool	check_up(t_data *data, int x, int y, char c);
-bool	check_left(t_data *data, int x, int y, char c);
-bool	check_down(t_data *data, int x, int y, char c);
-bool	check_right(t_data *data, int x, int y, char c);
+bool		checking(t_data *data, int x, int y, char c);
+bool		check_up(t_data *data, int x, int y, char c);
+bool		check_left(t_data *data, int x, int y, char c);
+bool		check_down(t_data *data, int x, int y, char c);
+bool		check_right(t_data *data, int x, int y, char c);
 
 //src/parsing/file_map_check.c
-void	map_check(t_data *data);
-void	resize_map(t_data *data);
-int		is_valid_map_char(char c, t_data *data);
+void		map_check(t_data *data);
+void		resize_map(t_data *data);
+int			is_valid_map_char(char c, t_data *data);
 
 //src/parsing/file_map_create.c
-void	create_map2d(t_data *data);
-int		is_valid_map_line(char *str, t_data *data);
-void	fill_map(char *line, t_data *data, int fd);
-void	fill_map(char *line, t_data *data, int fd);
-void	file_maps_create(t_data *data, char **line, int fd);
+void		create_map2d(t_data *data);
+int			is_valid_map_line(char *str, t_data *data);
+void		fill_map(char *line, t_data *data, int fd);
+void		fill_map(char *line, t_data *data, int fd);
+void		file_maps_create(t_data *data, char **line, int fd);
 
 //src/parsing/file_map_utils.c
-bool	check_space(t_data *data);
-int		map_player_check(t_data *data);
-bool	is_sourrounded_by_walls(t_data *data);
+bool		check_space(t_data *data);
+int			map_player_check(t_data *data);
+bool		is_sourrounded_by_walls(t_data *data);
 
 //src/parsing/file_parsing.c
-void 	draw_image(t_data *data);
-void	parsing(t_data *data, int ac, char **av);
-void	file_store_data(char *filename, t_data *data);
+void 		draw_image(t_data *data);
+void		parsing(t_data *data, int ac, char **av);
+void		file_store_data(char *filename, t_data *data);
 
 //src/parsing/file_pre_check.c
-bool	is_space_or_one(char c);
-void	file_pre_check(int ac, char **av);
-bool	is_valid_map_char_helper(t_data *data, char c);
-bool	is_valid_map_char_helper2(t_data *data, char c);
+bool		is_space_or_one(char c);
+void		file_pre_check(int ac, char **av);
+bool		is_valid_map_char_helper(t_data *data, char c);
+bool		is_valid_map_char_helper2(t_data *data, char c);
 
 //src/drawing/drawing_utils.c
-int		exit_mouse(t_data *data);
-int		draw_player(t_data *data);
-void	draw_square(t_data *data, int x, int y, int color);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int			exit_mouse(t_data *data);
+int			draw_player(t_data *data);
+void		draw_square(t_data *data, int x, int y, int color);
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 //src/drawing/drawing_and_keys.c
-int		display(t_data *data);
-void	draw_map2d(t_data *data);
-int		key_hook(int keycode, t_data *data);
-void	key_left_right(t_data *data, int keycode);
+int			display(t_data *data);
+void		draw_map2d(t_data *data);
+int			key_hook(int keycode, t_data *data);
+void		key_left_right(t_data *data, int keycode);
 
 //src/utils1.c
-void	print_2d(t_data *data);
-int		ft_strlen2d(char **str);
-void	print_data(t_data *data);
-void	print_list(t_data *data);
-void	print_elements(t_data *data);
-
-
-
-
-//src/cub3d.c
-void	check_image(char **element, t_data *data, char *line);
-
-
-
+void		print_2d(t_data *data);
+int			ft_strlen2d(char **str);
+void		print_data(t_data *data);
+void		print_list(t_data *data);
+void		print_elements(t_data *data);
 
 //src/utils2.c
-void	free_mlx(t_data *data);
-void	free2d(void **content);
-void	init_data(t_data *data);
-int		free_data(t_data *data);
-void	init_draw(t_data *data);
+void		free_mlx(t_data *data);
+void		free2d(void **content);
+void		init_data(t_data *data);
+int			free_data(t_data *data);
+void		init_draw(t_data *data);
 
+//src/ray_cast.c
+void		draw_rays(t_data *data);
+void		draw_line(t_data *data,int arr[4]);
+void		draw_rays_vertical(t_data *data, t_raycast *ray);
+void		draw_rays_horizontal(t_data *data, t_raycast *ray);
+int			draw_line_loop(t_data *data, t_raycast *ray, int arr[4]);
 
-
-
-bool	is_valid_map_char_helper(t_data *data, char c);
-bool	is_valid_map_char_helper2(t_data *data, char c);
-
-
-void	check_image_path(char *image_path, t_data *data);
-void	error_free_exit(t_data *data, char *msg);
-
-
-void	parsing(t_data *data, int ac, char **av);
-
-void install_space_image(t_data *data);
-void install_floor_image(t_data *data);
-void install_player_image(t_data *data);
-void draw_image(t_data *data);
-
-
-void	check_image(char **element, t_data *data, char *line);
-void	check_image_path(char *image_path, t_data *data);
-void	error_free_exit(t_data *data, char *msg);
-
-int		key_hook(int keycode, t_data *data);
-void	player_display(t_data *data);
-int		display(t_data *data);
-int		exit_mouse(t_data *data);
-void 	draw_map2d(t_data *data);
-void	resize_map(t_data *data);
-
-
-
-void my_mlx_pixel_put(t_data *data, int x, int y, int color);
-
-//raycasting
-void draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
-void draw_rays(t_data *data);
+//src/ray_cast_utils.c
+void		init_help_draw_rays_horizontal(t_raycast *ray);
+void		init_draw_rays_vertical(t_data *data, t_raycast *ray);
+void		init_draw_rays_horizontal(t_data *data, t_raycast *ray);
+int			draw_rays_vertical_main_loop(t_data *data, t_raycast *ray);
+int			draw_rays_horizontal_main_loop(t_data *data, t_raycast *ray);
 
 #endif

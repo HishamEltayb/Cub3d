@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/20 12:36:13 by heltayb          ###   ########.fr        #
+#    Updated: 2024/07/22 10:10:58 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ RESET = "\033[0m"
 #-fsanitize=address -g3
 
 NAME	=	cub3D
-TEST	=	TEST
 CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g3 -D $(OS)
 
 SRCDIR	=	src
@@ -133,7 +132,9 @@ $(NAME): print $(MLXLIB) $(LIBFT) $(OBJS)
 	@echo $(RESET)
 	@cc $(CFLAGS) $(OBJS) $(LIBFT) $(MLXLIB)  -o $(NAME) $(LINKS)
 	
-	
+run: $(NAME)
+	@./$(NAME) maps/map.cub
+
 print:
 	@echo $(YELLOW)"Creating OBJECTS"$(RESET)
 
