@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/22 10:00:56 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/22 14:32:06 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void	key_left_right(t_data *data, int keycode)
 	{
 		data->player.angle += 5;
 		data->player.angle = (int)(data->player.angle) % 360;
-		data->player.dx = cos(RAD(data->player.angle));
-		data->player.dy = -sin(RAD(data->player.angle));
+		data->player.dx = cos(deg_to_rad(data->player.angle));
+		data->player.dy = -sin(deg_to_rad(data->player.angle));
 	}
 	if (keycode == KEY_RIGHT)
 	{
 		data->player.angle -= 5;
 		data->player.angle = (int)(data->player.angle) % 360;
-		data->player.dx = cos(RAD(data->player.angle));
-		data->player.dy = -sin(RAD(data->player.angle));
+		data->player.dx = cos(deg_to_rad(data->player.angle));
+		data->player.dy = -sin(deg_to_rad(data->player.angle));
 	}
 }
 

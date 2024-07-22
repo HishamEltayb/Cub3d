@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:29:42 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 22:52:09 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/22 14:51:27 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void init(t_data *data)
     data->px = 150;
     data->py = 400;
     data->pa = 90;
-    data->pdx = cos(RAD(data->pa));
-    data->pdy = -sin(RAD(data->pa));
+    data->pdx = cos(deg_to_rad(data->pa));
+    data->pdy = -sin(deg_to_rad(data->pa));
 	//player position
 
 	//map && window	
@@ -91,15 +91,15 @@ int handle_keys(int keycode, t_data *data)
     {
         data->pa += 5;
         data->pa = data->pa % 360;
-        data->pdx = cos(RAD(data->pa));
-        data->pdy = -sin(RAD(data->pa));
+        data->pdx = cos(deg_to_rad(data->pa));
+        data->pdy = -sin(deg_to_rad(data->pa));
     }
     if (keycode == 0x02) // 'd' key
     {
         data->pa -= 5;
         data->pa = data->pa % 360;
-        data->pdx = cos(RAD(data->pa));
-        data->pdy = -sin(RAD(data->pa));
+        data->pdx = cos(deg_to_rad(data->pa));
+        data->pdy = -sin(deg_to_rad(data->pa));
     }
     if (keycode == 0x0D) // 'w' key
     {
@@ -183,14 +183,14 @@ void draw_rays(t_data *data)
         //---Vertical---
         dof = 0;
         disV = 100000;
-        float Tan = tan(RAD(ra));
-        if (cos(RAD(ra)) > 0.001) { 
+        float Tan = tan(deg_to_rad(ra));
+        if (cos(deg_to_rad(ra)) > 0.001) { 
             rx = (((int)px >> 6) << 6) + 64; 
             ry = (px - rx) * Tan + py; 
             xo = 64; 
             yo = -xo * Tan; 
         }
-        else if (cos(RAD(ra)) < -0.001) { 
+        else if (cos(deg_to_rad(ra)) < -0.001) { 
             rx = (((int)px >> 6) << 6) - 0.0001; 
             ry = (px - rx) * Tan + py; 
             xo = -64; 
@@ -208,7 +208,7 @@ void draw_rays(t_data *data)
             mp = my * mapX + mx; 
             if (mp > 0 && mp < mapX * mapY && map2d[my][mx] == 1) { 
                 dof = 8; 
-                disV = cos(RAD(ra)) * (rx - px) - sin(RAD(ra)) * (ry - py); 
+                disV = cos(deg_to_rad(ra)) * (rx - px) - sin(deg_to_rad(ra)) * (ry - py); 
             }
             else { 
                 rx += xo; 
@@ -216,19 +216,19 @@ void draw_rays(t_data *data)
                 dof += 1; 
             }
         }
-        float vx = rx, vy = ry;
+        float vertical_x = rx, vertical_y = ry;
 
         //---Horizontal---
         dof = 0;
         disH = 100000;
         Tan = 1.0 / Tan;
-        if (sin(RAD(ra)) > 0.001) { 
+        if (sin(deg_to_rad(ra)) > 0.001) { 
             ry = (((int)py >> 6) << 6) - 0.0001; 
             rx = (py - ry) * Tan + px; 
             yo = -64; 
             xo = -yo * Tan; 
         }
-        else if (sin(RAD(ra)) < -0.001) { 
+        else if (sin(deg_to_rad(ra)) < -0.001) { 
             ry = (((int)py >> 6) << 6) + 64; 
             rx = (py - ry) * Tan + px; 
             yo = 64; 
@@ -247,7 +247,7 @@ void draw_rays(t_data *data)
             mp = my * mapX + mx; 
             if (mp > 0 && mp < mapX * mapY && map2d[my][mx] == 1) { 
                 dof = 8; 
-                disH = cos(RAD(ra)) * (rx - px) - sin(RAD(ra)) * (ry - py); 
+                disH = cos(deg_to_rad(ra)) * (rx - px) - sin(deg_to_rad(ra)) * (ry - py); 
             }
             else { 
                 rx += xo; 
@@ -257,8 +257,8 @@ void draw_rays(t_data *data)
         }
 
         if (disV < disH) { 
-            rx = vx; 
-            ry = vy; 
+            rx = vertical_x; 
+            ry = vertical_y; 
         }
 
         // mlx_pixel_put(data->mlx, data->win, rx, ry, 0xFF0000); // Draw the ray

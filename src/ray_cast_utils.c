@@ -6,37 +6,34 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:46:57 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/22 11:07:15 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/22 14:49:22 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_help_draw_rays_horizontal(t_raycast *ray);
-void	init_draw_rays_vertical(t_data *data, t_raycast *ray);
-void	init_draw_rays_horizontal(t_data *data, t_raycast *ray);
+void	init_help_nearest_horizontal_line(t_raycast *ray);
+void	init_nearest_vertical_line(t_data *data, t_raycast *ray);
+void	init_nearest_horizontal_line(t_data *data, t_raycast *ray);
 int		draw_rays_horizontal_main_loop(t_data *data, t_raycast *ray);
 
-void	init_help_draw_rays_horizontal(t_raycast *ray)
+void	init_help_nearest_horizontal_line(t_raycast *ray)
 {
-	ray->vx = ray->rx;
-	ray->vy = ray->ry;
 	ray->dof = 0;
-	ray->disH = 100000;
 	ray->Tan = 1.0 / ray->Tan;
 }
 
-void	init_draw_rays_horizontal(t_data *data, t_raycast *ray)
+void	init_nearest_horizontal_line(t_data *data, t_raycast *ray)
 {
-	init_help_draw_rays_horizontal(ray);
-	if (sin(RAD(ray->ra)) > 0.001)
+	init_help_nearest_horizontal_line(ray);
+	if (sin(deg_to_rad(ray->angle)) > 0.001)
 	{
 		ray->ry = (((int)data->player.y / data->pixel) * data->pixel) - 0.0001;
 		ray->rx = (data->player.y - ray->ry) * ray->Tan + data->player.x;
 		ray->yo = -data->pixel;
 		ray->xo = -ray->yo * ray->Tan;
 	}
-	else if (sin(RAD(ray->ra)) < -0.001)
+	else if (sin(deg_to_rad(ray->angle)) < -0.001)
 	{
 		ray->ry = (((int)data->player.y / data->pixel) * data->pixel)
 			+ data->pixel;
@@ -52,12 +49,10 @@ void	init_draw_rays_horizontal(t_data *data, t_raycast *ray)
 	}
 }
 
-void	init_draw_rays_vertical(t_data *data, t_raycast *ray)
+
+void	init_nearest_vertical_line(t_data *data, t_raycast *ray)
 {
-	ray->dof = 0;
-	ray->disV = 100000;
-	ray->Tan = tan(RAD(ray->ra));
-	if (cos(RAD(ray->ra)) > 0.001)
+	if (cos(deg_to_rad(ray->angle)) > 0.001)
 	{
 		ray->rx = (((int)data->player.x / data->pixel) * data->pixel)
 			+ data->pixel;
@@ -65,7 +60,7 @@ void	init_draw_rays_vertical(t_data *data, t_raycast *ray)
 		ray->xo = data->pixel;
 		ray->yo = -ray->xo * ray->Tan;
 	}
-	else if (cos(RAD(ray->ra)) < -0.001)
+	else if (cos(deg_to_rad(ray->angle)) < -0.001)
 	{
 		ray->rx = (((int)data->player.x / data->pixel) * data->pixel) - 0.0001;
 		ray->ry = (data->player.x - ray->rx) * ray->Tan + data->player.y;
@@ -92,8 +87,8 @@ int	draw_rays_horizontal_main_loop(t_data *data, t_raycast *ray)
 			&& data->map2d[ray->my][ray->mx] == '1')
 		{
 			ray->dof = 8;
-			ray->disH = cos(RAD(ray->ra)) * (ray->rx - data->player.x)
-				- sin(RAD(ray->ra)) * (ray->ry - data->player.y);
+			ray->disH = cos(deg_to_rad(ray->angle)) * (ray->rx - data->player.x)
+				- sin(deg_to_rad(ray->angle)) * (ray->ry - data->player.y);
 		}
 		else
 		{
@@ -121,8 +116,8 @@ int	draw_rays_vertical_main_loop(t_data *data, t_raycast *ray)
 			&& data->map2d[ray->my][ray->mx] == '1')
 		{
 			ray->dof = 8;
-			ray->disV = cos(RAD(ray->ra)) * (ray->rx - data->player.x)
-				- sin(RAD(ray->ra)) * (ray->ry - data->player.y);
+			ray->disV = cos(deg_to_rad(ray->angle)) * (ray->rx - data->player.x)
+				- sin(deg_to_rad(ray->angle)) * (ray->ry - data->player.y);
 		}
 		else
 		{

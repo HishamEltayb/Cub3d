@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:44:45 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 18:50:20 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/22 14:32:06 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #define MAPX 8      // map width
 #define MAPY 8      // map height
 #define MAPS 64     // map cube size
-#define RAD(x) (x * M_PI / 180.0)
+#define deg_to_rad(x) (x * M_PI / 180.0)
 
 typedef struct s_image {
     void *image;

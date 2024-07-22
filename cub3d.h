@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/22 11:04:42 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/22 17:02:41 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef enum key_map
 # define PLAYER		"NSWE"
 //math
 # define PI			3.1415926535
-# define RAD(x)		(x * M_PI / 180)
 
 //start_colors
 # define Red		0xFF0000
@@ -144,12 +143,14 @@ typedef struct s_player
 
 typedef struct s_raycast
 {
-	int		r;
+	int		counter;
+	float	angle;
+	float	vertical_x;
+	float	vertical_y;
 	int		mx;
 	int		my;
 	int		mp;
 	int		dof;
-	float	ra;
 	float	rx;
 	float	ry;
 	float	xo;
@@ -157,8 +158,6 @@ typedef struct s_raycast
 	float	disV;
 	float	disH;
 	float	Tan;
-	float	vx;
-	float	vy;
 	int		dx;
 	int		dy;
 	int		sx;
@@ -212,8 +211,6 @@ typedef struct s_data
 	void		*mlx;
 	void		*win;
 	
-	//raycast
-	t_raycast	raycast;
 }	t_data;
 
 
@@ -260,7 +257,6 @@ void		element_clear(t_element **lst, void (*del)(void **));
 void		init_image(t_img *image);
 void		init_flags(t_data *data);
 void		init_player(t_data *data);
-void		init_raycast(t_data *data);
 void		init_parsing(t_data *data);
 
 
@@ -328,15 +324,22 @@ void		init_draw(t_data *data);
 //src/ray_cast.c
 void		draw_rays(t_data *data);
 void		draw_line(t_data *data,int arr[4]);
-void		draw_rays_vertical(t_data *data, t_raycast *ray);
-void		draw_rays_horizontal(t_data *data, t_raycast *ray);
+void		nearest_vertical_line(t_data *data, t_raycast *ray);
+void		nearest_horizontal_line(t_data *data, t_raycast *ray);
 int			draw_line_loop(t_data *data, t_raycast *ray, int arr[4]);
 
 //src/ray_cast_utils.c
-void		init_help_draw_rays_horizontal(t_raycast *ray);
-void		init_draw_rays_vertical(t_data *data, t_raycast *ray);
-void		init_draw_rays_horizontal(t_data *data, t_raycast *ray);
+void		init_help_nearest_horizontal_line(t_raycast *ray);
+void		init_nearest_vertical_line(t_data *data, t_raycast *ray);
+void		init_nearest_horizontal_line(t_data *data, t_raycast *ray);
 int			draw_rays_vertical_main_loop(t_data *data, t_raycast *ray);
 int			draw_rays_horizontal_main_loop(t_data *data, t_raycast *ray);
+
+
+float	deg_to_rad(float angle);
+void	reset_ray_angle(t_raycast *ray);
+void	set_nearest_line(t_raycast *ray);
+void	set_start_end_line(t_data *data, t_raycast *ray);
+void	init_raycast(t_raycast *ray);
 
 #endif
