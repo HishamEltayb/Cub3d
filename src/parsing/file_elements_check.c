@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:54:39 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 21:07:05 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:35:04 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	file_check_elements(t_data *data, char *line)
 		str = (char **)temp->content;
 		if (ft_strlen2d(str) == 2 && !check_helper(data, str[0]))
 			check_image(str, data, line);
-		else if (!check_helper2(data->flags.F, str[0], "F")
-			|| !check_helper2(data->flags.C, str[0], "C"))
+		else if (!check_helper2(data->flags.f, str[0], "F")
+			|| !check_helper2(data->flags.c, str[0], "C"))
 		{
 			if (!ft_strcmp(str[0], "F"))
-				data->flags.F = EXIST;
+				data->flags.f = EXIST;
 			else if (!ft_strcmp(str[0], "C"))
-				data->flags.C = EXIST;
+				data->flags.c = EXIST;
 			if (check_colors(str))
 				(free(line), error_free_exit(data, "Error\nInvalid Colors\n"));
 			if (create_rgb(data, str))
@@ -72,24 +72,24 @@ void	file_check_elements(t_data *data, char *line)
 
 int	check_helper(t_data *data, char *s1)
 {
-	if (!ft_strcmp(s1, "EA") && data->flags.EA == NOT_EXIST)
+	if (!ft_strcmp(s1, "EA") && data->flags.ea == NOT_EXIST)
 	{
-		data->flags.EA = EXIST;
+		data->flags.ea = EXIST;
 		return (TRUE);
 	}
-	else if (!ft_strcmp(s1, "WE") && data->flags.WE == NOT_EXIST)
+	else if (!ft_strcmp(s1, "WE") && data->flags.we == NOT_EXIST)
 	{
-		data->flags.WE = EXIST;
+		data->flags.we = EXIST;
 		return (TRUE);
 	}
-	else if (!ft_strcmp(s1, "SO") && data->flags.SO == NOT_EXIST)
+	else if (!ft_strcmp(s1, "SO") && data->flags.so == NOT_EXIST)
 	{
-		data->flags.SO = EXIST;
+		data->flags.so = EXIST;
 		return (TRUE);
 	}
-	else if (!ft_strcmp(s1, "NO") && data->flags.NO == NOT_EXIST)
+	else if (!ft_strcmp(s1, "NO") && data->flags.no == NOT_EXIST)
 	{
-		data->flags.NO = EXIST;
+		data->flags.no = EXIST;
 		return (TRUE);
 	}
 	else

@@ -72,13 +72,13 @@ void draw_line(t_data *data, int x1, int y1, int x2, int y2, int color)
 void drawRays2D(t_data *data)
 {
     int r, mx, my, mp, dof;
-    float rx, ry, ra, xo, yo, disH;
+    float rx, ry, ra, xo, yo, dis_h;
 
     ra = FixAng(data->player.angle + 30); // ray set back 30 degrees
 
     for (r = 0; r < 60; r++) {
         //---Horizontal---
-        dof = 0; disH = 100000;
+        dof = 0; dis_h = 100000;
         float Tan = tan(degToRad(ra));
         if (sin(degToRad(ra)) > 0.001) {
             ry = (((int)data->player.y >> 6) << 6) - 0.0001;
@@ -95,14 +95,14 @@ void drawRays2D(t_data *data)
         while (dof < 8) {
             mx = (int)(rx) >> 6; my = (int)(ry) >> 6; mp = my * mapX + mx;
             if (mp > 0 && mp < mapX * mapY && map[mp] == 1) {
-                dof = 8; disH = cos(degToRad(ra)) * (rx - data->player.x) - sin(degToRad(ra)) * (ry - data->player.y);
+                dof = 8; dis_h = cos(degToRad(ra)) * (rx - data->player.x) - sin(degToRad(ra)) * (ry - data->player.y);
             } else {
                 rx += xo; ry += yo; dof += 1;
             }
         }
 
-        int ca = FixAng(data->player.angle - ra); disH = disH * cos(degToRad(ca)); // fix fisheye
-        int lineH = (mapS * 320) / disH; if (lineH > 320) { lineH = 320; } // line height and limit
+        int ca = FixAng(data->player.angle - ra); dis_h = dis_h * cos(degToRad(ca)); // fix fisheye
+        int lineH = (mapS * 320) / dis_h; if (lineH > 320) { lineH = 320; } // line height and limit
         int lineOff = 160 - (lineH >> 1); // line offset
 
         draw_line(data, r * 8 + 530, lineOff, r * 8 + 530, lineOff + lineH, 0x00FF00); // draw vertical wall

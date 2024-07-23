@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/22 14:32:06 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:40:33 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ void	draw_map2d(t_data *data)
 		while (x < data->map_x)
 		{
 			if (data->map2d[y][x] == '1')
-				draw_square(data, x * data->pixel, y * data->pixel, White);
+				draw_square(data, x * data->pixel, y * data->pixel, WHITE);
 			else if (data->map2d[y][x] == ' ')
-				draw_square(data, x * data->pixel, y * data->pixel, Blue);
+				draw_square(data, x * data->pixel, y * data->pixel, BLUE);
 			else
-				draw_square(data, x * data->pixel, y * data->pixel, Gray);
+				draw_square(data, x * data->pixel, y * data->pixel, GRAY);
 			x++;
 		}
 		y++;

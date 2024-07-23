@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:37:31 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/22 14:41:10 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:36:15 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	init_parsing(t_data *data);
 
 void	init_flags(t_data *data)
 {
-	data->flags.C = NOT_EXIST;
-	data->flags.F = NOT_EXIST;
-	data->flags.EA = NOT_EXIST;
-	data->flags.WE = NOT_EXIST;
-	data->flags.SO = NOT_EXIST;
-	data->flags.NO = NOT_EXIST;
-	data->flags.PlayerN = NOT_EXIST;
-	data->flags.PlayerS = NOT_EXIST;
-	data->flags.PlayerW = NOT_EXIST;
-	data->flags.PlayerE = NOT_EXIST;
+	data->flags.c = NOT_EXIST;
+	data->flags.f = NOT_EXIST;
+	data->flags.ea = NOT_EXIST;
+	data->flags.we = NOT_EXIST;
+	data->flags.so = NOT_EXIST;
+	data->flags.no = NOT_EXIST;
+	data->flags.player_n = NOT_EXIST;
+	data->flags.player_s = NOT_EXIST;
+	data->flags.player_w = NOT_EXIST;
+	data->flags.player_e = NOT_EXIST;
 }
 
 void	init_player(t_data *data)

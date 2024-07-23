@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:29:42 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/22 14:51:27 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:36:43 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 void draw_rays(t_data *data)
 {
     int r, mx, my, mp, dof;
-    float ra, rx, ry, xo, yo, disV, disH;
+    float ra, rx, ry, xo, yo, dis_v, dis_h;
     int mapX = data->width_map;
     int mapY = data->height_map;
     int mapS = data->pixel;
@@ -182,7 +182,7 @@ void draw_rays(t_data *data)
     {
         //---Vertical---
         dof = 0;
-        disV = 100000;
+        dis_v = 100000;
         float Tan = tan(deg_to_rad(ra));
         if (cos(deg_to_rad(ra)) > 0.001) { 
             rx = (((int)px >> 6) << 6) + 64; 
@@ -208,7 +208,7 @@ void draw_rays(t_data *data)
             mp = my * mapX + mx; 
             if (mp > 0 && mp < mapX * mapY && map2d[my][mx] == 1) { 
                 dof = 8; 
-                disV = cos(deg_to_rad(ra)) * (rx - px) - sin(deg_to_rad(ra)) * (ry - py); 
+                dis_v = cos(deg_to_rad(ra)) * (rx - px) - sin(deg_to_rad(ra)) * (ry - py); 
             }
             else { 
                 rx += xo; 
@@ -220,7 +220,7 @@ void draw_rays(t_data *data)
 
         //---Horizontal---
         dof = 0;
-        disH = 100000;
+        dis_h = 100000;
         Tan = 1.0 / Tan;
         if (sin(deg_to_rad(ra)) > 0.001) { 
             ry = (((int)py >> 6) << 6) - 0.0001; 
@@ -247,7 +247,7 @@ void draw_rays(t_data *data)
             mp = my * mapX + mx; 
             if (mp > 0 && mp < mapX * mapY && map2d[my][mx] == 1) { 
                 dof = 8; 
-                disH = cos(deg_to_rad(ra)) * (rx - px) - sin(deg_to_rad(ra)) * (ry - py); 
+                dis_h = cos(deg_to_rad(ra)) * (rx - px) - sin(deg_to_rad(ra)) * (ry - py); 
             }
             else { 
                 rx += xo; 
@@ -256,7 +256,7 @@ void draw_rays(t_data *data)
             }
         }
 
-        if (disV < disH) { 
+        if (dis_v < dis_h) { 
             rx = vertical_x; 
             ry = vertical_y; 
         }

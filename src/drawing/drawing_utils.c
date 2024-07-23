@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:17:36 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/22 10:16:58 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:31:46 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,16 @@ int	draw_player(t_data *data)
 		j = -8;
 		while (j < 8)
 		{
-			mlx_pixel_put(data->mlx, data->win,
-				(data->player.x) + i, (data->player.y) + j, Red);
+			mlx_pixel_put(data->mlx, data->win, (data->player.x) + i,
+				(data->player.y) + j, RED);
 			j++;
 		}
 		i++;
 	}
 	while (k < 20)
 	{
-		mlx_pixel_put(data->mlx, data->win,
-			data->player.x + data->player.dx * k,
-			data->player.y + data->player.dy * k, Red);
+		mlx_pixel_put(data->mlx, data->win, data->player.x + data->player.dx
+			* k, data->player.y + data->player.dy * k, RED);
 		k++;
 	}
 	return (0);

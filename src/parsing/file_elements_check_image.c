@@ -43,27 +43,27 @@ void	fill_image_data(t_data *data, int flag, void **image)
 {
 	if (flag == 0)
 	{
-		data->imageEA.img = *image;
-		data->imageEA.addr = mlx_get_data_addr(data->imageEA.img,
-				&data->imageEA.bits_per_pixel,
-				&data->imageEA.line_length,
-				&data->imageEA.endian);
+		data->image_ea.img = *image;
+		data->image_ea.addr = mlx_get_data_addr(data->image_ea.img,
+				&data->image_ea.bits_per_pixel,
+				&data->image_ea.line_length,
+				&data->image_ea.endian);
 	}
 	if (flag == 1)
 	{
-		data->imageWE.img = *image;
-		data->imageWE.addr = mlx_get_data_addr(data->imageWE.img,
-				&data->imageWE.bits_per_pixel,
-				&data->imageWE.line_length,
-				&data->imageWE.endian);
+		data->image_we.img = *image;
+		data->image_we.addr = mlx_get_data_addr(data->image_we.img,
+				&data->image_we.bits_per_pixel,
+				&data->image_we.line_length,
+				&data->image_we.endian);
 	}
 	if (flag == 2)
 	{
-		data->imageSO.img = *image;
-		data->imageSO.addr = mlx_get_data_addr(data->imageSO.img,
-				&data->imageSO.bits_per_pixel,
-				&data->imageSO.line_length,
-				&data->imageSO.endian);
+		data->image_so.img = *image;
+		data->image_so.addr = mlx_get_data_addr(data->image_so.img,
+				&data->image_so.bits_per_pixel,
+				&data->image_so.line_length,
+				&data->image_so.endian);
 	}
 }
 
@@ -88,10 +88,10 @@ void	check_image(char **element, t_data *data, char *line)
 		fill_image_data(data, 2, &image);
 	else if (!ft_strcmp(element[0], "NO"))
 	{
-		data->imageNO.img = image;
-		data->imageNO.addr = mlx_get_data_addr(data->imageNO.img,
-				&data->imageNO.bits_per_pixel,
-				&data->imageNO.line_length,
-				&data->imageNO.endian);
+		data->image_no.img = image;
+		data->image_no.addr = mlx_get_data_addr(data->image_no.img,
+				&data->image_no.bits_per_pixel,
+				&data->image_no.line_length,
+				&data->image_no.endian);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 21:15:35 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:28:31 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	draw_image(t_data *data)
 	data->main.img = mlx_new_image(data->mlx, data->pixel * data->map_x,
 			data->pixel * data->map_y);
 	data->main.addr = mlx_get_data_addr(data->main.img,
-			&data->main.bits_per_pixel, &data->main.line_length,
+			&data->main.bits_per_pixel,
+			&data->main.line_length,
 			&data->main.endian);
 }
 
