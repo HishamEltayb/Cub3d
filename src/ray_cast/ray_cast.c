@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:26:17 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 16:41:33 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 18:52:39 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,5 @@ void	draw_rays(t_data *data)
 		reset_ray_angle(&ray);
 	}
 }
+
+

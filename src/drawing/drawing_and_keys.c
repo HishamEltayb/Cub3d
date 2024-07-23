@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 16:40:33 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 21:32:56 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,57 @@ void	key_left_right(t_data *data, int keycode)
 	}
 }
 
+int	check_collision(t_data *data, float new_x, float new_y)
+{
+	int map_x1 = (int)(new_x - PLAYER_SIZE / 2) / data->pixel;
+	int map_y1 = (int)(new_y - PLAYER_SIZE / 2) / data->pixel;
+	int map_x2 = (int)(new_x + PLAYER_SIZE / 2) / data->pixel;
+	int map_y2 = (int)(new_y + PLAYER_SIZE / 2) / data->pixel;
+
+	if (map_x1 < 0 || map_x1 >= data->map_x
+		|| map_y1 < 0 || map_y1 >= data->map_y
+		|| map_x2 < 0 || map_x2 >= data->map_x
+		|| map_y2 < 0 || map_y2 >= data->map_y)
+		return 1;
+	return (data->map2d[map_y1][map_x1] == '1'
+		|| data->map2d[map_y1][map_x2] == '1'
+		|| data->map2d[map_y2][map_x1] == '1'
+		|| data->map2d[map_y2][map_x2] == '1');
+}
+
 int	key_hook(int keycode, t_data *data)
 {
+	float	new_x;
+	float	new_y;
+	
 	if (keycode == ESC)
 		(free_data(data), printf("exited\n"), exit(0));
+	new_x = data->player.x;
+	new_y = data->player.y;
 	if (keycode == KEY_W)
 	{
-		data->player.x += data->player.dx * 5;
-		data->player.y += data->player.dy * 5;
+		new_x += data->player.dx * 5;
+		new_y += data->player.dy * 5;
 	}
 	if (keycode == KEY_S)
 	{
-		data->player.x -= data->player.dx * 5;
-		data->player.y -= data->player.dy * 5;
+		new_x -= data->player.dx * 5;
+		new_y -= data->player.dy * 5;
 	}
 	if (keycode == KEY_D)
 	{
-		data->player.x -= data->player.dy * 5;
-		data->player.y += data->player.dx * 5;
+		new_x -= data->player.dy * 5;
+		new_y += data->player.dx * 5;
 	}
 	if (keycode == KEY_A)
 	{
-		data->player.x += data->player.dy * 5;
-		data->player.y -= data->player.dx * 5;
+		new_x += data->player.dy * 5;
+		new_y -= data->player.dx * 5;
+	}
+	if (!check_collision(data, new_x, new_y))
+	{
+		data->player.x = new_x;
+		data->player.y = new_y;
 	}
 	key_left_right(data, keycode);
 	return (0);

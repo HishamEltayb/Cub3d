@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 16:45:21 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 21:29:41 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,26 @@ typedef enum key_map
 
 # endif
 
-# define EXIST 0
-# define NOT_EXIST 1
-# define TRUE 0
-# define FALSE 1
-# define MAP 2
-# define ELEMENT 1
-# define PLAYER "NSWE"
+# define EXIST 			0
+# define NOT_EXIST 		1
+# define TRUE 			0
+# define FALSE 			1
+# define MAP 			2
+# define ELEMENT 		1
+# define PLAYER 		"NSWE"
+# define PLAYER_SIZE 	14
 //math
 # define PI 3.1415926535
 
 //start_colors
-# define RED 0xFF0000
-# define GREEN 0x00FF00
-# define BLUE 0x0000FF
-# define YELLOW 0xFFFF00
-# define WHITE 0xFFFFFF
-# define BLACK 0x000000
-# define GRAY 0x808080
-# define BROWN 0xA52A2A
+# define RED	0xFF0000
+# define GREEN	0x00FF00
+# define BLUE	0x0000FF
+# define YELLOW	0xFFFF00
+# define WHITE	0xFFFFFF
+# define BLACK	0x000000
+# define GRAY	0x808080
+# define BROWN	0xA52A2A
 //end_colors
 
 typedef struct s_flags
