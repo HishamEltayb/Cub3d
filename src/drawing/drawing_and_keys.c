@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 21:32:56 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 09:30:16 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ void	key_left_right(t_data *data, int keycode);
 
 int	display(t_data *data)
 {
+	create_image(data);
 	mlx_clear_window(data->mlx, data->win);
 	draw_map2d(data);
-	draw_rays(data);
 	draw_player(data);
+	draw_rays(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->main.img, 0, 0);
+	mlx_destroy_image(data->mlx, data->main.img);
 	return (0);
 }
 

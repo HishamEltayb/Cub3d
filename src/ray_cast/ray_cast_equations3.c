@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:48:03 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 16:37:15 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 10:31:35 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float	deg_to_rad(float angle);
 void	init_raycast(t_raycast *ray);
-void	reset_ray_angle(t_raycast *ray);
+void	reset_ray_angle(float *angle);
 void	set_nearest_line(t_raycast *ray);
 void	set_start_end_line(t_data *data, t_raycast *ray);
 
@@ -23,12 +23,12 @@ float	deg_to_rad(float angle)
 	return (angle * (M_PI / 180));
 }
 
-void	reset_ray_angle(t_raycast *ray)
+void	reset_ray_angle(float *angle)
 {
-	if (ray->angle < 0)
-		ray->angle += 360;
-	if (ray->angle > 360)
-		ray->angle -= 360;
+	if (*angle < 0)
+		*angle += 360;
+	if (*angle > 360)
+		*angle -= 360;
 }
 
 void	set_nearest_line(t_raycast *ray)
@@ -37,7 +37,11 @@ void	set_nearest_line(t_raycast *ray)
 	{
 		ray->rx = ray->vertical_x;
 		ray->ry = ray->vertical_y;
+		ray->final_dist = ray->dis_v;
 	}
+	else if (ray->dis_h < ray->dis_v)
+		ray->final_dist = ray->dis_h;
+	
 }
 
 void	set_start_end_line(t_data *data, t_raycast *ray)

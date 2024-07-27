@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 16:38:07 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/26 19:43:17 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_draw(t_data *data);
 
 void	init_draw(t_data *data)
 {
-	draw_image(data);
 	data->player.dx = cos(deg_to_rad(data->player.angle));
 	data->player.dy = -sin(deg_to_rad(data->player.angle));
 }

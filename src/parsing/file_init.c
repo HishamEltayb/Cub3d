@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:37:31 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 16:36:15 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 10:30:57 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_parsing(t_data *data)
 	data->ceiling_color = 0;
 	data->map_y = 0;
 	data->map_x = 0;
-	data->pixel = 64;
+	data->pixel = 0;
 	data->win = NULL;
 	data->mlx = mlx_init();
 }

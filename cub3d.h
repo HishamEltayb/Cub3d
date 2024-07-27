@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 21:29:41 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 09:45:39 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ typedef struct s_raycast
 	int					err;
 	int					e2;
 	int					arr[4];
+	float				final_dist;
+	float				line_height;
 }						t_raycast;
 
 typedef struct s_img
@@ -174,11 +176,13 @@ typedef struct s_data
 	t_img				image_so;
 	t_img				image_no;
 	t_img				main;
+	t_img				main_3d;
 
 	t_player			player;
 
 	int					map_y;
 	int					map_x;
+	int					map_size;
 	int					pixel;
 
 	void				*mlx;
@@ -258,7 +262,7 @@ int						map_player_check(t_data *data);
 bool					is_sourrounded_by_walls(t_data *data);
 
 //src/parsing/file_parsing.c
-void					draw_image(t_data *data);
+void					create_image(t_data *data);
 void					parsing(t_data *data, int ac, char **av);
 void					file_store_data(char *filename, t_data *data);
 
@@ -272,7 +276,7 @@ bool					is_valid_map_char_helper2(t_data *data, char c);
 int						exit_mouse(t_data *data);
 int						draw_player(t_data *data);
 void					draw_square(t_data *data, int x, int y, int color);
-void					my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void					my_mlx_pixel_put(t_data *data, t_img *image, int arr[2], int color);
 
 //src/drawing/drawing_and_keys.c
 int						display(t_data *data);
@@ -331,7 +335,7 @@ float					intersection_point_y(float px, float tan, float py,
 //src/ray_cast/ray_cast_equations3.c
 float					deg_to_rad(float angle);
 void					init_raycast(t_raycast *ray);
-void					reset_ray_angle(t_raycast *ray);
+void					reset_ray_angle(float *angle);
 void					set_nearest_line(t_raycast *ray);
 void					set_start_end_line(t_data *data, t_raycast *ray);
 
