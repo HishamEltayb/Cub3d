@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:46:57 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 16:45:04 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 20:30:39 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_nearest_horizontal_line(t_data *data, t_raycast *ray)
 	{
 		ray->rx = data->player.x;
 		ray->ry = data->player.y;
-		ray->dist_of_field = 8;
+		ray->dist_of_field = data->pixel;
 	}
 }
 
@@ -70,7 +70,7 @@ void	init_nearest_vertical_line(t_data *data, t_raycast *ray)
 	{
 		ray->rx = data->player.x;
 		ray->ry = data->player.y;
-		ray->dist_of_field = 8;
+		ray->dist_of_field = data->pixel;
 	}
 }
 
@@ -82,7 +82,7 @@ int	nearest_horizontal_line_main_loop(t_data *data, t_raycast *ray)
 		ray->mp = ray->my * data->map_x + ray->mx;
 		if (hit_wall(ray, data))
 		{
-			ray->dist_of_field = 8;
+			ray->dist_of_field = data->pixel;
 			ray->dis_h = cal_vert_horz_displacement(ray, data);
 		}
 		else
@@ -93,8 +93,8 @@ int	nearest_horizontal_line_main_loop(t_data *data, t_raycast *ray)
 		}
 	}
 	else
-		ray->dist_of_field = 8;
-	if (ray->dist_of_field < 8)
+		ray->dist_of_field = data->pixel;
+	if (ray->dist_of_field < data->pixel)
 		return (1);
 	return (0);
 }
@@ -107,7 +107,7 @@ int	nearest_vertical_line_main_loop(t_data *data, t_raycast *ray)
 		ray->mp = ray->my * data->map_x + ray->mx;
 		if (hit_wall(ray, data))
 		{
-			ray->dist_of_field = 8;
+			ray->dist_of_field = data->pixel;
 			ray->dis_v = cal_vert_horz_displacement(ray, data);
 		}
 		else
@@ -118,8 +118,8 @@ int	nearest_vertical_line_main_loop(t_data *data, t_raycast *ray)
 		}
 	}
 	else
-		ray->dist_of_field = 8;
-	if (ray->dist_of_field < 8)
+		ray->dist_of_field = data->pixel;
+	if (ray->dist_of_field < data->pixel)
 		return (true);
 	return (false);
 }

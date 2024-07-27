@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 16:04:24 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 20:27:48 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,47 @@ int		display(t_data *data);
 void	draw_map2d(t_data *data);
 int		key_hook(int keycode, t_data *data);
 void	key_left_right(t_data *data, int keycode);
+void	draw_floor_ceiling(t_data *data);
+
+void	draw_floor_ceiling(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT/2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+	
+			my_mlx_pixel_put(data, &data->main, (int[]){x, y}, data->ceiling_color);
+			x++;
+		}
+		y++;
+	}
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+	
+			my_mlx_pixel_put(data, &data->main, (int[]){x, y}, data->floor_color);
+			x++;
+		}
+		y++;
+	}
+}
 
 int	display(t_data *data)
 {
 	create_image(data);
 	mlx_clear_window(data->mlx, data->win);
+	draw_floor_ceiling(data);
+	draw_3drays(data);
 	draw_map2d(data);
+	draw_2drays(data);
 	draw_player(data);
-	draw_rays(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->main.img, 0, 0);
 	mlx_destroy_image(data->mlx, data->main.img);
 	return (0);
@@ -108,29 +141,6 @@ void	draw_map2d(t_data *data)
 	int	x;
 	int	y;
 
-	y = 0;
-	while (y < HEIGHT/2)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-	
-			my_mlx_pixel_put(data, &data->main, (int[]){x, y}, data->ceiling_color);
-			x++;
-		}
-		y++;
-	}
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-	
-			my_mlx_pixel_put(data, &data->main, (int[]){x, y}, data->floor_color);
-			x++;
-		}
-		y++;
-	}
 	y = 0;
 	while (y < data->map_y)
 	{

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:26:17 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 16:53:48 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 20:24:18 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void draw_3d_line(t_data *data, t_raycast *ray) {
     int line_height;
     int line_offset;
 	int	y;
-	//int x;
     int arr[2];
     
     ca = data->player.angle - ray->angle;
@@ -83,7 +82,7 @@ void draw_3d_line(t_data *data, t_raycast *ray) {
 	}
 }
 
-void	draw_rays(t_data *data)
+void	draw_2drays(t_data *data)
 {
 	t_raycast	ray;
 
@@ -98,6 +97,26 @@ void	draw_rays(t_data *data)
 		set_nearest_line(&ray);
 		set_start_end_line(data, &ray);
 		draw_line(data, &ray);
+		ray.counter += 1;
+		ray.angle += (double)60 / WIDTH;
+		reset_ray_angle(&ray.angle);
+	}
+}
+
+void	draw_3drays(t_data *data)
+{
+	t_raycast	ray;
+
+	ray.angle = data->player.angle - 30;
+	reset_ray_angle(&ray.angle);
+	ray.counter = 0;
+	while (ray.counter < WIDTH)
+	{
+		init_raycast(&ray);
+		nearest_vertical_line(data, &ray);
+		nearest_horizontal_line(data, &ray);
+		set_nearest_line(&ray);
+		set_start_end_line(data, &ray);
 		draw_3d_line(data, &ray);
 		ray.counter += 1;
 		ray.angle += (double)60 / WIDTH;

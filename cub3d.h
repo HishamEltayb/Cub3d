@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 12:36:19 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 20:27:38 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,5 +340,10 @@ void					init_raycast(t_raycast *ray);
 void					reset_ray_angle(float *angle);
 void					set_nearest_line(t_raycast *ray);
 void					set_start_end_line(t_data *data, t_raycast *ray);
+
+void					draw_3drays(t_data *data);
+void					draw_2drays(t_data *data);
+void					draw_floor_ceiling(t_data *data);
+
 
 #endif
