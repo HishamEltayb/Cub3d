@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 09:30:16 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 16:04:24 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int	display(t_data *data)
 
 void	key_left_right(t_data *data, int keycode)
 {
-	if (keycode == KEY_LEFT)
+	if (keycode == KEY_RIGHT)
 	{
 		data->player.angle += 5;
 		data->player.angle = (int)(data->player.angle) % 360;
 		data->player.dx = cos(deg_to_rad(data->player.angle));
 		data->player.dy = -sin(deg_to_rad(data->player.angle));
 	}
-	if (keycode == KEY_RIGHT)
+	if (keycode == KEY_LEFT)
 	{
 		data->player.angle -= 5;
 		data->player.angle = (int)(data->player.angle) % 360;
@@ -84,12 +84,12 @@ int	key_hook(int keycode, t_data *data)
 		new_x -= data->player.dx * 5;
 		new_y -= data->player.dy * 5;
 	}
-	if (keycode == KEY_D)
+	if (keycode == KEY_A)
 	{
 		new_x -= data->player.dy * 5;
 		new_y += data->player.dx * 5;
 	}
-	if (keycode == KEY_A)
+	if (keycode == KEY_D)
 	{
 		new_x += data->player.dy * 5;
 		new_y -= data->player.dx * 5;
@@ -109,6 +109,29 @@ void	draw_map2d(t_data *data)
 	int	y;
 
 	y = 0;
+	while (y < HEIGHT/2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+	
+			my_mlx_pixel_put(data, &data->main, (int[]){x, y}, data->ceiling_color);
+			x++;
+		}
+		y++;
+	}
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+	
+			my_mlx_pixel_put(data, &data->main, (int[]){x, y}, data->floor_color);
+			x++;
+		}
+		y++;
+	}
+	y = 0;
 	while (y < data->map_y)
 	{
 		x = 0;
@@ -124,5 +147,4 @@ void	draw_map2d(t_data *data)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->main.img, 0, 0);
 }

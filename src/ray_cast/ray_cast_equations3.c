@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:48:03 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 10:31:35 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 12:27:05 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,13 @@ void	set_nearest_line(t_raycast *ray)
 		ray->rx = ray->vertical_x;
 		ray->ry = ray->vertical_y;
 		ray->final_dist = ray->dis_v;
+		ray->color = RED;
 	}
 	else if (ray->dis_h < ray->dis_v)
+	{
 		ray->final_dist = ray->dis_h;
+		ray->color = GREEN;
+	}
 	
 }
 

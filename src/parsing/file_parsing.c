@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 10:32:42 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 12:36:32 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	parsing(t_data *data, int ac, char **av)
 	file_pre_check(ac, av);
 	file_store_data(av[1], data);
 	map_check(data);
-	data->win = mlx_new_window(data->mlx, 1920, 1080, "CUB3D");
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "CUB3D");
 }
 
 void	create_image(t_data *data)
 {
-	data->main.img = mlx_new_image(data->mlx, 1920,
-			1080);
+	data->main.img = mlx_new_image(data->mlx, WIDTH,
+			HEIGHT);
 	data->main.addr = mlx_get_data_addr(data->main.img,
 			&data->main.bits_per_pixel,
 			&data->main.line_length,

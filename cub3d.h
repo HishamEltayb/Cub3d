@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 09:45:39 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/27 12:36:19 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ typedef enum key_map
 }						t_key;
 
 # endif
+
+# define WIDTH 1920
+# define HEIGHT 1080
 
 # define EXIST 			0
 # define NOT_EXIST 		1
@@ -144,6 +147,7 @@ typedef struct s_raycast
 	int					arr[4];
 	float				final_dist;
 	float				line_height;
+	int					color;
 }						t_raycast;
 
 typedef struct s_img
@@ -300,10 +304,8 @@ void					init_draw(t_data *data);
 
 //src/ray_cast/ray_cast.c
 void					draw_rays(t_data *data);
-void					draw_line(t_data *data, int arr[4]);
-int						draw_line_loop(t_data *data, t_raycast *ray,
-							int arr[4]);
-
+void			draw_line(t_data *data, t_raycast *oray);
+int	draw_line_loop(t_data *data, t_raycast *ray, t_raycast *oray);
 //src/ray_cast/ray_cast_utils.c
 void					init_help_nearest_horizontal_line(t_raycast *ray);
 void					init_nearest_vertical_line(t_data *data,
