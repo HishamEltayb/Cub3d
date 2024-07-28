@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 10:32:00 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 19:58:44 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ void	print_data(t_data *data)
 	if (!data || !data->map || !data->element)
 		return ;
 	printf("valid_line_count = %d\n", data->valid_line_count);
+	printf("data->map_size = %d\n", data->map_size);
+	printf("data->player_speed = %d\n", data->player_speed);
+	printf("data->player_size = %d\n", data->player_size);
+	printf("data->minimap_x = %d\n", data->minimap_x);
+	printf("data->minimap_y = %d\n", data->minimap_y);
 	printf("data->map_x = %d\n", data->map_x);
 	printf("data->map_y = %d\n", data->map_y);
 	printf("data->player.x = %f\n", data->player.x);

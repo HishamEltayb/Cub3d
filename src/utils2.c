@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/26 19:43:17 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 20:03:04 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	init_data(t_data *data)
 	init_image(&data->image_so);
 	init_image(&data->image_no);
 	init_parsing(data);
+	data->minimap_x = 300;
+	data->minimap_y = 200;
 }
 
 void	free2d(void **content)

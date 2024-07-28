@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 20:27:48 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 20:12:26 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void	key_left_right(t_data *data, int keycode)
 
 int	check_collision(t_data *data, float new_x, float new_y)
 {
-	int map_x1 = (int)(new_x - PLAYER_SIZE / 2) / data->pixel;
-	int map_y1 = (int)(new_y - PLAYER_SIZE / 2) / data->pixel;
-	int map_x2 = (int)(new_x + PLAYER_SIZE / 2) / data->pixel;
-	int map_y2 = (int)(new_y + PLAYER_SIZE / 2) / data->pixel;
+	int map_x1 = (int)(new_x - data->player_size / 2) / data->pixel_x;
+	int map_y1 = (int)(new_y - data->player_size / 2) / data->pixel_y;
+	int map_x2 = (int)(new_x + data->player_size / 2) / data->pixel_x;
+	int map_y2 = (int)(new_y + data->player_size / 2) / data->pixel_y;
 
 	if (map_x1 < 0 || map_x1 >= data->map_x
 		|| map_y1 < 0 || map_y1 >= data->map_y
@@ -103,29 +103,30 @@ int	key_hook(int keycode, t_data *data)
 	float	new_x;
 	float	new_y;
 	
+	data->player_speed = 1;
 	if (keycode == ESC)
 		(free_data(data), printf("exited\n"), exit(0));
 	new_x = data->player.x;
 	new_y = data->player.y;
 	if (keycode == KEY_W)
 	{
-		new_x += data->player.dx * 5;
-		new_y += data->player.dy * 5;
+		new_x += data->player.dx * data->player_speed;
+		new_y += data->player.dy * data->player_speed;
 	}
 	if (keycode == KEY_S)
 	{
-		new_x -= data->player.dx * 5;
-		new_y -= data->player.dy * 5;
+		new_x -= data->player.dx * data->player_speed;
+		new_y -= data->player.dy * data->player_speed;
 	}
 	if (keycode == KEY_A)
 	{
-		new_x -= data->player.dy * 5;
-		new_y += data->player.dx * 5;
+		new_x -= data->player.dy * data->player_speed;
+		new_y += data->player.dx * data->player_speed;
 	}
 	if (keycode == KEY_D)
 	{
-		new_x += data->player.dy * 5;
-		new_y -= data->player.dx * 5;
+		new_x += data->player.dy * data->player_speed;
+		new_y -= data->player.dx * data->player_speed;
 	}
 	if (!check_collision(data, new_x, new_y))
 	{
@@ -148,11 +149,11 @@ void	draw_map2d(t_data *data)
 		while (x < data->map_x)
 		{
 			if (data->map2d[y][x] == '1')
-				draw_square(data, x * data->pixel, y * data->pixel, WHITE);
+				draw_square(data, x * data->pixel_x, y * data->pixel_y, WHITE);
 			else if (data->map2d[y][x] == ' ')
-				draw_square(data, x * data->pixel, y * data->pixel, BLUE);
+				draw_square(data, x * data->pixel_x, y * data->pixel_y, BLUE);
 			else
-				draw_square(data, x * data->pixel, y * data->pixel, GRAY);
+				draw_square(data, x * data->pixel_x, y * data->pixel_y, GRAY);
 			x++;
 		}
 		y++;

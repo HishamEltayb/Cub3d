@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:17:36 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 10:32:17 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 17:07:34 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	draw_square(t_data *data, int x, int y, int color)
 	int arr[2];
 
 	i = 0;
-	while (i < data->pixel - 1)
+	while (i < data->pixel_y - 1)
 	{
 		j = 0;
-		while (j < data->pixel - 1)
+		while (j < data->pixel_x - 1)
 		{
 			arr[0] = x + j;
 			arr[1] = y + i;
@@ -65,12 +65,14 @@ int	draw_player(t_data *data)
 	int	i;
 	int	j;
 
-	i = -8;
+	data->player_size = sqrt(data->pixel_x * data->pixel_y) / 4;
+
+	i = -data->player_size;
 	k = 0;
-	while (i < 8)
+	while (i < data->player_size)
 	{
-		j = -8;
-		while (j < 8)
+		j = -data->player_size;
+		while (j < data->player_size)
 		{
 			my_mlx_pixel_put(data, &data->main, (int[2]){(data->player.x) + i,
 				(data->player.y) + j}, BLUE);
@@ -80,10 +82,10 @@ int	draw_player(t_data *data)
 		}
 		i++;
 	}
-	while (k < 20)
+	while (k < sqrt(data->pixel_x * data->pixel_y) / 2)
 	{
-		my_mlx_pixel_put(data, &data->main, (int[2]){data->player.x + data->player.dx
-			* k, data->player.y + data->player.dy * k}, BLUE);
+		my_mlx_pixel_put(data, &data->main, (int[2]){(data->player.x) + data->player.dx
+			* k, (data->player.y) + data->player.dy * k}, BLUE);
 		// mlx_pixel_put(data->mlx, data->win, data->player.x + data->player.dx
 			// * k, data->player.y + data->player.dy * k, RED);
 		k++;
