@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:11:57 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 21:09:27 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:36:15 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ bool	is_space_or_one(char c)
 
 bool	is_valid_map_char_helper2(t_data *data, char c)
 {
-	if (c == 'W' && data->flags.PlayerW == NOT_EXIST
+	if (c == 'W' && data->flags.player_w == NOT_EXIST
 		&& data->player.is_exist == NOT_EXIST)
 	{
-		data->flags.PlayerW = EXIST;
+		data->flags.player_w = EXIST;
 		data->player.is_exist = EXIST;
 		data->player.dir = 'W';
 		data->player.angle = 180;
 		return (TRUE);
 	}
-	else if (c == 'E' && data->flags.PlayerE == NOT_EXIST
+	else if (c == 'E' && data->flags.player_e == NOT_EXIST
 		&& data->player.is_exist == NOT_EXIST)
 	{
-		data->flags.PlayerE = EXIST;
+		data->flags.player_e = EXIST;
 		data->player.is_exist = EXIST;
 		data->player.dir = 'E';
 		data->player.angle = 0;
@@ -71,19 +71,19 @@ bool	is_valid_map_char_helper2(t_data *data, char c)
 
 bool	is_valid_map_char_helper(t_data *data, char c)
 {
-	if (c == 'N' && data->flags.PlayerN == NOT_EXIST
+	if (c == 'N' && data->flags.player_n == NOT_EXIST
 		&& data->player.is_exist == NOT_EXIST)
 	{
-		data->flags.PlayerN = EXIST;
+		data->flags.player_n = EXIST;
 		data->player.is_exist = EXIST;
 		data->player.dir = 'N';
 		data->player.angle = 90;
 		return (TRUE);
 	}
-	else if (c == 'S' && data->flags.PlayerS == NOT_EXIST
+	else if (c == 'S' && data->flags.player_s == NOT_EXIST
 		&& data->player.is_exist == NOT_EXIST)
 	{
-		data->flags.PlayerS = EXIST;
+		data->flags.player_s = EXIST;
 		data->player.is_exist = EXIST;
 		data->player.dir = 'S';
 		data->player.angle = 270;

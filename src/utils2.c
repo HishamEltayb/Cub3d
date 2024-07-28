@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/22 10:13:00 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/26 19:43:17 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,19 @@ void	init_draw(t_data *data);
 
 void	init_draw(t_data *data)
 {
-	draw_image(data);
-	data->player.dx = cos(RAD(data->player.angle));
-	data->player.dy = -sin(RAD(data->player.angle));
+	data->player.dx = cos(deg_to_rad(data->player.angle));
+	data->player.dy = -sin(deg_to_rad(data->player.angle));
 }
 
 void	init_data(t_data *data)
 {
 	init_flags(data);
 	init_player(data);
-	init_raycast(data);
 	init_image(&data->main);
-	init_image(&data->imageEA);
-	init_image(&data->imageWE);
-	init_image(&data->imageSO);
-	init_image(&data->imageNO);
+	init_image(&data->image_ea);
+	init_image(&data->image_we);
+	init_image(&data->image_so);
+	init_image(&data->image_no);
 	init_parsing(data);
 }
 
@@ -58,14 +56,14 @@ void	free_mlx(t_data *data)
 {
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
-	if (data->imageEA.img)
-		mlx_destroy_image(data->mlx, data->imageEA.img);
-	if (data->imageWE.img)
-		mlx_destroy_image(data->mlx, data->imageWE.img);
-	if (data->imageSO.img)
-		mlx_destroy_image(data->mlx, data->imageSO.img);
-	if (data->imageNO.img)
-		mlx_destroy_image(data->mlx, data->imageNO.img);
+	if (data->image_ea.img)
+		mlx_destroy_image(data->mlx, data->image_ea.img);
+	if (data->image_we.img)
+		mlx_destroy_image(data->mlx, data->image_we.img);
+	if (data->image_so.img)
+		mlx_destroy_image(data->mlx, data->image_so.img);
+	if (data->image_no.img)
+		mlx_destroy_image(data->mlx, data->image_no.img);
 #ifdef Linux
 	mlx_destroy_display(data->mlx);
 #endif
