@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:20:24 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/28 17:09:25 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 20:03:40 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,9 @@ typedef enum key_map
 
 # endif
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 2560
+# define HEIGHT 1440
 
-# define MINIMAP_X 300
-# define MINIMAP_Y 200
 
 # define EXIST 			0
 # define NOT_EXIST 		1
@@ -198,6 +196,8 @@ typedef struct s_data
 	void				*win;
 	int					player_size;
 	int					player_speed;
+	int					minimap_x;
+	int					minimap_y;
 
 }						t_data;
 

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 14:40:47 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/28 17:02:18 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 17:28:31 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 
 #define deg_to_rad(x) (x * M_PI / 180.0)
 
-#define MINIMAP_X 200      // map width
-#define MINIMAP_Y 200      // map height
+#define data->minimap_x 200      // map width
+#define data->minimap_y 200      // map height
 #define MINIMAP_SIZE 40000     // map cube size
 
 
@@ -80,8 +80,8 @@ void	init_data(t_data *data)
 {
 	data->map_y = MAPY;
 	data->map_x = MAPX;
-	data->pixel_x = MINIMAP_X / MAPX;
-	data->pixel_y = MINIMAP_Y / MAPY;
+	data->pixel_x = data->minimap_x / MAPX;
+	data->pixel_y = data->minimap_y / MAPY;
 }
 int main()
 {
@@ -89,11 +89,11 @@ int main()
 	init_data(&data);
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "test");
-	data.main.img = mlx_new_image(data.mlx, MINIMAP_X, MINIMAP_Y);
+	data.main.img = mlx_new_image(data.mlx, data->minimap_x, data->minimap_y);
 	data.main.addr = mlx_get_data_addr(data.main.img, &data.main.bits_per_pixel, &data.main.line_length, &data.main.endian);
-	for(int i = 0; i < MINIMAP_Y; i++)
+	for(int i = 0; i < data->minimap_y; i++)
 	{
-		for(int j = 0; j < MINIMAP_X; j++)
+		for(int j = 0; j < data->minimap_x; j++)
 		{
 			my_mlx_pixel_put(&data, &data.main, (int[2]){j, i}, GREEN);
 		}
