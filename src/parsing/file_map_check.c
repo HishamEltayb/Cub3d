@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 15:23:38 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 16:40:56 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ void	resize_map(t_data *data)
 void	map_check(t_data *data)
 {
 	data->map_size = (data->map_y * data->map_x);
-	data->pixel = (data->map_y * data->map_x) / 3;
+	// data->pixel = (data->map_y * data->map_x) / 3;
+	data->pixel_x = MINIMAP_X / data->map_x;
+	data->pixel_y =	MINIMAP_Y / data->map_y;
+	
 	if (map_player_check(data))
 	{
 		ft_putstr_fd("Error\nInvalid Map Characters1\n", 2);

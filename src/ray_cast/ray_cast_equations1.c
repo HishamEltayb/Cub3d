@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:48:03 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 20:30:25 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 17:00:51 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ float	cal_vert_horz_displacement(t_raycast *ray, t_data *data);
 void	nearest_horizontal_line(t_data *data, t_raycast *ray)
 {
 	init_nearest_horizontal_line(data, ray);
-	while (ray->dist_of_field < data->pixel)
+	while (ray->dist_of_field < MINIMAP_X)
 		if (!nearest_horizontal_line_main_loop(data, ray))
 			break ;
 }
@@ -29,7 +29,7 @@ void	nearest_horizontal_line(t_data *data, t_raycast *ray)
 void	nearest_vertical_line(t_data *data, t_raycast *ray)
 {
 	init_nearest_vertical_line(data, ray);
-	while (ray->dist_of_field < data->pixel)
+	while (ray->dist_of_field < MINIMAP_Y)
 		if (!nearest_vertical_line_main_loop(data, ray))
 			break ;
 	ray->vertical_x = ray->rx;

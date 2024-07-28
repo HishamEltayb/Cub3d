@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:26:17 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 20:24:18 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 16:58:21 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void draw_3d_line(t_data *data, t_raycast *ray) {
     if (ca > 360)
         ca -= 360;
     ray->final_dist = ray->final_dist * cos(deg_to_rad(ca));
-    line_height = (data->pixel/2 * HEIGHT) / ray->final_dist;
+    line_height = (data->pixel_y/2 * HEIGHT) / ray->final_dist;
     if (line_height > HEIGHT)
         line_height = HEIGHT;
     line_offset = HEIGHT/2 - (line_height / 2);

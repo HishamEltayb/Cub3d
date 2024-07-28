@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:48:03 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/23 16:27:33 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/28 16:56:14 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ float	intersection_point_x(float px, float tan, float py, float ray_x)
 
 void	map_to_grid(t_raycast *ray, t_data *data)
 {
-	ray->mx = (int)(ray->rx) / data->pixel;
-	ray->my = (int)(ray->ry) / data->pixel;
+	ray->mx = (int)(ray->rx) / data->pixel_x;
+	ray->my = (int)(ray->ry) / data->pixel_y;
 }
 
 int	is_valid_bounds(t_raycast *ray, t_data *data)
