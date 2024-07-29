@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alialawlaqi <alialawlaqi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:26:17 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/28 20:22:10 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/29 12:37:41 by alialawlaqi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ void	draw_2drays(t_data *data)
 	}
 }
 
-void draw_3d_line(t_data *data, t_raycast *ray) 
+void draw_3d_line(t_data *data, t_raycast *ray)
 {
     int ca;
     int line_height;
     int line_offset;
 	int	y;
     int arr[2];
-    
+
     ca = data->player.angle - ray->angle;
     if (ca < 0)
         ca += 360;
@@ -100,8 +100,8 @@ void draw_3d_line(t_data *data, t_raycast *ray)
 	while (y < line_offset + line_height)
 	{
 		arr[0] = (ray->counter);
-		arr[1] = y; 
-		my_mlx_pixel_put(data, &data->main, arr, ray->color); 
+		arr[1] = y;
+		my_mlx_pixel_put(data, &data->main, arr, ray->color);
 		y++;
 	}
 }
@@ -112,8 +112,8 @@ void	draw_3drays(t_data *data)
 
 	ray.angle = data->player.angle - 30;
 	reset_ray_angle(&ray.angle);
-	ray.counter = 0;
-	while (ray.counter < WIDTH)
+	ray.counter = WIDTH;
+	while (ray.counter > 0)
 	{
 		init_raycast(&ray);
 		nearest_vertical_line(data, &ray);
@@ -121,9 +121,8 @@ void	draw_3drays(t_data *data)
 		set_nearest_line(&ray);
 		set_start_end_line(data, &ray);
 		draw_3d_line(data, &ray);
-		ray.counter += 1;
+		ray.counter -= 1;
 		ray.angle += (double)60 / WIDTH;
 		reset_ray_angle(&ray.angle);
 	}
 }
-

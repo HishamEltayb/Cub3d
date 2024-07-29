@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_and_keys.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alialawlaqi <alialawlaqi@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 12:49:18 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/28 20:12:26 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/07/29 12:39:43 by alialawlaqi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_floor_ceiling(t_data *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-	
+
 			my_mlx_pixel_put(data, &data->main, (int[]){x, y}, data->ceiling_color);
 			x++;
 		}
@@ -40,7 +40,7 @@ void	draw_floor_ceiling(t_data *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-	
+
 			my_mlx_pixel_put(data, &data->main, (int[]){x, y}, data->floor_color);
 			x++;
 		}
@@ -64,14 +64,14 @@ int	display(t_data *data)
 
 void	key_left_right(t_data *data, int keycode)
 {
-	if (keycode == KEY_RIGHT)
+	if (keycode == KEY_LEFT)
 	{
 		data->player.angle += 5;
 		data->player.angle = (int)(data->player.angle) % 360;
 		data->player.dx = cos(deg_to_rad(data->player.angle));
 		data->player.dy = -sin(deg_to_rad(data->player.angle));
 	}
-	if (keycode == KEY_LEFT)
+	if (keycode == KEY_RIGHT)
 	{
 		data->player.angle -= 5;
 		data->player.angle = (int)(data->player.angle) % 360;
@@ -102,7 +102,7 @@ int	key_hook(int keycode, t_data *data)
 {
 	float	new_x;
 	float	new_y;
-	
+
 	data->player_speed = 1;
 	if (keycode == ESC)
 		(free_data(data), printf("exited\n"), exit(0));
@@ -118,12 +118,12 @@ int	key_hook(int keycode, t_data *data)
 		new_x -= data->player.dx * data->player_speed;
 		new_y -= data->player.dy * data->player_speed;
 	}
-	if (keycode == KEY_A)
+	if (keycode == KEY_D)
 	{
 		new_x -= data->player.dy * data->player_speed;
 		new_y += data->player.dx * data->player_speed;
 	}
-	if (keycode == KEY_D)
+	if (keycode == KEY_A)
 	{
 		new_x += data->player.dy * data->player_speed;
 		new_y -= data->player.dx * data->player_speed;
