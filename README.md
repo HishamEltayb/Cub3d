@@ -55,30 +55,9 @@ The system integrates multiple components to ensure a seamless and interactive 3
 3. **Rendering:**
      Rendering the 3D environment based on the intersection points and object properties.
 
-#### Security Measures:
-- **Memory Management:**
-     Ensuring proper memory allocation and deallocation to prevent memory leaks.
-- **Error Handling:**
-     Implementing robust error handling to handle unexpected inputs or errors.
-
-#### Testing and Deployment
-
-- **Development Environment:**
-     Using the 42 school's development environment for testing and debugging.
-
-- **Deployment:**
-     Deploying the project on a local machine for demonstration purposes.
-
-#### User Experience Enhancements:
-
-- **Interactive Controls:**
-     Implementing user-friendly controls for navigating the 3D environment.
-
-- **Real-Time Rendering:**
-     Ensuring smooth and real-time rendering of the 3D environment.
-
-
-
+<h1 align="center">
+   <img width="2528" alt="Screen Shot 2024-08-15 at 1 31 01 PM" src="https://github.com/user-attachments/assets/955120df-2c36-4429-99b1-a0b19b98763e">
+</h1>
 
 ## 🚀 Technologies
 
