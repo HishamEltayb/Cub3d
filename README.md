@@ -5,10 +5,7 @@
       (RayCasting with miniLibX)
 </h2>
 
-<h1 align="center">
    ![3e5f962b44c632a819141d61fd8558b55a0d07cc](https://github.com/user-attachments/assets/3e449db1-41a6-47b1-8dff-635829a981c9)
-
-</h1>
 
 <p align="center">
   <a href="#-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
