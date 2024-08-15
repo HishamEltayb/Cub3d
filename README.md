@@ -87,40 +87,13 @@ Technologies used to develop Cub3D:
 **1. Clone the project and access the folder**
 
 ```bash
-git clone https://github.com/AhmedAlfahal/CompasX-Hackathon.git && cd CompasX-Hackathon
+git clone https://github.com/HishamEltayb/Cub3d.git && cd Cub3d
 ```
 
 **2. Use Makefile**
 ```bash
-  $ make
+  $ make -j && make run
 ```
-![make](https://github.com/AhmedAlfahal/CompasX-Hackathon/assets/122282675/7900e3c8-90d8-404c-895b-a6ddd4aec8c6)
-
-**3. Install Meta Mask Extention**
-![install meta mask](https://github.com/AhmedAlfahal/CompasX-Hackathon/assets/122282675/b5032cc2-dfd5-4a87-8764-703f1f5a59c3)
-
-**4. Adding the netowrk to the Meta Mask**
-
-![adding the network (1)](https://github.com/AhmedAlfahal/CompasX-Hackathon/assets/122282675/12ef6a56-fb73-4ac8-b532-1de9adb71366)
-
-**5. Setup the private key**
-![setup the private key](https://github.com/AhmedAlfahal/CompasX-Hackathon/assets/122282675/7e6662e1-5531-40f1-ab6d-19ee4b34c886)
-
-**6. Manage Extention**
-
-![manage extenstion](https://github.com/AhmedAlfahal/CompasX-Hackathon/assets/122282675/fcdd7e97-cb67-4bcb-87db-2649cc8551f6)
-
-## Trade-off: Integrating User Profiles with NFTs
-
-### Enhanced User Engagement: 
-   Linking user profiles with NFTs can significantly enhance user engagement by offering tangible rewards tied to voting participation.
-
-### Personalization and Identity: 
-   Users can personalize their profiles with unique NFTs, fostering a stronger sense of identity and ownership within the voting platform.
-
-### Monetary Incentives: 
-   NFTs associated with user profiles may possess monetary value, potentially incentivizing increased participation and voting activity as users seek to acquire valuable NFTs.
-
 
 ## 🤔 How to contribute
 
@@ -130,7 +103,7 @@ git clone https://github.com/AhmedAlfahal/CompasX-Hackathon.git && cd CompasX-Ha
 # Fork using GitHub official command line
 # If you don't have the GitHub CLI, use the web site to do that.
 
-$ gh repo fork AhmedAlfahal/CompasX-Hackathon
+$ gh repo fork HishamEltayb/Cub3d
 ```
 
 **Follow the steps below**
@@ -138,7 +111,7 @@ $ gh repo fork AhmedAlfahal/CompasX-Hackathon
 
 **Clone your fork**
 ```bash
-$ git clone your-fork-url && cd CompasX-Hackathon
+$ git clone your-fork-url && cd Cub3d
 ```
 
 **Create a branch with your feature**
@@ -158,18 +131,6 @@ $ git push origin my-feature
 
 ### License
    This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-
-
-
-
-
-
-
-
-
-
-![6](https://github.com/user-attachments/assets/a8c770b8-946e-4c97-9161-a44b50ac97cc)
 
 
 
