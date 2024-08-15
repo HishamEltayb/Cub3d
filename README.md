@@ -23,7 +23,7 @@ This project is inspired by the world-famous Wolfenstein 3D game, which was the 
 
 <h1 align="center">
    
-![6](https://github.com/user-attachments/assets/a8c770b8-946e-4c97-9161-a44b50ac97cc)
+<img width="2096" alt="Screen Shot 2024-08-15 at 1 21 32 PM" src="https://github.com/user-attachments/assets/eb6efbc6-04ea-4bdd-bd78-d86b36169c93">
 
 </h1>
 
@@ -228,6 +228,7 @@ $ git push origin my-feature
 
 
 
+![6](https://github.com/user-attachments/assets/a8c770b8-946e-4c97-9161-a44b50ac97cc)
 
 
 
