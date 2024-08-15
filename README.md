@@ -12,6 +12,7 @@
 
 
 
+![6](https://github.com/user-attachments/assets/a8c770b8-946e-4c97-9161-a44b50ac97cc)
 
 
 
@@ -51,9 +52,9 @@ This project is inspired by the world-famous Wolfenstein 3D game, which was the 
 
 ### 🔍 Importance of Ray-Casting:
 
-* <p style="color: red;">Understanding the basics of 3D rendering and graphics.</p> 
-* <p style="color: red;">Learning about the intersection of rays and objects in 3D space.</p> 
-* <p style="color: red;">Developing problem-solving skills in a graphical context.</p>
+* <p style="color: red;">Understanding the basics of 3D rendering and graphics.
+* <p style="color: red;">Learning about the intersection of rays and objects in 3D space.
+* <p style="color: red;">Developing problem-solving skills in a graphical context.
 
 
 ### 💡 Implemetation:
