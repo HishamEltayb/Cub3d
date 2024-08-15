@@ -1,5 +1,5 @@
 <h1 align="center">
-   CUB3D      
+   ⎔ CUB3D ❐     
 </h2>
    <h2 align="center">
       (RayCasting with miniLibX)
