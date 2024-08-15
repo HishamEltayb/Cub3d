@@ -1,7 +1,7 @@
-NO assets/textures/greenlight.xpm
-WE assets/textures/bluestone.xpm
-SO assets/textures/colorstone.xpm
-EA assets/textures/eagle.xpm
+NO textures/greenlight.xpm
+WE textures/bluestone.xpm
+SO textures/colorstone.xpm
+EA textures/eagle.xpm
 F 0,60,100
 C 150,150,150
 
