@@ -13,12 +13,16 @@ Use the `Cub3d.pdf` to get started.
 
 
 
+<p align="center">
+  <img width="532" alt="Screen Shot 2024-08-15 at 9 41 14 AM" src="https://github.com/user-attachments/assets/46f55dce-b794-4e4c-829c-39dd83df1560">
+</p>
 
-<img width="532" alt="Screen Shot 2024-08-15 at 9 41 14 AM" src="https://github.com/user-attachments/assets/46f55dce-b794-4e4c-829c-39dd83df1560">
 
 
 
-<img width="529" alt="Screen Shot 2024-08-15 at 9 41 23 AM" src="https://github.com/user-attachments/assets/0b4e37df-736d-4415-83e5-1b6188d1ea5e">
+<p align="center">
+   <img width="529" alt="Screen Shot 2024-08-15 at 9 41 23 AM" src="https://github.com/user-attachments/assets/0b4e37df-736d-4415-83e5-1b6188d1ea5e">
+</p>
 
 
 
@@ -35,4 +39,6 @@ Use the `Cub3d.pdf` to get started.
    ```
 3. Enjoy:
 
+<p align="center">
    ![3](https://github.com/user-attachments/assets/462d02d3-86e0-4854-aa1f-1f2b25e6fcc4)
+</p>
