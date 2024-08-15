@@ -37,89 +37,55 @@ This project is inspired by the world-famous Wolfenstein 3D game, which was the 
 * <p style="color: red;">Learning about the intersection of rays and objects in 3D space.
 * <p style="color: red;">Developing problem-solving skills in a graphical context.
 
-### 💡 Implemetation:
-
-### System Architecture
+### 💡Implemetation:
 The system integrates multiple components to ensure a seamless and interactive 3D rendering process:
 
-
 - **Ray-Casting Algorithm**: Implemented in C, handling the core logic of tracing rays and detecting intersections with objects.
+
 - **3D Rendering**: Utilizing the MiniLibX library for rendering the 3D environment.
-Rendering Process
-1. Initialization:
-    * Setting up the 3D environment and initializing the ray-casting algorithm.
-2. Ray-Casting:
-    * Tracing rays from the eye, one per pixel, and detecting intersections with objects.
-3. Rendering:
-    * Rendering the 3D environment based on the intersection points and object properties.
-Security Measures
-- **Memory Management**: Ensuring proper memory allocation and deallocation to prevent memory leaks.
-- **Error Handling**: Implementing robust error handling to handle unexpected inputs or errors.
-Testing and Deployment
-- **Development Environment**:
-    * Using the 42 school's development environment for testing and debugging.
-- **Deployment**:
-    * Deploying the project on a local machine for demonstration purposes.
-User Experience Enhancements
-- **Interactive Controls**: Implementing user-friendly controls for navigating the 3D environment.
-- **Real-Time Rendering**: Ensuring smooth and real-time rendering of the 3D environment.
 
+### Rendering Process:
 
+1. **Initialization:**
+     Setting up the 3D environment and initializing the ray-casting algorithm.
 
+2. **Ray-Casting:**
+     Tracing rays from the eye, one per pixel, and detecting intersections with objects.
 
-### Voting Process
-<h1 align="center">
-   
-![4](https://github.com/AhmedAlfahal/CompasX-Hackathon/assets/122282675/b177b47b-d992-482f-a014-41f1f2d96949)
-   
-</h1>
+3. **Rendering:**
+     Rendering the 3D environment based on the intersection points and object properties.
 
-1. **Registration and Authentication**:
-   - Secure registration and verification of voters.
-   - Encrypted log-in to protect voter identity and access.
-
-2. **Casting Votes**:
-   - Simple and secure interface for casting votes.
-   - Each vote is recorded on the blockchain.
-
-3. **Counting and Results**:
-   - Votes are automatically tallied on the blockchain.
-   - Results are publicly available and verifiable.
-
-### Security Measures
-
-- **Data Encryption**: All sensitive data is encrypted using strong cryptographic algorithms.
-- **Blockchain Security**: Utilizes blockchain’s immutability and consensus protocols to protect against tampering.
-- **Smart Contract Audits**: Thorough testing and auditing of smart contracts to ensure security and functionality.
+### Security Measures:
+- **Memory Management:**
+     Ensuring proper memory allocation and deallocation to prevent memory leaks.
+- **Error Handling:**
+     Implementing robust error handling to handle unexpected inputs or errors.
 
 ### Testing and Deployment
 
-- **Development Environment**:
-  - Truffle and Ganache for local blockchain testing and development.
-  - Integration with Metamask for secure user interactions.
-  
-- **Deployment**:
-  - Deployed smart contracts to the Solana test network.
-  - Hosted frontend and backend on a scalable cloud service.
+- **Development Environment:**
+     Using the 42 school's development environment for testing and debugging.
 
-### User Experience Enhancements
+- **Deployment:**
+     Deploying the project on a local machine for demonstration purposes.
 
-- **Real-Time Feedback**: Notifications and updates on voting status.
-- **Multi-Device Support**: Accessible across desktops, tablets, and smartphones.
+### User Experience Enhancements:
 
-### Community and Ecosystem Integration
+- **Interactive Controls:**
+     Implementing user-friendly controls for navigating the 3D environment.
 
-- **Compatibility with Compass**: Designed for easy integration into the Compass esports ecosystem.
-- **Scalability**: Capable of handling increasing numbers of votes and participants.
+- **Real-Time Rendering:**
+     Ensuring smooth and real-time rendering of the 3D environment.
+
+
 
 
 ## 🚀 Technologies
 
-Technologies that We used to develop Voting System:
-
-- [Blockchain](https://www.blockchain.com/)
-- [Smart Contracts](https://www.spiceworks.com/tech/innovation/articles/what-are-smart-contracts/#:~:text=A%20smart%20contract%20is%20defined,programming%20languages%20such%20as%20Solidity.)
-- [Decentralized Voting System](https://www.geeksforgeeks.org/decentralized-voting-system-using-blockchain/)
+Technologies used to develop Cub3D:
+* [C Programming Language](https://en.wikipedia.org/wiki/C_(programming_language))
+* [MiniLibX Library](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
+* [Ray-Casting Algorithm](https://en.wikipedia.org/wiki/Ray_casting#:~:text=Ray%20casting%20is%20the%20most,scenes%20to%20two%2Ddimensional%20images.)
 
 
 ## 💻 Getting started
