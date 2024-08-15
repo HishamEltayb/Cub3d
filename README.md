@@ -1,8 +1,8 @@
 <h1 align="center">
-   ⎔ CUB3D ❐     
+    🔸 CUB3D 🔸
 </h2>
    <h2 align="center">
-      (RayCasting with miniLibX)
+      (RayCasting with miniLibX)♨️
 </h2>
 
 <h1 align="center">
