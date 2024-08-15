@@ -6,12 +6,20 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 10:10:30 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/07 13:38:36 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/04 13:57:02 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# ifndef SIZE_T_MAX
+#  define SIZE_T_MAX SSIZE_MAX
+# endif
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 # include <stdlib.h>
 # include <limits.h>
@@ -19,14 +27,6 @@
 # include <stdio.h>
 # include <stddef.h>
 # include <stdarg.h>
-
-#ifndef SIZE_T_MAX
-# define SIZE_T_MAX SSIZE_MAX
-#endif
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
 
 typedef struct s_list
 {
@@ -111,6 +111,5 @@ char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strnjoin(int total, char **arry2d);
 char	*ft_strrtrim(char *s, char c);
-
 
 #endif

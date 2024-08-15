@@ -12,86 +12,56 @@
 
 #include "cub3d.h"
 
-void	error_free_exit(t_data *data, char *msg);
-void	check_image_path(char *image_path, t_data *data);
-void	fill_image_data(t_data *data, int flag, void **image);
+void	check_image_path(char *image_path, t_data *data, char *line);
 void	check_image(char **element, t_data *data, char *line);
+void	fill_image_data(t_img *texture, int arr[2], void **image);
 
-void	error_free_exit(t_data *data, char *msg)
+void	check_image_path(char *image_path, t_data *data, char *line)
 {
-	int	i;
+	char	*temp;
 
-	i = 0;
-	ft_putstr_fd(msg, 2);
-	if (data)
-		free_data(data);
-	while (i < 100)
-		close(i++);
-	exit(1);
-}
-
-void	check_image_path(char *image_path, t_data *data)
-{
-	char	*line;
-
-	line = ft_strrchr(image_path, '.');
-	if (!line || ft_strncmp(line, ".xpm", 5))
+	temp = ft_strrchr(image_path, '.');
+	if (!temp)
 		error_free_exit(data, "Error\nInvalid image extension\n");
+	if (ft_strcmp(temp, ".xpm"))
+		(free(line), error_free_exit(data, "Error\nInvalid image extension\n"));
 }
 
-void	fill_image_data(t_data *data, int flag, void **image)
+void	fill_image_data(t_img *texture, int arr[2], void **image)
 {
-	if (flag == 0)
-	{
-		data->image_ea.img = *image;
-		data->image_ea.addr = mlx_get_data_addr(data->image_ea.img,
-				&data->image_ea.bits_per_pixel,
-				&data->image_ea.line_length,
-				&data->image_ea.endian);
-	}
-	if (flag == 1)
-	{
-		data->image_we.img = *image;
-		data->image_we.addr = mlx_get_data_addr(data->image_we.img,
-				&data->image_we.bits_per_pixel,
-				&data->image_we.line_length,
-				&data->image_we.endian);
-	}
-	if (flag == 2)
-	{
-		data->image_so.img = *image;
-		data->image_so.addr = mlx_get_data_addr(data->image_so.img,
-				&data->image_so.bits_per_pixel,
-				&data->image_so.line_length,
-				&data->image_so.endian);
-	}
+	(*texture).img = *image;
+	(*texture).addr = mlx_get_data_addr((*texture).img,
+			&((*texture).bits_per_pixel),
+			&((*texture).line_length),
+			&((*texture).endian));
+	(*texture).width = arr[0];
+	(*texture).height = arr[1];
 }
 
 void	check_image(char **element, t_data *data, char *line)
 {
+	int		arr[2];
 	int		i;
 	int		j;
 	void	*image;
 
+	i = 0;
+	j = 0;
 	image = NULL;
 	if (element && element[0] && element[1])
-		check_image_path(element[1], data);
+		check_image_path(element[1], data, line);
 	if (data && data->mlx)
 		image = mlx_xpm_file_to_image(data->mlx, element[1], &i, &j);
 	if (!image)
 		(free(line), error_free_exit(data, "Error\nCorrupted image\n"));
+	arr[0] = i;
+	arr[1] = j;
 	if (!ft_strcmp(element[0], "EA"))
-		fill_image_data(data, 0, &image);
+		fill_image_data(&data->image_ea, arr, &image);
 	else if (!ft_strcmp(element[0], "WE"))
-		fill_image_data(data, 1, &image);
+		fill_image_data(&data->image_we, arr, &image);
 	else if (!ft_strcmp(element[0], "SO"))
-		fill_image_data(data, 2, &image);
+		fill_image_data(&data->image_so, arr, &image);
 	else if (!ft_strcmp(element[0], "NO"))
-	{
-		data->image_no.img = image;
-		data->image_no.addr = mlx_get_data_addr(data->image_no.img,
-				&data->image_no.bits_per_pixel,
-				&data->image_no.line_length,
-				&data->image_no.endian);
-	}
+		fill_image_data(&data->image_no, arr, &image);
 }

@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:46:57 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/28 17:28:31 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/11 21:38:34 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	init_help_nearest_horizontal_line(t_raycast *ray);
 void	init_nearest_vertical_line(t_data *data, t_raycast *ray);
 void	init_nearest_horizontal_line(t_data *data, t_raycast *ray);
-int		nearest_horizontal_line_main_loop(t_data *data, t_raycast *ray);
 int		nearest_vertical_line_main_loop(t_data *data, t_raycast *ray);
+int		nearest_horizontal_line_main_loop(t_data *data, t_raycast *ray);
 
 void	init_nearest_horizontal_line(t_data *data, t_raycast *ray)
 {
@@ -41,18 +41,16 @@ void	init_nearest_horizontal_line(t_data *data, t_raycast *ray)
 	{
 		ray->rx = data->player.x;
 		ray->ry = data->player.y;
-		ray->dist_of_field = data->minimap_x;
+		ray->dist_of_field = data->map_pixel_x;
 	}
 }
 
-//Checks if the cosine is greater than 0.001. This ensures that the
-//ray is not pointing exactly vertically up or down,
-//which would cause issues with infinite slopes or undefined behavior.
 void	init_nearest_vertical_line(t_data *data, t_raycast *ray)
 {
 	if (cos(deg_to_rad(ray->angle)) > 0.001)
 	{
-		ray->rx = (grid_sinpping(data->player.x, data->pixel_x) + data->pixel_x);
+		ray->rx = (grid_sinpping(data->player.x, data->pixel_x)
+				+ data->pixel_x);
 		ray->ry = intersection_point_x(data->player.x, ray->tan, data->player.y,
 				ray->rx);
 		ray->xo = data->pixel_x;
@@ -70,7 +68,7 @@ void	init_nearest_vertical_line(t_data *data, t_raycast *ray)
 	{
 		ray->rx = data->player.x;
 		ray->ry = data->player.y;
-		ray->dist_of_field = data->minimap_y;
+		ray->dist_of_field = data->map_pixel_y;
 	}
 }
 
@@ -79,10 +77,9 @@ int	nearest_horizontal_line_main_loop(t_data *data, t_raycast *ray)
 	map_to_grid(ray, data);
 	if (is_valid_bounds(ray, data))
 	{
-		ray->mp = ray->my * data->map_x + ray->mx;
 		if (hit_wall(ray, data))
 		{
-			ray->dist_of_field = data->minimap_x;
+			ray->dist_of_field = data->map_pixel_x;
 			ray->dis_h = cal_vert_horz_displacement(ray, data);
 		}
 		else
@@ -93,8 +90,8 @@ int	nearest_horizontal_line_main_loop(t_data *data, t_raycast *ray)
 		}
 	}
 	else
-		ray->dist_of_field = data->minimap_x;
-	if (ray->dist_of_field < data->minimap_x)
+		ray->dist_of_field = data->map_pixel_x;
+	if (ray->dist_of_field < data->map_pixel_x)
 		return (1);
 	return (0);
 }
@@ -104,10 +101,9 @@ int	nearest_vertical_line_main_loop(t_data *data, t_raycast *ray)
 	map_to_grid(ray, data);
 	if (is_valid_bounds(ray, data))
 	{
-		ray->mp = ray->my * data->map_x + ray->mx;
 		if (hit_wall(ray, data))
 		{
-			ray->dist_of_field = data->minimap_y;
+			ray->dist_of_field = data->map_pixel_y;
 			ray->dis_v = cal_vert_horz_displacement(ray, data);
 		}
 		else
@@ -118,8 +114,8 @@ int	nearest_vertical_line_main_loop(t_data *data, t_raycast *ray)
 		}
 	}
 	else
-		ray->dist_of_field = data->minimap_y;
-	if (ray->dist_of_field < data->minimap_y)
+		ray->dist_of_field = data->map_pixel_y;
+	if (ray->dist_of_field < data->map_pixel_y)
 		return (true);
 	return (false);
 }

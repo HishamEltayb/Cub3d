@@ -6,7 +6,7 @@
 #    By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 10:38:05 by heltayb           #+#    #+#              #
-#    Updated: 2024/07/22 10:10:58 by heltayb          ###   ########.fr        #
+#    Updated: 2024/08/15 09:26:50 by heltayb          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,31 +17,29 @@ BLUE_I = "\033[3;34m"
 YELLOW = "\033[0;33m"
 RESET = "\033[0m"
 
-#-fsanitize=address -g3
 
-NAME	=	cub3D
-CFLAGS	=	-Wall -Werror -Wextra -fsanitize=address -g3 -D $(OS)
+NAME		=	cub3D
+CFLAGS		=	-Wall -Werror -Wextra -fsanitize=address -g3 -D $(OS)
 
-SRCDIR	=	src
-OBJDIR	=	obj
+SRCDIR		=	src
+OBJDIR		=	obj
  
-SRCS	=	$(shell find $(SRCDIR) -type f)
+SRCS		=	$(shell find $(SRCDIR) -type f)
+OBJS		=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
-OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
+LIBFT		= 	libs/libft/libft.a
 
-INCLUDE :=
-LIBFT 	= 	libs/libft/libft.a
-MLX_FOLDER		:=	
-MLXLIB	:=	
+INCLUDE		:=
+MLX_FOLDER	:=	
+MLXLIB		:=	
+LINKS		:= 
 
-LINKS := 
-
-OS := $(shell uname)
+OS			:= $(shell uname)
 
 ifeq ($(OS), Linux)
 	MLX_FOLDER += libs/mlx_linux
 	MLXLIB += libs/mlx_linux/libmlx_Linux.a
-	LINKS += -L/usr/lib -L$(MLX_FOLDER) -lXext -lX11
+	LINKS += -L/usr/lib -L$(MLX_FOLDER) -lXext -lX11 -lm
 	INCLUDE +=	-I./ -I./libs/mlx_linux -I./libs/libft 
 else
 	MLX_FOLDER += libs/mlx
@@ -49,13 +47,6 @@ else
 	LINKS += -L$(MLX_FOLDER) -framework OpenGL -framework AppKit
 	INCLUDE +=	-I./ -I./libs/mlx -I./libs/libft 
 endif
-
-# $(info MLX_FOLDER: $(MLX_FOLDER))
-# $(info MLXLIB: $(MLXLIB))
-# $(info LINKS: $(LINKS))
-# $(info INCLUDE: $(INCLUDE))
-
-
 
 
 all: $(NAME)
@@ -172,7 +163,10 @@ valgrind: $(OBJS) $(NAME)
 print_re:
 	@echo $(YELLOW)"Recreating OBJECTS"$(RESET)
 
-re: fclean print_re all
+re:
+	make fclean
+	make print_re
+	make all
 
 .PHONY: all clean fclean re 
 

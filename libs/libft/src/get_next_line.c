@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:45:15 by heltayb           #+#    #+#             */
-/*   Updated: 2024/06/30 15:41:24 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/04 12:35:56 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ char	*return_new_line(char **join, char **remain)
 	if (new_line)
 	{
 		*(new_line) = '\0';
-		// if (*(new_line + 1) != '\0')
-		// 	*remain = ft_strdup(new_line + 1);
-		// *(new_line + 1) = '\0';
 		temp = ft_strdup(*join);
 		free_fn(join);
 		*join = ft_strdup(temp);

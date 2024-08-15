@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:48:03 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/28 16:56:14 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/11 21:38:30 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ float	intersection_point_y(float px, float tan, float py, float ray_y)
 	return ((py - ray_y) * tan + px);
 }
 
-//aligns the player's coordinate to the nearest lower grid cell boundary
 float	grid_sinpping(float num, int pixel)
 {
 	return (((int)(num / pixel)) * pixel);

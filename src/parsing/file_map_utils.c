@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:12:06 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/28 16:50:14 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/11 21:33:29 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ bool	is_sourrounded_by_walls(t_data *data);
 
 int	map_player_check(t_data *data)
 {
-	if (data->flags.player_n == NOT_EXIST
-		&& data->flags.player_s == NOT_EXIST
-		&& data->flags.player_w == NOT_EXIST
-		&& data->flags.player_e == NOT_EXIST)
+	if (data->player.is_exist == NOT_EXIST)
 		return (FALSE);
 	return (TRUE);
 }

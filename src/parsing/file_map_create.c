@@ -6,15 +6,15 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/21 19:45:24 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/11 21:40:28 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int		ft_strlen2d(char **str);
 void	create_map2d(t_data *data);
 int		is_valid_map_line(char *str, t_data *data);
-void	fill_map(char *line, t_data *data, int fd);
 void	fill_map(char *line, t_data *data, int fd);
 void	file_maps_create(t_data *data, char **line, int fd);
 
@@ -39,27 +39,30 @@ void	file_maps_create(t_data *data, char **line, int fd)
 void	create_map2d(t_data *data)
 {
 	t_list	*temp;
-	int		i;
+	int		y;
+	int		x;
+	char	*line;
 
 	data->map_y = ft_lstsize(data->map);
 	data->map2d = ft_calloc(ft_lstsize(data->map) + 1, sizeof(char *));
 	if (!data->map2d)
-	{
-		ft_putstr_fd("Error\nMalloc failed\n", 2);
-		free_data(data);
-		exit(1);
-	}
+		(ft_putstr_fd("Error\nMalloc failed\n", 2), free_data(data), exit(1));
 	temp = data->map;
-	data->map_x = ft_strlen(temp->content);
-	i = 0;
+	y = 0;
 	while (temp)
 	{
-		if (data->map_x <= (int)(ft_strlen(temp->content)))
-			data->map_x = ft_strlen(temp->content);
-		data->map2d[i] = ft_strdup(temp->content);
+		line = (char *)temp->content;
+		data->map2d[y] = ft_calloc((data->map_x + 1), sizeof(char));
+		x = -1;
+		while (line[++x])
+			data->map2d[y][x] = line[x];
+		while (x < data->map_x)
+			data->map2d[y][x++] = ' ';
+		data->map2d[y][x] = '\0';
+		y++;
 		temp = temp->next;
-		i++;
 	}
+	data->map2d[y] = NULL;
 }
 
 int	is_valid_map_line(char *str, t_data *data)
@@ -100,5 +103,17 @@ void	fill_map(char *line, t_data *data, int fd)
 	}
 	else
 		ft_lstadd_back(&data->map, ft_lstnew(temp));
+	if (data->map_x <= (int)(ft_strlen(temp)))
+		data->map_x = ft_strlen(temp);
 	data->valid_line_count++;
+}
+
+int	ft_strlen2d(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

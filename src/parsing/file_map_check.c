@@ -6,72 +6,36 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:06:37 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/28 19:53:59 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/11 21:29:43 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void	map_check(t_data *data);
-void	resize_map(t_data *data);
 int		is_valid_map_char(char c, t_data *data);
-
-void	resize_map(t_data *data)
-{
-	int		x;
-	int		y;
-	char	**map;
-	char	**new_map;
-
-	y = 0;
-	map = data->map2d;
-	new_map = ft_calloc((data->map_y + 1), sizeof(char *));
-	while (map[y])
-	{
-		new_map[y] = ft_calloc((data->map_x + 1), sizeof(char));
-		x = -1;
-		while (map[y][++x])
-			new_map[y][x] = map[y][x];
-		while (x < data->map_x)
-			new_map[y][x++] = ' ';
-		new_map[y][x] = '\0';
-		y++;
-	}
-	new_map[y] = NULL;
-	free2d((void **)data->map2d);
-	data->map2d = new_map;
-}
 
 void	map_check(t_data *data)
 {
-	data->map_size = (data->map_y * data->map_x);
-	// data->pixel = (data->map_y * data->map_x) / 3;
-	if (data->map_x > data->minimap_x)
-		data->minimap_x = data->map_x + 10;
-	if (data->map_y > data->minimap_y)
-		data->minimap_y = data->map_y + 10;
-	data->pixel_x = data->minimap_x / data->map_x * 2;
-	data->pixel_y =	data->minimap_y / data->map_y * 2;
+	data->pixel_x = 64;
+	data->pixel_y = 64;
+	data->map_pixel_x = data->pixel_x * 64;
+	data->map_pixel_y = data->pixel_y * 64;
 	if (map_player_check(data))
 	{
 		ft_putstr_fd("Error\nInvalid Map Characters1\n", 2);
-		free_data(data);
-		exit(1);
+		(free_data(data), exit(1));
 	}
 	if (check_space(data))
 	{
 		ft_putstr_fd("Error\nInvalid Map\n", 2);
-		free_data(data);
-		exit(1);
+		(free_data(data), exit(1));
 	}
 	if (is_sourrounded_by_walls(data))
 	{
 		ft_putstr_fd("Error\nInvalid Map\n", 2);
-		free_data(data);
-		exit(1);
+		(free_data(data), exit(1));
 	}
-	else
-		printf("Map is valid\n");
 }
 
 int	is_valid_map_char(char c, t_data *data)

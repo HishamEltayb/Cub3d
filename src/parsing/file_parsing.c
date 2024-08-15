@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/07/27 12:36:32 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/11 21:30:16 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@ void	file_store_data(char *filename, t_data *data);
 void	parsing(t_data *data, int ac, char **av)
 {
 	init_data(data);
-	file_pre_check(ac, av);
+	file_pre_check(data, ac, av);
 	file_store_data(av[1], data);
 	map_check(data);
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "CUB3D");
 }
 
 void	create_image(t_data *data)
 {
-	data->main.img = mlx_new_image(data->mlx, WIDTH,
-			HEIGHT);
+	data->main.img = NULL;
+	data->main.addr = NULL;
+	data->main.bits_per_pixel = 0;
+	data->main.line_length = 0;
+	data->main.endian = 0;
+	data->main.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->main.addr = mlx_get_data_addr(data->main.img,
 			&data->main.bits_per_pixel,
 			&data->main.line_length,
@@ -45,6 +48,5 @@ void	file_store_data(char *filename, t_data *data)
 	file_elements_create(data, &line, fd);
 	file_maps_create(data, &line, fd);
 	create_map2d(data);
-	resize_map(data);
 	close(fd);
 }
