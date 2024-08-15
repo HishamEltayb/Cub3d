@@ -44,7 +44,7 @@ The system integrates multiple components to ensure a seamless and interactive 3
 
 - **3D Rendering**: Utilizing the MiniLibX library for rendering the 3D environment.
 
-### Rendering Process:
+#### Rendering Process:
 
 1. **Initialization:**
      Setting up the 3D environment and initializing the ray-casting algorithm.
@@ -55,13 +55,13 @@ The system integrates multiple components to ensure a seamless and interactive 3
 3. **Rendering:**
      Rendering the 3D environment based on the intersection points and object properties.
 
-### Security Measures:
+#### Security Measures:
 - **Memory Management:**
      Ensuring proper memory allocation and deallocation to prevent memory leaks.
 - **Error Handling:**
      Implementing robust error handling to handle unexpected inputs or errors.
 
-### Testing and Deployment
+#### Testing and Deployment
 
 - **Development Environment:**
      Using the 42 school's development environment for testing and debugging.
@@ -69,7 +69,7 @@ The system integrates multiple components to ensure a seamless and interactive 3
 - **Deployment:**
      Deploying the project on a local machine for demonstration purposes.
 
-### User Experience Enhancements:
+#### User Experience Enhancements:
 
 - **Interactive Controls:**
      Implementing user-friendly controls for navigating the 3D environment.
