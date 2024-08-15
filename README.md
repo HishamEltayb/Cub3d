@@ -71,10 +71,7 @@ Technologies used to develop Cub3D:
 
 <h1 align="center">
    
-
-
-https://github.com/user-attachments/assets/58af549b-4fd6-4fc3-bd59-ea65c9eb77f7
-
+![6](https://github.com/user-attachments/assets/448ff7ce-220e-46de-bbec-0cbfb33d4a53)
 
    
 </h1>
