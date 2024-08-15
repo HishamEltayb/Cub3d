@@ -5,7 +5,10 @@
       (RayCasting with miniLibX)
 </h2>
 
+<h1 align="center">
+   
    ![3e5f962b44c632a819141d61fd8558b55a0d07cc](https://github.com/user-attachments/assets/3e449db1-41a6-47b1-8dff-635829a981c9)
+</h1>
 
 <p align="center">
   <a href="#-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -18,7 +21,11 @@
 ## 👨🏻‍💻 About the project
 This project is inspired by the world-famous Wolfenstein 3D game, which was the first FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you’ll have to find your way.</p>
 
+<h1 align="center">
+   
 ![6](https://github.com/user-attachments/assets/a8c770b8-946e-4c97-9161-a44b50ac97cc)
+
+</h1>
 
 ## Introduction
 - <p style="color: red;">The idea behind ray casting is to trace rays from the eye, one per pixel, and find the closest object blocking the path of that ray – think of an image as a screen-door, with each square in the screen being a pixel. This is then the object the eye sees through that pixel.</p>
