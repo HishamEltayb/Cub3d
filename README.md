@@ -93,8 +93,19 @@ git clone https://github.com/HishamEltayb/Cub3d.git && cd Cub3d
 
 **2. Use Makefile**
 ```bash
-  $ make -j && make run
+   make -j && make run
 ```
+**3. Movement and Rotation**
+
+| Key                 | Action          |
+|---------------------|-----------------|
+| **W**               | Move forward    |
+| **S**               | Move backward   |
+| **A**               | Move left       |
+| **D**               | Move right      |
+| **→ (Right arrow)** | Rotate right    |
+| **← (Left arrow)**  | Rotate left     |
+|---------------------|-----------------|
 
 ## 🤔 How to contribute
 
