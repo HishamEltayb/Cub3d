@@ -78,13 +78,9 @@ Technologies used to develop Cub3D:
 
 ### Prerequisites
 
-- **Node.js** and **npm**: Ensure you have Node.js and npm installed.
-- **React.js**: Ensure you have React.js installed and all it's prerequests.
-- **Metamask**: Install the Metamask extension for your browser.
-- **Solana Test Network**: Access to a test network like Red Hat for deploying smart contracts.
-- **Make**: Ensure you have Make installed to use Makefile files.
-- **Docker**: Ensure you have Docker install and all it's prerequests.
-- **Google Chrome Browser**: Ensure you have Google Chrome Browser installed.
+- **C Compiler**: Ensure you have a C compiler installed (e.g., GCC).
+- **MiniLibX Library**: Ensure you have the [MiniLibX Library](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html) installed.
+
 
 ### Installation
 
