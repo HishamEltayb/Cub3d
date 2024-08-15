@@ -105,7 +105,6 @@ git clone https://github.com/HishamEltayb/Cub3d.git && cd Cub3d
 | **D**               | Move right      |
 | **→ (Right arrow)** | Rotate right    |
 | **← (Left arrow)**  | Rotate left     |
-|---------------------|-----------------|
 
 ## 🤔 How to contribute
 
