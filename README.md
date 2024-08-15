@@ -40,5 +40,5 @@ Use the `Cub3d.pdf` to get started.
 3. Enjoy:
 
 <p align="center">
-   ![3](https://github.com/user-attachments/assets/462d02d3-86e0-4854-aa1f-1f2b25e6fcc4)
+ ![3](https://github.com/user-attachments/assets/c10b32bc-7759-4d73-8431-1a3c1654d092)
 </p>
