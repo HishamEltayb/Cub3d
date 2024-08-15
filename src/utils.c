@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:24:59 by heltayb           #+#    #+#             */
-/*   Updated: 2024/08/11 21:18:35 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/15 14:59:45 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_draw(t_data *data)
 	data->player.dx = cos(deg_to_rad(data->player.angle));
 	data->player.dy = -sin(deg_to_rad(data->player.angle));
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "CUB3D");
+	if (!data->win)
+		error_free_exit(data, "Error\nMLX WINDOW ERROR\n");
 	create_image(data);
 	draw_floor_ceiling(data);
 	raycasting(data);

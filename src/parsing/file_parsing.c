@@ -6,7 +6,7 @@
 /*   By: heltayb <heltayb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:36:26 by heltayb           #+#    #+#             */
-/*   Updated: 2024/08/11 21:30:16 by heltayb          ###   ########.fr       */
+/*   Updated: 2024/08/15 15:00:46 by heltayb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ void	create_image(t_data *data)
 	data->main.line_length = 0;
 	data->main.endian = 0;
 	data->main.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->main.img)
+		error_free_exit(data, "Error\nMLX IMAGE ERROR\n");
 	data->main.addr = mlx_get_data_addr(data->main.img,
 			&data->main.bits_per_pixel,
 			&data->main.line_length,
 			&data->main.endian);
+	if (!data->main.addr)
+		error_free_exit(data, "Error\nMLX IMAGE ADDR ERROR\n");
 }
 
 void	file_store_data(char *filename, t_data *data)

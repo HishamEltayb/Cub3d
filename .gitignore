@@ -1,7 +1,8 @@
-*.vscode
+.vscode
 *.o
 *.dSYM
 *.swp
 *.DS_Store
 *.a
+a.out
 cub3D
