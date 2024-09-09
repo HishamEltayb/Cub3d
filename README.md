@@ -144,6 +144,6 @@ $ git push origin my-feature
     This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ### Acknowledgements
-    This project is a group effort, and I would like to extend a heartfelt thank you to ![Ali Hussain](https://github.com/busage) for his exceptional work and expertise. His contributions were invaluable to the success of this project.
+  This project is a group effort, and I would like to extend a heartfelt thank you to ![Ali Hussain](https://github.com/busage) for his exceptional work and expertise. His contributions were invaluable to the success of this project.
 
 
